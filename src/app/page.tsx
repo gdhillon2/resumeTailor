@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import "./globals.css"
 export default function Home() {
     return (
@@ -11,7 +12,9 @@ export default function Home() {
                     Transform your resume, transform your future.
                 </div>
                 <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                    <Button variant={"outline"} size={"lg"}>Start Now</Button>
+                    <Link href="/postResume">
+                        <Button variant={"outline"} size={"lg"}>Start Now</Button>
+                    </Link>
                 </div>
             </div>
         </>
