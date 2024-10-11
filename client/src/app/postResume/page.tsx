@@ -26,7 +26,11 @@ export default function PostResume() {
                 <div className="flex flex-col gap-5">
                     {jobEntries.map((entry, index) => (
                         <div key={entry} className="flex flex-col gap-3">
-                            <JobEntry JobEntryTitle={`Job ${index + 1}`} JobEntryDetails={`Job ${index + 1} Description`} />
+                            <JobEntry
+                                JobEntryTitle={`Job ${index + 1} Title`}
+                                JobEntryEmployer={`Job ${index + 1} Employer`}
+                                JobEntryDetails={`Job ${index + 1} Description`}
+                            />
                             <div>
                                 <Button variant={"destructive"} size={"sm"} onClick={() => removeJobEntry(index)}>Remove Job {index + 1}</Button>
                             </div>
