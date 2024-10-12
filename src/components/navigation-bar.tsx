@@ -8,9 +8,16 @@ import {
 } from "@/components/ui/navigation-menu"
 import "@/app/globals.css"
 import { usePathname } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { useAuth } from "@/context/authContext"
 
 export default function NavigationLayout() {
     const pathname = usePathname();
+    const { user, logOut } = useAuth()
+
+    const handleLogOut = () => {
+        logOut()
+    }
 
     return (
         <>
@@ -24,21 +31,32 @@ export default function NavigationLayout() {
                             Home
                         </NavigationMenuLink>
                     </NavigationMenuItem>
+                    {user &&
+                        <NavigationMenuItem>
+                            <NavigationMenuLink
+                                href="/dashboard"
+                                className={`${navigationMenuTriggerStyle()} ${pathname === "/dashboard" ? "glow-active" : ""}`}
+                            >
+                                Dashboard
+                            </NavigationMenuLink>
+                        </NavigationMenuItem>
+                    }
                     <NavigationMenuItem>
-                        <NavigationMenuLink
-                            href="/postResume"
-                            className={`${navigationMenuTriggerStyle()} ${pathname === "/postResume" ? "glow-active" : ""}`}
-                        >
-                            Dashboard
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
-                    <NavigationMenuItem>
-                        <NavigationMenuLink
-                            href="/login"
-                            className={`${navigationMenuTriggerStyle()} ${pathname === "/login" ? "glow-active" : ""}`}
-                        >
-                            Log In
-                        </NavigationMenuLink>
+                        {!user ? (
+                            <NavigationMenuLink
+                                href="/login"
+                                className={`${navigationMenuTriggerStyle()} ${pathname === "/login" ? "glow-active" : ""}`}
+                            >
+                                Log In
+                            </NavigationMenuLink>) :
+                            (
+                                <Button
+                                    onClick={handleLogOut}
+                                    variant={"ghost"}
+                                >
+                                    Log Out
+                                </Button>
+                            )}
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>

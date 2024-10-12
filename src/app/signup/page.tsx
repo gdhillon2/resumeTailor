@@ -41,7 +41,7 @@ export default function SignUpPage() {
 
     return (
         <div className="flex flex-col gap-3 justify-center max-w-md w-full mx-auto p-5">
-            {error && <p>{error}</p>}
+            {error && <Label>{error}</Label>}
             <Label>Enter a Username</Label>
             <Input
                 type="email"

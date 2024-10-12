@@ -12,7 +12,7 @@ export default function Home() {
                     Transform your resume, transform your future.
                 </div>
                 <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                    <Link href="/postResume">
+                    <Link href="/dashboard">
                         <Button variant={"outline"} size={"lg"}>Start Now</Button>
                     </Link>
                 </div>
