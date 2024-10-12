@@ -1,14 +1,15 @@
 "use client"
-import Link from "next/link"
 import { Button } from "../../components/ui/button"
 import JobEntry from "@/components/jobentry";
 import { useState } from "react";
+import { JobEntryType } from "@/components/jobentry";
 
 export default function PostResume() {
-    const [jobEntries, setJobEntries] = useState<number[]>([1])
+    const [jobEntries, setJobEntries] = useState<JobEntryType[]>([{ id: 0, title: "", employer: "", details: "" }])
 
     const addJobEntry = () => {
-        setJobEntries([...jobEntries, jobEntries.length + 1])
+        const newEntry: JobEntryType = { id: jobEntries.length, title: "", employer: "", details: "" }
+        setJobEntries([...jobEntries, newEntry])
     }
 
     const removeJobEntry = (index: number) => {
@@ -17,25 +18,28 @@ export default function PostResume() {
 
     return (
         <>
-            <div className="flex flex-col gap-5 items-center h-full w-full">
-                <h1 className="text-5xl py-5 text-start p-5">Work Experience</h1>
-                <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                    <Button variant={"default"} onClick={addJobEntry}>Add Job</Button>
-                </div>
-
-                <div className="flex flex-col p-5 gap-5 w-[60%]">
+            <div className="flex sm:flex-row flex-col gap-5 items-start h-full w-full">
+                <div className="flex flex-col gap-5 ps-5 w-full sm:w-[33%]">
+                    <div className="flex justify-between items-center">
+                        <h5 className="text-5xl text-start">Work</h5>
+                        <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                            <Button variant={"default"} onClick={addJobEntry}>Add Job</Button>
+                        </div>
+                    </div>
                     {jobEntries.map((entry, index) => (
-                        <div key={entry} className="flex flex-col gap-3">
+                        <div key={entry.id} className="flex flex-col gap-3">
                             <JobEntry
-                                JobEntryTitle={`Job ${index + 1} Title`}
-                                JobEntryEmployer={`Job ${index + 1} Employer`}
-                                JobEntryDetails={`Job ${index + 1} Description`}
+                                entry={entry}
+                                DestroyEntry={() => removeJobEntry(index)}
                             />
                             <div>
-                                <Button variant={"destructive"} size={"sm"} onClick={() => removeJobEntry(index)}>Remove Job {index + 1}</Button>
                             </div>
                         </div>
                     ))}
+                </div>
+
+                <div className="flex justify-between items-center w-full sm:w-[33%]">
+                    <h5 className="text-5xl text-start">Skills</h5>
                 </div>
             </div>
         </>

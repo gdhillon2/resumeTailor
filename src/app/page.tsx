@@ -6,7 +6,7 @@ export default function Home() {
         <>
             <div className="w-full h-full flex flex-col gap-5 justify-center items-center text-center">
                 <div className="text-5xl font-bold flex justify-center">
-                    SmartCV
+                    ResumeTailor
                 </div>
                 <div className="animate-float-fade-in-1s text-3xl flex justify-center">
                     Transform your resume, transform your future.
