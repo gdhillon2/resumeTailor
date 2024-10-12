@@ -48,7 +48,7 @@ export default function LoginPage() {
     return (
         <div className="flex flex-col gap-3 justify-center max-w-md w-full">
             {error && <Label>{error}</Label>}
-            <Label>Username</Label>
+            <Label>Email</Label>
             <Input
                 type="email"
                 value={email}
