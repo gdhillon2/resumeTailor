@@ -4,7 +4,7 @@ import "./globals.css"
 export default function Home() {
     return (
         <>
-            <div className="flex flex-col gap-5 justify-center items-center">
+            <div className="w-full h-full flex flex-col gap-5 justify-center items-center text-center">
                 <div className="text-5xl font-bold flex justify-center">
                     SmartCV
                 </div>

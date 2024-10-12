@@ -17,13 +17,13 @@ export default function PostResume() {
 
     return (
         <>
-            <div className="flex flex-col gap-5 items-center h-screen w-full">
-                <h1 className="text-5xl py-5">Work Experience</h1>
+            <div className="flex flex-col gap-5 items-center h-full w-full">
+                <h1 className="text-5xl py-5 text-start p-5">Work Experience</h1>
                 <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                     <Button variant={"default"} onClick={addJobEntry}>Add Job</Button>
                 </div>
 
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col p-5 gap-5 w-[60%]">
                     {jobEntries.map((entry, index) => (
                         <div key={entry} className="flex flex-col gap-3">
                             <JobEntry

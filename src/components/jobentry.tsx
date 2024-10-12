@@ -11,23 +11,17 @@ interface JobEntryParams {
 
 export default function JobEntry({ JobEntryTitle, JobEntryEmployer, JobEntryDetails }: JobEntryParams) {
     return (
-        <div className="flex flex-col gap-3">
-            <div className="flex whitespace-nowrap gap-5 items-center">
-                <div className="w-[200px]">
-                    <Label>{JobEntryTitle}</Label>
-                </div>
+        <div className="flex flex-col gap-5 w-full">
+            <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                <Label>{JobEntryTitle}</Label>
                 <Input />
             </div>
-            <div className="flex whitespace-nowrap gap-5 items-center">
-                <div className="w-[200px]">
-                    <Label>{JobEntryEmployer}</Label>
-                </div>
+            <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                <Label>{JobEntryEmployer}</Label>
                 <Input />
             </div>
-            <div className="flex whitespace-nowrap gap-5 items-start">
-                <div className="w-[200px]">
-                    <Label>{JobEntryDetails}</Label>
-                </div>
+            <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                <Label>{JobEntryDetails}</Label>
                 <Textarea rows={4} />
             </div>
         </div>
