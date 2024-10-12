@@ -10,6 +10,7 @@ import {
     navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import "@/app/globals.css"
 
 export default function NavigationLayout() {
@@ -18,12 +19,24 @@ export default function NavigationLayout() {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem>
-                        <NavigationMenuLink href="#" className={navigationMenuTriggerStyle()}>
-                            Menu Item 1
+                        <NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
+                            Home
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Button>Log In</Button>
+                        <NavigationMenuLink href="/postResume" className={navigationMenuTriggerStyle()}>
+                            Dashboard
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <NavigationMenuLink href="/" className={navigationMenuTriggerStyle()}>
+                            About
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                        <Link href="/login">
+                            <Button>Log In</Button>
+                        </Link>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>

@@ -37,13 +37,6 @@ export default function PostResume() {
                         </div>
                     ))}
                 </div>
-
-
-                <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                    <Link href="/">
-                        <Button variant={"outline"} size={"lg"}>Go Back</Button>
-                    </Link>
-                </div>
             </div>
         </>
     );
