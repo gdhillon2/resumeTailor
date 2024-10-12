@@ -6,10 +6,7 @@ import {
     NavigationMenuList,
     navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import "@/app/globals.css"
-import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 
 export default function NavigationLayout() {
@@ -22,7 +19,7 @@ export default function NavigationLayout() {
                     <NavigationMenuItem>
                         <NavigationMenuLink
                             href="/"
-                            className={`${navigationMenuTriggerStyle()} ${pathname === "/" ? "!font-bold" : ""}`}
+                            className={`${navigationMenuTriggerStyle()} ${pathname === "/" ? "glow-active" : ""}`}
                         >
                             Home
                         </NavigationMenuLink>
@@ -30,18 +27,18 @@ export default function NavigationLayout() {
                     <NavigationMenuItem>
                         <NavigationMenuLink
                             href="/postResume"
-                            className={`${navigationMenuTriggerStyle()} ${pathname === "/postResume" ? "!font-bold" : ""}`}
+                            className={`${navigationMenuTriggerStyle()} ${pathname === "/postResume" ? "glow-active" : ""}`}
                         >
                             Dashboard
                         </NavigationMenuLink>
                     </NavigationMenuItem>
                     <NavigationMenuItem>
-                        <Link
+                        <NavigationMenuLink
                             href="/login"
-                            className={`${pathname === "/login" ? "!font-bold" : ""}`}
+                            className={`${navigationMenuTriggerStyle()} ${pathname === "/login" ? "glow-active" : ""}`}
                         >
-                            <Button>Log In</Button>
-                        </Link>
+                            Log In
+                        </NavigationMenuLink>
                     </NavigationMenuItem>
                 </NavigationMenuList>
             </NavigationMenu>

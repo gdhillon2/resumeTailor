@@ -10,6 +10,9 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  .glow-active {
+    box-shadow: 0 0 8px rgba(173, 216, 230, 0.5);
+  }
 }
 
 @layer base {
