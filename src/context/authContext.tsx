@@ -10,6 +10,11 @@ type AuthContextType = {
     logOut: () => void
 }
 
+export type UserType = {
+    id: string;
+    [key: string]: any;
+};
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
