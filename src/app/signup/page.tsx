@@ -48,6 +48,7 @@ export default function SignUpPage() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
             />
             <Label>Enter a Password</Label>
             <Input
@@ -55,6 +56,7 @@ export default function SignUpPage() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="new-password"
             />
             <Label>Re-enter your Password</Label>
             <Input
@@ -62,6 +64,7 @@ export default function SignUpPage() {
                 placeholder="Re-enter Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                autoComplete="new-password"
             />
             <Button variant={"default"} size={"lg"} onClick={handleSignUp}>
                 {loading ? "Signing up..." : "Sign Up"}
