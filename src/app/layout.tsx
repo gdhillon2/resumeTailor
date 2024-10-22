@@ -20,7 +20,7 @@ export default function RootLayout({
                     <div className="flex w-full justify-end p-5">
                         <NavigationLayout />
                     </div>
-                    <div className="flex flex-grow justify-center items-center">
+                    <div className="flex w-full h-full">
                         {children}
                     </div>
                 </AuthProvider>

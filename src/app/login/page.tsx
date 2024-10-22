@@ -46,29 +46,31 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="flex flex-col gap-3 justify-center max-w-md w-full">
-            {error && <Label>{error}</Label>}
-            <Label>Email</Label>
-            <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-            />
-            <Label>Password</Label>
-            <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button
-                variant={"default"}
-                size={"lg"}
-                onClick={handleLogIn}
-            >
-                {loading ? "Logging in..." : "Log in"}
-            </Button>
-            <div className="flex justify-end">
-                <Label>Don't have an account?<Link href="/signup" className="text-blue-500"> Sign up now.</Link></Label>
+        <div className="flex justify-center w-full">
+            <div className="flex flex-col gap-3 justify-center max-w-md w-full">
+                {error && <Label>{error}</Label>}
+                <Label>Email</Label>
+                <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <Label>Password</Label>
+                <Input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                    variant={"default"}
+                    size={"lg"}
+                    onClick={handleLogIn}
+                >
+                    {loading ? "Logging in..." : "Log in"}
+                </Button>
+                <div className="flex justify-end">
+                    <Label>Don't have an account?<Link href="/signup" className="text-blue-500"> Sign up now.</Link></Label>
+                </div>
             </div>
         </div>
     )
