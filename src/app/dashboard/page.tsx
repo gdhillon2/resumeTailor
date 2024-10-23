@@ -1,15 +1,20 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import JobEntry from "@/components/jobentry";
+import JobEntry from "@/components/jobentry"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useAuth } from "@/context/authContext";
-import { useJobEntries } from "@/hooks/useJobEntries";
-import { useSubmitJobEntries } from "@/hooks/useSubmitJobEntries";
+import { useAuth } from "@/context/authContext"
+import { useJobEntries } from "@/hooks/jobEntries/useJobEntries"
+import { useSubmitJobEntries } from "@/hooks/jobEntries/useSubmitJobEntries"
+import { useProjects } from "@/hooks/projects/useProjects"
+import ProjectEntry from "@/components/projectentry"
 
 export default function Dashboard() {
     const { user } = useAuth()
-    const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries();
-    const { submitJobEntries } = useSubmitJobEntries(jobEntries, user);
+
+    const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries()
+    const { submitJobEntries } = useSubmitJobEntries(jobEntries, user)
+
+    const { projects, addProject, removeProject, handleProjectChange } = useProjects()
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
@@ -23,13 +28,7 @@ export default function Dashboard() {
                     <div className="flex flex-col gap-5 w-full">
                         <div className="flex justify-end gap-5">
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={addJobEntry}>Add Job</Button>
-                            </div>
-                            <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={addJobEntry}>Collapse All</Button>
-                            </div>
-                            <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={addJobEntry}>Expand All</Button>
+                                <Button variant={"secondary"} onClick={addJobEntry}>Add Job</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                                 <Button variant={"default"} onClick={submitJobEntries}>Save Jobs</Button>
@@ -49,8 +48,32 @@ export default function Dashboard() {
                     </div>
                 </div>
             </TabsContent>
-            <TabsContent value="projects">Projects will go here</TabsContent>
+            <TabsContent value="projects">
+                <div className="flex flex-col gap-5 items-start w-full pe-5">
+                    <div className="flex flex-col gap-5 w-full">
+                        <div className="flex justify-end gap-5">
+                            <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                                <Button variant={"secondary"} onClick={addProject}>Add Project</Button>
+                            </div>
+                            <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                                <Button variant={"default"}>Save Projects</Button>
+                            </div>
+                        </div>
+                        {projects.map((entry, index) => (
+                            <div key={entry.id} className="flex flex-col gap-3">
+                                <ProjectEntry
+                                    entry={entry}
+                                    DestroyEntry={() => removeProject(index)}
+                                    onChange={handleProjectChange}
+                                />
+                                <div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </TabsContent>
             <TabsContent value="skills">Skills will go here</TabsContent>
         </Tabs>
-    );
+    )
 }

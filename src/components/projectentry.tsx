@@ -9,25 +9,27 @@ import {
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler } from "react"
-interface JobEntryParams {
-    entry: JobEntryType
+
+interface ProjectEntryParams {
+    entry: ProjectEntryType
     DestroyEntry: MouseEventHandler<HTMLElement>
-    onChange: (updatedEntry: JobEntryType) => void
+    onChange: (updatedEntry: ProjectEntryType) => void
 }
 
-export interface JobEntryType {
+export interface ProjectEntryType {
     id: number
     title: string
-    employer: string
-    startDate: string
-    endDate: string
+    type: string
     details: string
+    technologies: string
+    role: string
+    startDate: string
+    endDate?: string
 }
 
+export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectEntryParams) {
 
-export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryParams) {
-
-    const handleChange = (field: keyof JobEntryType, value: string) => {
+    const handleChange = (field: keyof ProjectEntryType, value: string) => {
         onChange({ ...entry, [field]: value })
     }
 
@@ -36,13 +38,13 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
             <CardHeader>
                 <CardTitle>
                     <div className="flex justify-between items-center">
-                        {entry.title ? entry.title : "Job Title"}
+                        {entry.title ? entry.title : "Project Title"}
                         <Button
                             variant={"destructive"}
                             size={"sm"}
                             onClick={DestroyEntry}
                         >
-                            Remove Job
+                            Remove Project
                         </Button>
                     </div>
                 </CardTitle>
@@ -58,11 +60,11 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                         />
                     </div>
                     <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Employer</Label>
+                        <Label>Type</Label>
                         <Input
-                            placeholder={entry.employer}
-                            value={entry.employer}
-                            onChange={(e) => handleChange("employer", e.target.value)}
+                            placeholder={entry.type}
+                            value={entry.type}
+                            onChange={(e) => handleChange("type", e.target.value)}
                         />
                     </div>
                     <div className="flex flex-col whitespace-nowrap gap-3 items-start">
@@ -90,6 +92,16 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                             onChange={(e) => handleChange("details", e.target.value)}
                         />
                     </div>
+                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                        <Label>Technologies Used</Label>
+                        <Textarea
+                            rows={2}
+                            placeholder={entry.technologies}
+                            value={entry.technologies}
+                            onChange={(e) => handleChange("technologies", e.target.value)}
+                        />
+                    </div>
+
                 </div>
             </CardContent>
         </Card >
