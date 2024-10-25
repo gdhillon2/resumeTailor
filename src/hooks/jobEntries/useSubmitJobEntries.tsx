@@ -38,7 +38,7 @@ export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType |
                     .from("work_experience")
                     .delete()
                     .eq("user_id", user.id)
-                    .not("work_experience_id", "in", `(${newEntryIds.join(',')})`)
+                    .not("work_experience_id", "in", `(${newEntryIds.join(",")})`)
 
                 if (deleteError) {
                     console.error("could not delete old entries:", deleteError)

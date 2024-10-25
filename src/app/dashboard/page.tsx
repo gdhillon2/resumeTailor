@@ -7,6 +7,7 @@ import { useJobEntries } from "@/hooks/jobEntries/useJobEntries"
 import { useSubmitJobEntries } from "@/hooks/jobEntries/useSubmitJobEntries"
 import { useProjects } from "@/hooks/projects/useProjects"
 import ProjectEntry from "@/components/projectentry"
+import { useSubmitProjects } from "@/hooks/projects/useSubmitProjects"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -15,6 +16,7 @@ export default function Dashboard() {
     const { submitJobEntries } = useSubmitJobEntries(jobEntries, user)
 
     const { projects, addProject, removeProject, handleProjectChange } = useProjects()
+    const {submitProjects } = useSubmitProjects(projects, user)
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
@@ -56,7 +58,7 @@ export default function Dashboard() {
                                 <Button variant={"secondary"} onClick={addProject}>Add Project</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"}>Save Projects</Button>
+                                <Button variant={"default"} onClick={submitProjects}>Save Projects</Button>
                             </div>
                         </div>
                         {projects.map((entry, index) => (
