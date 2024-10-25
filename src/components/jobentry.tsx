@@ -53,7 +53,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                         <Label>Title</Label>
                         <Input
                             placeholder={entry.title}
-                            value={entry.title}
+                            value={entry.title ?? ""}
                             onChange={(e) => handleChange("title", e.target.value)}
                         />
                     </div>
@@ -61,7 +61,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                         <Label>Employer</Label>
                         <Input
                             placeholder={entry.employer}
-                            value={entry.employer}
+                            value={entry.employer ?? ""}
                             onChange={(e) => handleChange("employer", e.target.value)}
                         />
                     </div>
@@ -70,13 +70,13 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                             <Label>Start</Label>
                             <Input
                                 placeholder={entry.startDate}
-                                value={entry.startDate}
+                                value={entry.startDate ?? ""}
                                 onChange={(e) => handleChange("startDate", e.target.value)}
                             />
                             <Label>End</Label>
                             <Input
                                 placeholder={entry.endDate}
-                                value={entry.endDate}
+                                value={entry.endDate ?? ""}
                                 onChange={(e) => handleChange("endDate", e.target.value)}
                             />
                         </div>
@@ -86,7 +86,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                         <Textarea
                             rows={4}
                             placeholder={entry.details}
-                            value={entry.details}
+                            value={entry.details ?? ""}
                             onChange={(e) => handleChange("details", e.target.value)}
                         />
                     </div>
