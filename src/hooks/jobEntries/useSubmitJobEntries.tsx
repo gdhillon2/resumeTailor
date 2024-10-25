@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabaseClient"
 
 export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType | null) => {
 
+
     const submitJobEntries = async () => {
         if (!user) {
             console.error("user is not authenticated")
@@ -55,5 +56,6 @@ export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType |
             }
         }
     }
+
     return { submitJobEntries }
 }

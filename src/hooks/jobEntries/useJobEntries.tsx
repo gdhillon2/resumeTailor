@@ -1,11 +1,44 @@
 import { JobEntryType } from "@/components/jobentry"
-import { useState } from "react"
+import { UserType } from "@/context/authContext"
+import { useEffect, useState } from "react"
+import { supabase } from "@/lib/supabaseClient"
 
-export const useJobEntries = (initialEntries = []) => {
-    const [jobEntries, setJobEntries] = useState<JobEntryType[]>(initialEntries)
+export const useJobEntries = (user: UserType | null) => {
+    const [jobEntries, setJobEntries] = useState<JobEntryType[]>([])
+
+    useEffect(() => {
+        const fetchJobEntries = async () => {
+            if (!user) {
+                console.error("user is not authenticated")
+                return
+            }
+
+            const { data: jobEntries, error: selectError } = await supabase
+                .from("work_experience")
+                .select("work_experience_id, job_title, employer, start_date, end_date, description")
+                .eq("user_id", user.id)
+
+            if (selectError) {
+                console.error("error getting job entries")
+            } else {
+                const formattedEntries = jobEntries.map((entry) => ({
+                    id: entry.work_experience_id,
+                    title: entry.job_title,
+                    employer: entry.employer,
+                    startDate: entry.start_date,
+                    endDate: entry.end_date,
+                    details: entry.description
+                }))
+
+                setJobEntries(formattedEntries)
+            }
+        }
+        fetchJobEntries()
+    }, [user])
+
 
     const addJobEntry = () => {
-        const newEntry: JobEntryType = { id: jobEntries.length, title: "", employer: "", startDate: "", endDate: "", details: "" }
+        const newEntry: JobEntryType = { id: Date.now(), title: "", employer: "", startDate: "", endDate: "", details: "" }
         setJobEntries([...jobEntries, newEntry])
     }
 
@@ -19,5 +52,5 @@ export const useJobEntries = (initialEntries = []) => {
         )
     }
 
-    return { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange }
+    return { jobEntries, setJobEntries, addJobEntry, removeJobEntry, handleJobEntryChange }
 }

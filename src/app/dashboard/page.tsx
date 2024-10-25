@@ -12,11 +12,11 @@ import { useSubmitProjects } from "@/hooks/projects/useSubmitProjects"
 export default function Dashboard() {
     const { user } = useAuth()
 
-    const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries()
+    const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries(user)
     const { submitJobEntries } = useSubmitJobEntries(jobEntries, user)
 
     const { projects, addProject, removeProject, handleProjectChange } = useProjects()
-    const {submitProjects } = useSubmitProjects(projects, user)
+    const { submitProjects } = useSubmitProjects(projects, user)
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
