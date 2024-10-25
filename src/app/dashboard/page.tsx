@@ -15,7 +15,7 @@ export default function Dashboard() {
     const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries(user)
     const { submitJobEntries } = useSubmitJobEntries(jobEntries, user)
 
-    const { projects, addProject, removeProject, handleProjectChange } = useProjects()
+    const { projects, addProject, removeProject, handleProjectChange } = useProjects(user)
     const { submitProjects } = useSubmitProjects(projects, user)
 
     return (
