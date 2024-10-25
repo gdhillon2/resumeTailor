@@ -1,4 +1,3 @@
-import NavigationLayout from "@/components/navigation-bar"
 import "./globals.css"
 import { AuthProvider } from "@/context/authContext"
 import { Metadata } from "next"
@@ -17,9 +16,6 @@ export default function RootLayout({
         <html lang="en" className="dark">
             <body className="flex flex-col h-screen w-screen">
                 <AuthProvider>
-                    <div className="flex w-full justify-end p-5">
-                        <NavigationLayout />
-                    </div>
                     <div className="flex w-full h-full">
                         {children}
                     </div>

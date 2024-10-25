@@ -8,6 +8,7 @@ import { useSubmitJobEntries } from "@/hooks/jobEntries/useSubmitJobEntries"
 import { useProjects } from "@/hooks/projects/useProjects"
 import ProjectEntry from "@/components/projectentry"
 import { useSubmitProjects } from "@/hooks/projects/useSubmitProjects"
+import { Label } from "@/components/ui/label"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -20,15 +21,20 @@ export default function Dashboard() {
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
-            <TabsList className="w-hug h-full">
-                <TabsTrigger value="work">Work Experience</TabsTrigger>
+            <TabsList className="w-hug h-full justify-start items-start rounded-none border-r bg-slate-800">
+                <a href="/">
+                    <TabsTrigger value="">Home</TabsTrigger>
+                </a>
+                <TabsTrigger value="work">Work</TabsTrigger>
                 <TabsTrigger value="projects">Projects</TabsTrigger>
                 <TabsTrigger value="skills">Skills</TabsTrigger>
+                <TabsTrigger value="tailor">Tailor</TabsTrigger>
             </TabsList>
             <TabsContent value="work">
-                <div className="flex flex-col gap-5 items-start w-full pe-5">
+                <div className="flex flex-col gap-5 items-start w-full">
                     <div className="flex flex-col gap-5 w-full">
-                        <div className="flex justify-end gap-5">
+                        <div className="flex justify-end gap-5 pb-5">
+                            <Label className="text-xl flex w-full items-center font-bold">Work Experience</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                                 <Button variant={"secondary"} onClick={addJobEntry}>Add Job</Button>
                             </div>
@@ -51,9 +57,10 @@ export default function Dashboard() {
                 </div>
             </TabsContent>
             <TabsContent value="projects">
-                <div className="flex flex-col gap-5 items-start w-full pe-5">
+                <div className="flex flex-col gap-5 items-start w-full">
                     <div className="flex flex-col gap-5 w-full">
                         <div className="flex justify-end gap-5">
+                            <Label className="text-xl flex w-full items-center font-bold">Projects</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                                 <Button variant={"secondary"} onClick={addProject}>Add Project</Button>
                             </div>
@@ -76,6 +83,7 @@ export default function Dashboard() {
                 </div>
             </TabsContent>
             <TabsContent value="skills">Skills will go here</TabsContent>
+            <TabsContent value="tailor">Job Posting Description, AI feedback will go here</TabsContent>
         </Tabs>
     )
 }
