@@ -1,12 +1,6 @@
 import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 import { Input } from "./ui/input"
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler } from "react"
 
@@ -32,70 +26,64 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>
-                    <div className="flex justify-between items-center">
-                        {entry.title ? entry.title : "Project Title"}
-                        <Button
-                            variant={"destructive"}
-                            size={"sm"}
-                            onClick={DestroyEntry}
-                        >
-                            Remove Project
-                        </Button>
-                    </div>
-                </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="flex flex-col gap-5 w-full">
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Title</Label>
-                        <Input
-                            placeholder={entry.title}
-                            value={entry.title ?? ""}
-                            onChange={(e) => handleChange("title", e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <div className="flex w-full max-w-md justify-between ">
-                            <Label>Start</Label>
-                            <Input
-                                placeholder={entry.startDate}
-                                value={entry.startDate ?? ""}
-                                onChange={(e) => handleChange("startDate", e.target.value)}
-                            />
-                            <Label>End</Label>
-                            <Input
-                                placeholder={entry.endDate}
-                                value={entry.endDate ?? ""}
-                                onChange={(e) => handleChange("endDate", e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Description</Label>
-                        <Textarea
-                            rows={4}
-                            placeholder={entry.details}
-                            value={entry.details ?? ""}
-                            onChange={(e) => handleChange("details", e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Technologies Used</Label>
-                        <Textarea
-                            rows={2}
-                            placeholder={entry.technologies}
-                            value={entry.technologies ?? ""}
-                            onChange={(e) => handleChange("technologies", e.target.value)}
-                        />
-                    </div>
-
+        <div className="pb-5 border-b bg-slate-900">
+            <div className="flex justify-between items-center p-5 font-bold">
+                {entry.title ? entry.title : "Project Title"}
+                <Button
+                    variant={"destructive"}
+                    size={"sm"}
+                    onClick={DestroyEntry}
+                >
+                    Remove Project
+                </Button>
+            </div>
+            <div className="flex flex-col gap-5 w-full px-5">
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <Label>Title</Label>
+                    <Input
+                        placeholder={entry.title}
+                        value={entry.title ?? ""}
+                        onChange={(e) => handleChange("title", e.target.value)}
+                    />
                 </div>
-            </CardContent>
-        </Card >
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <div className="flex w-full max-w-md justify-between items-center gap-5">
+                        <Label>Start</Label>
+                        <Input
+                            type="date"
+                            placeholder={entry.startDate}
+                            value={entry.startDate ?? ""}
+                            onChange={(e) => handleChange("startDate", e.target.value)}
+                        />
+                        <Label>End</Label>
+                        <Input
+                            type="date"
+                            placeholder={entry.endDate}
+                            value={entry.endDate ?? ""}
+                            onChange={(e) => handleChange("endDate", e.target.value)}
+                        />
+                    </div>
+                </div>
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <Label>Description</Label>
+                    <Textarea
+                        rows={4}
+                        placeholder={entry.details}
+                        value={entry.details ?? ""}
+                        onChange={(e) => handleChange("details", e.target.value)}
+                    />
+                </div>
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <Label>Technologies Used</Label>
+                    <Textarea
+                        rows={2}
+                        placeholder={entry.technologies}
+                        value={entry.technologies ?? ""}
+                        onChange={(e) => handleChange("technologies", e.target.value)}
+                    />
+                </div>
+
+            </div>
+        </div>
     )
 }

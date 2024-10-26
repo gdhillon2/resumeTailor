@@ -21,7 +21,7 @@ export default function Dashboard() {
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
-            <TabsList className="w-hug h-full justify-start items-start rounded-none border-r bg-slate-800">
+            <TabsList className="w-hug h-full justify-start items-start rounded-none border-r bg-stone-950">
                 <a href="/">
                     <TabsTrigger value="">Home</TabsTrigger>
                 </a>
@@ -30,10 +30,10 @@ export default function Dashboard() {
                 <TabsTrigger value="skills">Skills</TabsTrigger>
                 <TabsTrigger value="tailor">Tailor</TabsTrigger>
             </TabsList>
-            <TabsContent value="work">
-                <div className="flex flex-col gap-5 items-start w-full">
-                    <div className="flex flex-col gap-5 w-full">
-                        <div className="flex justify-end gap-5 pb-5">
+            <TabsContent value="work" className="bg-stone-950">
+                <div className="flex flex-col items-start w-full">
+                    <div className="flex flex-col w-full">
+                        <div className="flex justify-end gap-5 p-5 border-b">
                             <Label className="text-xl flex w-full items-center font-bold">Work Experience</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                                 <Button variant={"secondary"} onClick={addJobEntry}>Add Job</Button>
@@ -43,7 +43,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                         {jobEntries.map((entry, index) => (
-                            <div key={entry.id} className="flex flex-col gap-3">
+                            <div key={entry.id} className="flex flex-col">
                                 <JobEntry
                                     entry={entry}
                                     DestroyEntry={() => removeJobEntry(index)}
@@ -56,10 +56,10 @@ export default function Dashboard() {
                     </div>
                 </div>
             </TabsContent>
-            <TabsContent value="projects">
-                <div className="flex flex-col gap-5 items-start w-full">
-                    <div className="flex flex-col gap-5 w-full">
-                        <div className="flex justify-end gap-5">
+            <TabsContent value="projects" className="bg-stone-950">
+                <div className="flex flex-col items-start w-full">
+                    <div className="flex flex-col w-full">
+                        <div className="flex justify-end gap-5 p-5 border-b">
                             <Label className="text-xl flex w-full items-center font-bold">Projects</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                                 <Button variant={"secondary"} onClick={addProject}>Add Project</Button>
@@ -69,7 +69,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                         {projects.map((entry, index) => (
-                            <div key={entry.id} className="flex flex-col gap-3">
+                            <div key={entry.id} className="flex flex-col">
                                 <ProjectEntry
                                     entry={entry}
                                     DestroyEntry={() => removeProject(index)}

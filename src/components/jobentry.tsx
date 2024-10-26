@@ -1,14 +1,9 @@
 import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 import { Input } from "./ui/input"
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler } from "react"
+import { CheckboxWithText } from "./ui/checkbox-with-text"
 interface JobEntryParams {
     entry: JobEntryType
     DestroyEntry: MouseEventHandler<HTMLElement>
@@ -32,66 +27,70 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
     }
 
     return (
-        <Card>
-            <CardHeader>
-                <CardTitle>
-                    <div className="flex justify-between items-center">
+        <div className="border-b pb-5 bg-slate-900">
+            <div className="flex justify-between items-center p-5">
+                <div>
+                    <div className="font-bold">
                         {entry.title ? entry.title : "Job Title"}
-                        <Button
-                            variant={"destructive"}
-                            size={"sm"}
-                            onClick={DestroyEntry}
-                        >
-                            Remove Job
-                        </Button>
                     </div>
-                </CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="flex flex-col gap-5 w-full">
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Title</Label>
-                        <Input
-                            placeholder={entry.title}
-                            value={entry.title ?? ""}
-                            onChange={(e) => handleChange("title", e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Employer</Label>
-                        <Input
-                            placeholder={entry.employer}
-                            value={entry.employer ?? ""}
-                            onChange={(e) => handleChange("employer", e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <div className="flex w-full max-w-md justify-between ">
-                            <Label>Start</Label>
-                            <Input
-                                placeholder={entry.startDate}
-                                value={entry.startDate ?? ""}
-                                onChange={(e) => handleChange("startDate", e.target.value)}
-                            />
-                            <Label>End</Label>
-                            <Input
-                                placeholder={entry.endDate}
-                                value={entry.endDate ?? ""}
-                                onChange={(e) => handleChange("endDate", e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Description</Label>
-                        <Textarea
-                            rows={4}
-                            placeholder={entry.details}
-                            value={entry.details ?? ""}
-                            onChange={(e) => handleChange("details", e.target.value)}
-                        />
+                    <div>
+                        {entry.employer ? entry.employer : "Employer"}
                     </div>
                 </div>
-            </CardContent>
-        </Card >
+                <Button
+                    variant={"destructive"}
+                    size={"sm"}
+                    onClick={DestroyEntry}
+                >
+                    Remove Job
+                </Button>
+            </div>
+            <div className="flex flex-col gap-5 w-full px-5">
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <Label>Title</Label>
+                    <Input
+                        placeholder={entry.title}
+                        value={entry.title ?? ""}
+                        onChange={(e) => handleChange("title", e.target.value)}
+                    />
+                </div>
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <Label>Employer</Label>
+                    <Input
+                        placeholder={entry.employer}
+                        value={entry.employer ?? ""}
+                        onChange={(e) => handleChange("employer", e.target.value)}
+                    />
+                </div>
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <div className="flex w-full max-w-md justify-between items-center gap-5">
+                        <Label>Start</Label>
+                        <Input
+                            type="date"
+                            placeholder={entry.startDate}
+                            value={entry.startDate ?? ""}
+                            onChange={(e) => handleChange("startDate", e.target.value)}
+                        />
+                        <Label>End</Label>
+                        <Input
+                            type="date"
+                            placeholder={entry.endDate}
+                            value={entry.endDate ?? ""}
+                            onChange={(e) => handleChange("endDate", e.target.value)}
+                        />
+                        <CheckboxWithText text="Current Position" />
+                    </div>
+                </div>
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                    <Label>Description</Label>
+                    <Textarea
+                        rows={4}
+                        placeholder={entry.details}
+                        value={entry.details ?? ""}
+                        onChange={(e) => handleChange("details", e.target.value)}
+                    />
+                </div>
+            </div>
+        </div>
     )
 }
