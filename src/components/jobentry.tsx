@@ -2,7 +2,7 @@ import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 import { Input } from "./ui/input"
 import { Button } from "@/components/ui/button"
-import { MouseEventHandler } from "react"
+import { MouseEventHandler, useState } from "react"
 import { CheckboxWithText } from "./ui/checkbox-with-text"
 interface JobEntryParams {
     entry: JobEntryType
@@ -21,14 +21,19 @@ export interface JobEntryType {
 
 
 export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryParams) {
+    const [isExpanded, setIsExpanded] = useState<boolean>(true);
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded)
+    }
 
     const handleChange = (field: keyof JobEntryType, value: string) => {
         onChange({ ...entry, [field]: value })
     }
 
     return (
-        <div className="w-[100%] rounded-xl pb-5 bg-slate-800">
-            <div className="flex justify-between items-center p-5">
+        <div className="w-[100%] rounded-xl bg-slate-800">
+            <div className="flex justify-between items-center p-5 cursor-pointer" onClick={toggleExpand}>
                 <div>
                     <div className="font-bold">
                         {entry.title ? entry.title : "Job Title"}
@@ -45,6 +50,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                     Remove Job
                 </Button>
             </div>
+            { isExpanded && (
             <div className="flex flex-col gap-5 w-full px-5">
                 <div className="flex flex-col whitespace-nowrap gap-3 items-start">
                     <Label>Title</Label>
@@ -81,7 +87,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                         <CheckboxWithText text="Current Position" />
                     </div>
                 </div>
-                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                <div className="flex flex-col whitespace-nowrap gap-3 items-start pb-5">
                     <Label>Description</Label>
                     <Textarea
                         rows={4}
@@ -91,6 +97,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                     />
                 </div>
             </div>
+            )}
         </div>
     )
 }
