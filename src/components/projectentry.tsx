@@ -26,7 +26,7 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
     }
 
     return (
-        <div className="pb-5 border-b bg-slate-900">
+        <div className="w-[100%] rounded-xl pb-5 border-b bg-slate-800">
             <div className="flex justify-between items-center p-5 font-bold">
                 {entry.title ? entry.title : "Project Title"}
                 <Button
@@ -75,8 +75,7 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
                 </div>
                 <div className="flex flex-col whitespace-nowrap gap-3 items-start">
                     <Label>Technologies Used</Label>
-                    <Textarea
-                        rows={2}
+                    <Input
                         placeholder={entry.technologies}
                         value={entry.technologies ?? ""}
                         onChange={(e) => handleChange("technologies", e.target.value)}

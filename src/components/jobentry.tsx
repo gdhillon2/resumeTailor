@@ -27,7 +27,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
     }
 
     return (
-        <div className="border-b pb-5 bg-slate-900">
+        <div className="w-[100%] rounded-xl pb-5 bg-slate-800">
             <div className="flex justify-between items-center p-5">
                 <div>
                     <div className="font-bold">
