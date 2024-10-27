@@ -27,7 +27,8 @@ export const useProjects = (user: UserType | null) => {
                     details: entry.details,
                     technologies: entry.technologies,
                     startDate: entry.start_date,
-                    endDate: entry.end_date
+                    endDate: entry.end_date,
+                    expanded: false
                 }))
 
                 setProjects(formattedEntries)
@@ -40,7 +41,7 @@ export const useProjects = (user: UserType | null) => {
 
 
     const addProject = () => {
-        const newEntry: ProjectEntryType = { id: projects.length, title: "", details: "", technologies: "", startDate: "", endDate: "" }
+        const newEntry: ProjectEntryType = { id: projects.length, title: "", details: "", technologies: "", startDate: "", endDate: "", expanded: true}
         setProjects([...projects, newEntry])
     }
 

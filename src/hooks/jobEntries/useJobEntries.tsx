@@ -27,7 +27,8 @@ export const useJobEntries = (user: UserType | null) => {
                     employer: entry.employer,
                     startDate: entry.start_date,
                     endDate: entry.end_date,
-                    details: entry.description
+                    details: entry.description,
+                    expanded: false
                 }))
 
                 setJobEntries(formattedEntries)
@@ -38,7 +39,7 @@ export const useJobEntries = (user: UserType | null) => {
 
 
     const addJobEntry = () => {
-        const newEntry: JobEntryType = { id: Date.now(), title: "", employer: "", startDate: "", endDate: "", details: "" }
+        const newEntry: JobEntryType = { id: Date.now(), title: "", employer: "", startDate: "", endDate: "", details: "", expanded: true}
         setJobEntries([...jobEntries, newEntry])
     }
 

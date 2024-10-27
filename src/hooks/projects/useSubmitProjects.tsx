@@ -12,10 +12,8 @@ export const useSubmitProjects = (projects: ProjectEntryType[], user: UserType |
         const formattedEntries = projects.map(entry => ({
             user_id: user.id,
             title: entry.title,
-            type: entry.type,
             details: entry.details,
             technologies: entry.technologies,
-            role: entry.role,
             start_date: entry.startDate ? entry.startDate : null,
             end_date: entry.endDate ? entry.endDate : null
         }))

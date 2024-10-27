@@ -10,6 +10,8 @@ import ProjectEntry from "@/components/projectentry"
 import { useSubmitProjects } from "@/hooks/projects/useSubmitProjects"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { useSkills } from "@/hooks/skills/useSkills"
+import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -19,6 +21,9 @@ export default function Dashboard() {
 
     const { projects, addProject, removeProject, handleProjectChange } = useProjects(user)
     const { submitProjects } = useSubmitProjects(projects, user)
+
+    const { skills, handleSkillChange } = useSkills(user)
+    const { submitSkills } = useSubmitSkills(skills, user)
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
@@ -50,6 +55,7 @@ export default function Dashboard() {
                                     entry={entry}
                                     DestroyEntry={() => removeJobEntry(index)}
                                     onChange={handleJobEntryChange}
+                                    expanded={entry.expanded}
                                 />
                                 <div>
                                 </div>
@@ -90,10 +96,17 @@ export default function Dashboard() {
                         <div className="flex justify-end gap-5 p-5 border-b">
                             <Label className="text-xl flex w-full items-center font-bold">Skills</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"}>Save Skills</Button>
+                                <Button variant={"default"} onClick={submitSkills}>Save Skills</Button>
                             </div>
                         </div>
-                        <Textarea rows={3} />
+                        <div className="p-5">
+                            <Textarea
+                                rows={3}
+                                placeholder="Put your relevant skills here."
+                                value={skills}
+                                onChange={(e) => handleSkillChange(e.target.value)}
+                            />
+                        </div>
                     </div>
                 </div>
             </TabsContent>

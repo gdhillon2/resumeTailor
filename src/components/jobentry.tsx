@@ -6,6 +6,7 @@ import { MouseEventHandler, useState } from "react"
 import { CheckboxWithText } from "./ui/checkbox-with-text"
 interface JobEntryParams {
     entry: JobEntryType
+    expanded: boolean
     DestroyEntry: MouseEventHandler<HTMLElement>
     onChange: (updatedEntry: JobEntryType) => void
 }
@@ -17,11 +18,12 @@ export interface JobEntryType {
     startDate: string
     endDate: string
     details: string
+    expanded: boolean
 }
 
 
 export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryParams) {
-    const [isExpanded, setIsExpanded] = useState<boolean>(true);
+    const [isExpanded, setIsExpanded] = useState<boolean>(entry.expanded);
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded)
@@ -50,53 +52,53 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                     Remove Job
                 </Button>
             </div>
-            { isExpanded && (
-            <div className="flex flex-col gap-5 w-full px-5">
-                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                    <Label>Title</Label>
-                    <Input
-                        placeholder={entry.title}
-                        value={entry.title ?? ""}
-                        onChange={(e) => handleChange("title", e.target.value)}
-                    />
-                </div>
-                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                    <Label>Employer</Label>
-                    <Input
-                        placeholder={entry.employer}
-                        value={entry.employer ?? ""}
-                        onChange={(e) => handleChange("employer", e.target.value)}
-                    />
-                </div>
-                <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                    <div className="flex w-full max-w-md justify-between items-center gap-5">
-                        <Label>Start</Label>
+            {isExpanded && (
+                <div className="flex flex-col gap-5 w-full px-5">
+                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                        <Label>Title</Label>
                         <Input
-                            type="date"
-                            placeholder={entry.startDate}
-                            value={entry.startDate ?? ""}
-                            onChange={(e) => handleChange("startDate", e.target.value)}
+                            placeholder={entry.title}
+                            value={entry.title ?? ""}
+                            onChange={(e) => handleChange("title", e.target.value)}
                         />
-                        <Label>End</Label>
+                    </div>
+                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                        <Label>Employer</Label>
                         <Input
-                            type="date"
-                            placeholder={entry.endDate}
-                            value={entry.endDate ?? ""}
-                            onChange={(e) => handleChange("endDate", e.target.value)}
+                            placeholder={entry.employer}
+                            value={entry.employer ?? ""}
+                            onChange={(e) => handleChange("employer", e.target.value)}
                         />
-                        <CheckboxWithText text="Current Position" />
+                    </div>
+                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                        <div className="flex w-full max-w-md justify-between items-center gap-5">
+                            <Label>Start</Label>
+                            <Input
+                                type="date"
+                                placeholder={entry.startDate}
+                                value={entry.startDate ?? ""}
+                                onChange={(e) => handleChange("startDate", e.target.value)}
+                            />
+                            <Label>End</Label>
+                            <Input
+                                type="date"
+                                placeholder={entry.endDate}
+                                value={entry.endDate ?? ""}
+                                onChange={(e) => handleChange("endDate", e.target.value)}
+                            />
+                            <CheckboxWithText text="Current Position" />
+                        </div>
+                    </div>
+                    <div className="flex flex-col whitespace-nowrap gap-3 items-start pb-5">
+                        <Label>Description</Label>
+                        <Textarea
+                            rows={4}
+                            placeholder={entry.details}
+                            value={entry.details ?? ""}
+                            onChange={(e) => handleChange("details", e.target.value)}
+                        />
                     </div>
                 </div>
-                <div className="flex flex-col whitespace-nowrap gap-3 items-start pb-5">
-                    <Label>Description</Label>
-                    <Textarea
-                        rows={4}
-                        placeholder={entry.details}
-                        value={entry.details ?? ""}
-                        onChange={(e) => handleChange("details", e.target.value)}
-                    />
-                </div>
-            </div>
             )}
         </div>
     )

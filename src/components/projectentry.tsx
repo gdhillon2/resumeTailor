@@ -17,10 +17,11 @@ export interface ProjectEntryType {
     technologies: string
     startDate: string
     endDate?: string
+    expanded: boolean
 }
 
 export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectEntryParams) {
-    const [isExpanded, setIsExpanded] = useState<boolean>(true);
+    const [isExpanded, setIsExpanded] = useState<boolean>(entry.expanded);
 
     const handleExpand = () => {
         setIsExpanded(!isExpanded)
