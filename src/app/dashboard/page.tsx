@@ -12,6 +12,9 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
+import { useState } from "react"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -25,6 +28,47 @@ export default function Dashboard() {
     const { skills, handleSkillChange } = useSkills(user)
     const { submitSkills } = useSubmitSkills(skills, user)
 
+    const [analysis, setAnalysis] = useState<string>('')
+    const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false)
+    const [error, setError] = useState<string | null>('')
+
+    const handleAnalyze = async () => {
+        setIsAnalyzing(true)
+        setError("")
+
+        try {
+            const response = await fetch("/api/analyze",
+                {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        jobEntries,
+                        projects,
+                        skills
+                    }),
+                })
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`)
+            }
+
+            const data = await response.json()
+
+            if (data.error) {
+                throw new Error(data.error)
+            }
+
+            setAnalysis(data.analysis)
+            setIsAnalyzing(false)
+
+        } catch (error: any) {
+            setError("Failed to analyze resume: Please try again.")
+            console.error(error)
+        }
+    }
+
     return (
         <Tabs defaultValue="work" className="flex w-full">
             <TabsList className="flex flex-grow w-hug h-full justify-start items-start rounded-none border-r bg-slate-900 blue-grad">
@@ -34,7 +78,7 @@ export default function Dashboard() {
                 <TabsTrigger value="work">Work</TabsTrigger>
                 <TabsTrigger value="projects">Projects</TabsTrigger>
                 <TabsTrigger value="skills">Skills</TabsTrigger>
-                <TabsTrigger value="Analyze">Analyze</TabsTrigger>
+                <TabsTrigger value="analyze">Analyze</TabsTrigger>
                 <TabsTrigger value="tailor">Tailor</TabsTrigger>
             </TabsList>
             <TabsContent value="work" className="">
@@ -108,6 +152,36 @@ export default function Dashboard() {
                             />
                         </div>
                     </div>
+                </div>
+            </TabsContent>
+            <TabsContent value="analyze">
+                <div className="flex flex-col w-full p-5 gap-5">
+                    <div className="flex justify-between items-center">
+                        <Label className="text-xl font-bold">Resume Analysis</Label>
+                        <Button
+                            onClick={handleAnalyze}
+                            disabled={isAnalyzing}
+                        >
+                            {isAnalyzing ? 'Analyzing...' : 'Analyze Resume'}
+                        </Button>
+                    </div>
+
+                    {error && (
+                        <Alert variant="destructive">
+                            <AlertDescription>{error}</AlertDescription>
+                        </Alert>
+                    )}
+
+                    {analysis && (
+                        <Card>
+                            <CardContent className="p-6 whitespace-pre-line">
+                                {/*
+                                <Label>{JSON.stringify(analysis, null, 2)}</Label>
+                                */}
+                                <Label>{analysis}</Label>
+                            </CardContent>
+                        </Card>
+                    )}
                 </div>
             </TabsContent>
             <TabsContent value="tailor">Job Posting Description, AI feedback will go here</TabsContent>
