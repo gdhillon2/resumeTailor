@@ -8,7 +8,7 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: true
 })
 
-export async function POST (request: Request) {
+export async function POST(request: Request) {
     try {
         const { jobEntries, projects, skills } = await request.json()
 
@@ -21,7 +21,7 @@ export async function POST (request: Request) {
     }
 }
 
-export async function analyzeResume (jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) {
+export async function analyzeResume(jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) {
     try {
         const prompt = `
         Please analyze the following resume information and provide feedback:
@@ -58,7 +58,6 @@ export async function analyzeResume (jobEntries: JobEntryType[], projects: Proje
             messages: [
                 {
                     role: "system",
-                    //content: "You are a LLM",
                     content: "You are a professional resume reviewer and career coach specializing in technical roles. Provide structured, actionable feedback that helps improve both content and presentation. Focus on how to better demonstrate technical skills and project impact. Do not give resume formatting feedback, only provide feedback on the text content."
                 },
                 {

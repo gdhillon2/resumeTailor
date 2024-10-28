@@ -13,7 +13,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Card, CardContent } from "@/components/ui/card"
 import { CheckboxWithText } from "@/components/ui/checkbox-with-text"
 import { useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
 
@@ -136,10 +135,10 @@ export default function Dashboard() {
                     </div>
                 )}
 
-                {analysis && (
-                    <div className="pt-5 pr-5 pl-5">
-                        <Card>
-                            <CardContent className="p-6 whitespace-pre-line">
+                {analysis ? (
+                    <div className="flex flex-col gap-3 pt-5 pr-5 pl-5">
+                        <div className="flex gap-3 bg-slate-800 p-5 rounded-xl">
+                            <div className="w-[50%]">
                                 <div className="font-bold">Strengths</div>
                                 {analysis.overallStrengths.map((entry: string, index: number) => {
                                     return (
@@ -148,6 +147,8 @@ export default function Dashboard() {
                                         </div>
                                     )
                                 })}
+                            </div>
+                            <div className="w-[50%]">
                                 <div className="font-bold">Weaknesses</div>
                                 {analysis.overallWeaknesses.map((entry: string, index: number) => {
                                     return (
@@ -156,17 +157,21 @@ export default function Dashboard() {
                                         </div>
                                     )
                                 })}
-                                <div className="font-bold">Actions</div>
-                                {analysis.actions.map((entry: string, index: number) => {
-                                    return (
-                                        <div key={index} className="py-2">
-                                            <CheckboxWithText text={entry} />
-                                        </div>
-                                    )
-                                })}
-                            </CardContent>
-                        </Card>
+                            </div>
+                        </div>
+                        <div className="bg-slate-800 p-5 rounded-xl">
+                            <div className="font-bold">Actions</div>
+                            {analysis.actions.map((entry: string, index: number) => {
+                                return (
+                                    <div key={index} className="py-2">
+                                        <CheckboxWithText text={entry} />
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
+                ) : (
+                    <div className="p-5">Click the Analyze Resume button in the top right corner to get feedback on your resume!</div>
                 )}
             </TabsContent>
             <TabsContent value="tailor">Job Posting Description, AI feedback will go here</TabsContent>
