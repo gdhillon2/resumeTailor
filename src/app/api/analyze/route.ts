@@ -8,7 +8,7 @@ const openai = new OpenAI({
     dangerouslyAllowBrowser: true
 })
 
-export async function POST(request: Request) {
+export async function POST (request: Request) {
     try {
         const { jobEntries, projects, skills } = await request.json()
 
@@ -21,68 +21,49 @@ export async function POST(request: Request) {
     }
 }
 
-export async function analyzeResume(jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) {
+export async function analyzeResume (jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) {
     try {
         const prompt = `
-          Please analyze the following resume information and provide feedback:
+        Please analyze the following resume information and provide feedback:
 
-          Work Experience:
-          ${jobEntries.map(job => `
-            Title: ${job.title}
-            Employer: ${job.employer}
-            Duration: ${job.startDate} - ${job.endDate}
-            Details: ${job.details}
-          `).join('\n')}
+        Work Experience:
+        ${jobEntries.map(job => `
+        Title: ${job.title}
+        Employer: ${job.employer}
+        Duration: ${job.startDate} - ${job.endDate}
+        Details: ${job.details}
+        `).join('\n')}
 
-          Projects:
-          ${projects.map(project => `
-            Title: ${project.title}
-            Duration: ${project.startDate}${project.endDate ? ` - ${project.endDate}` : ' - Present'}
-            Technologies: ${project.technologies}
-            Details: ${project.details}
-          `).join('\n')}
+        Projects:
+        ${projects.map(project => `
+        Title: ${project.title}
+        Duration: ${project.startDate}${project.endDate ? ` - ${project.endDate}` : ' - Present'}
+        Technologies: ${project.technologies}
+        Details: ${project.details}
+        `).join('\n')}
 
-          Skills:
-          ${skills}
+        Skills:
+        ${skills}
 
-          Please provide a detailed analysis in the following format:
-
-          EXPERIENCE ANALYSIS
-          - Assessment of work history progression
-          - Key achievements and responsibilities
-          - Suggestions for improvement in experience descriptions
-
-          PROJECT ANALYSIS
-          - Technical depth demonstrated
-          - Project impact and complexity
-          - Recommendations for better showcasing projects
-          - Suggestions for highlighting technical skills through projects
-
-          SKILLS ASSESSMENT
-          - Current skill set evaluation
-          - Skills demonstrated through work and projects
-          - Skill gaps based on industry standards
-          - Recommended skills to develop
-
-          OVERALL RECOMMENDATIONS
-          - Resume strengths
-          - Areas for improvement
-          - Industry-specific suggestions
-          - Format and presentation tips
+        Please provide a detailed analysis in correct JSON format using the below structure:
+        {
+            "overallStrengths": ["An array containg your assessment of the overall strengths of the resume here. Keep the list under 10 items and sort the list from most important strength to least important strength."],
+            "overallWeaknesses": ["An array containg your assessment of the overall weaknesses of the resume here. Keep the list under 10 items and sort the list from most important weakness to least important weakness."],
+            "actions": ["An array of actions you recommend taking to help improve the resume. Keep the list under 10 items and sort the list from most important action to least important action."]
+        }
         `
-        const prompt2 = "please confirm you can read this"
 
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [
                 {
                     role: "system",
-                    content: "You are a LLM"
-                    //content: "You are a professional resume reviewer and career coach specializing in technical roles. Provide structured, actionable feedback that helps improve both content and presentation. Focus on how to better demonstrate technical skills and project impact."
+                    //content: "You are a LLM",
+                    content: "You are a professional resume reviewer and career coach specializing in technical roles. Provide structured, actionable feedback that helps improve both content and presentation. Focus on how to better demonstrate technical skills and project impact. Do not give resume formatting feedback, only provide feedback on the text content."
                 },
                 {
                     role: "user",
-                    content: prompt2
+                    content: prompt
                 }
             ],
             temperature: 0.7,

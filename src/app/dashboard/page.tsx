@@ -12,9 +12,10 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
-import { useState } from "react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Card, CardContent } from "@/components/ui/card"
+import { CheckboxWithText } from "@/components/ui/checkbox-with-text"
+import { useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -28,46 +29,7 @@ export default function Dashboard() {
     const { skills, handleSkillChange } = useSkills(user)
     const { submitSkills } = useSubmitSkills(skills, user)
 
-    const [analysis, setAnalysis] = useState<string>('')
-    const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>('')
-
-    const handleAnalyze = async () => {
-        setIsAnalyzing(true)
-        setError("")
-
-        try {
-            const response = await fetch("/api/analyze",
-                {
-                    method: "POST",
-                    headers: {
-                        "content-type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        jobEntries,
-                        projects,
-                        skills
-                    }),
-                })
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`)
-            }
-
-            const data = await response.json()
-
-            if (data.error) {
-                throw new Error(data.error)
-            }
-
-            setAnalysis(data.analysis)
-            setIsAnalyzing(false)
-
-        } catch (error: any) {
-            setError("Failed to analyze resume: Please try again.")
-            console.error(error)
-        }
-    }
+    const { analysis, isAnalyzing, error, handleAnalyze } = useResumeAnalysis(user)
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
@@ -155,36 +117,59 @@ export default function Dashboard() {
                 </div>
             </TabsContent>
             <TabsContent value="analyze">
-                <div className="flex flex-col w-full p-5 gap-5">
+                <div className="flex flex-col w-full p-5 gap-5 border-b">
                     <div className="flex justify-between items-center">
                         <Label className="text-xl font-bold">Resume Analysis</Label>
                         <Button
-                            onClick={handleAnalyze}
+                            onClick={(_) => handleAnalyze(jobEntries, projects, skills)}
                             disabled={isAnalyzing}
                         >
                             {isAnalyzing ? 'Analyzing...' : 'Analyze Resume'}
                         </Button>
                     </div>
-
-                    {error && (
+                </div>
+                {error && (
+                    <div className="pt-5 pr-5 pl-5">
                         <Alert variant="destructive">
                             <AlertDescription>{error}</AlertDescription>
                         </Alert>
-                    )}
+                    </div>
+                )}
 
-                    {analysis && (
+                {analysis && (
+                    <div className="pt-5 pr-5 pl-5">
                         <Card>
                             <CardContent className="p-6 whitespace-pre-line">
-                                {/*
-                                <Label>{JSON.stringify(analysis, null, 2)}</Label>
-                                */}
-                                <Label>{analysis}</Label>
+                                <div className="font-bold">Strengths</div>
+                                {analysis.overallStrengths.map((entry: string, index: number) => {
+                                    return (
+                                        <div key={index} className="py-2">
+                                            <Label>{entry}</Label>
+                                        </div>
+                                    )
+                                })}
+                                <div className="font-bold">Weaknesses</div>
+                                {analysis.overallWeaknesses.map((entry: string, index: number) => {
+                                    return (
+                                        <div key={index} className="py-2">
+                                            <Label>{entry}</Label>
+                                        </div>
+                                    )
+                                })}
+                                <div className="font-bold">Actions</div>
+                                {analysis.actions.map((entry: string, index: number) => {
+                                    return (
+                                        <div key={index} className="py-2">
+                                            <CheckboxWithText text={entry} />
+                                        </div>
+                                    )
+                                })}
                             </CardContent>
                         </Card>
-                    )}
-                </div>
+                    </div>
+                )}
             </TabsContent>
             <TabsContent value="tailor">Job Posting Description, AI feedback will go here</TabsContent>
-        </Tabs>
+        </Tabs >
     )
 }
