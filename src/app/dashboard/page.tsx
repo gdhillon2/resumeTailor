@@ -17,7 +17,11 @@ import { ActionType, scoreTypes, useResumeAnalysis } from "@/hooks/analysis/useR
 import { Checkbox } from "@/components/ui/checkbox"
 
 export default function Dashboard() {
-    const { user } = useAuth()
+    const { user, logOut } = useAuth()
+
+    const handleLogOut = () => {
+        logOut()
+    }
 
     const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries(user)
     const { loading: savingJobs, submitJobEntries } = useSubmitJobEntries(jobEntries, user)
@@ -44,6 +48,15 @@ export default function Dashboard() {
                 <TabsTrigger value="projects">Projects</TabsTrigger>
                 <TabsTrigger value="skills">Skills</TabsTrigger>
                 <TabsTrigger value="analyze">Analyze</TabsTrigger>
+                <div className="flex h-full items-end py-5 justify-end">
+                <Button
+                    onClick={handleLogOut}
+                    variant={"ghost"}
+                    className="rounded-md hover:bg-transparent text-lg px-3"
+                >
+                    Log Out
+                </Button>
+                </div>
             </TabsList>
             <TabsContent value="work" className="">
                 <div className="flex flex-col items-start w-full">
