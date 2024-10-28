@@ -1,8 +1,10 @@
 import { JobEntryType } from "@/components/jobentry"
 import { UserType } from "@/context/authContext"
 import { supabase } from "@/lib/supabaseClient"
+import { useState } from "react"
 
 export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType | null) => {
+    const [loading, setLoading] = useState<boolean>(false)
 
 
     const submitJobEntries = async () => {
@@ -11,6 +13,7 @@ export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType |
             return
         }
 
+        setLoading(true)
         const formattedEntries = jobEntries.map(entry => ({
             user_id: user.id,
             job_title: entry.title,
@@ -55,7 +58,8 @@ export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType |
                 console.error("couldn't delete all work experience", deleteError)
             }
         }
+        setLoading(false)
     }
 
-    return { submitJobEntries }
+    return { loading, submitJobEntries }
 }

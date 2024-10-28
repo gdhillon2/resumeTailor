@@ -20,13 +20,13 @@ export default function Dashboard() {
     const { user } = useAuth()
 
     const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries(user)
-    const { submitJobEntries } = useSubmitJobEntries(jobEntries, user)
+    const { loading: savingJobs, submitJobEntries } = useSubmitJobEntries(jobEntries, user)
 
     const { projects, addProject, removeProject, handleProjectChange } = useProjects(user)
-    const { submitProjects } = useSubmitProjects(projects, user)
+    const { loading: savingProjects, submitProjects } = useSubmitProjects(projects, user)
 
     const { skills, handleSkillChange } = useSkills(user)
-    const { submitSkills } = useSubmitSkills(skills, user)
+    const { loading: savingSkills, submitSkills } = useSubmitSkills(skills, user)
 
     const { analysis, isAnalyzing, error, handleAnalyze, handleActionChange } = useResumeAnalysis(user)
 
@@ -44,7 +44,6 @@ export default function Dashboard() {
                 <TabsTrigger value="projects">Projects</TabsTrigger>
                 <TabsTrigger value="skills">Skills</TabsTrigger>
                 <TabsTrigger value="analyze">Analyze</TabsTrigger>
-                <TabsTrigger value="tailor">Tailor</TabsTrigger>
             </TabsList>
             <TabsContent value="work" className="">
                 <div className="flex flex-col items-start w-full">
@@ -55,7 +54,9 @@ export default function Dashboard() {
                                 <Button variant={"secondary"} onClick={addJobEntry}>Add Job</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={submitJobEntries}>Save Jobs</Button>
+                                <Button variant={"default"} onClick={submitJobEntries}>
+                                    {savingJobs ? "Saving..." : "Save Jobs"}
+                                </Button>
                             </div>
                         </div>
                         {jobEntries.map((entry, index) => (
@@ -81,7 +82,9 @@ export default function Dashboard() {
                                 <Button variant={"secondary"} onClick={addProject}>Add Project</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={submitProjects}>Save Projects</Button>
+                                <Button variant={"default"} onClick={submitProjects}>
+                                    {savingProjects ? "Saving..." : "Save Projects"}
+                                </Button>
                             </div>
                         </div>
                         {projects.map((entry, index) => (
@@ -104,7 +107,9 @@ export default function Dashboard() {
                         <div className="flex justify-end gap-5 p-5 border-b">
                             <Label className="text-xl flex w-full items-center font-bold">Skills</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={submitSkills}>Save Skills</Button>
+                                <Button variant={"default"} onClick={submitSkills}>
+                                    {savingSkills ? "Saving..." : "Save Skills"}
+                                </Button>
                             </div>
                         </div>
                         <div className="p-5">
@@ -211,7 +216,6 @@ export default function Dashboard() {
                     <div className="p-5">Click the Analyze Resume button in the top right corner to get feedback on your resume!</div>
                 )}
             </TabsContent>
-            <TabsContent value="tailor">Job Posting Description, AI feedback will go here</TabsContent>
-        </Tabs >
+        </Tabs>
     )
 }

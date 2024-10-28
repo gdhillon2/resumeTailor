@@ -1,13 +1,16 @@
 import { UserType } from "@/context/authContext"
 import { supabase } from "@/lib/supabaseClient"
+import { useState } from "react"
 
 export const useSubmitSkills = (skills: string, user: UserType | null) => {
+    const [loading, setLoading] = useState<boolean>(false)
+
     const submitSkills = async () => {
         if (!user) {
             console.error("user is not authenticated")
             return
         }
-
+        setLoading(true)
         const formattedEntries = {
             user_id: user.id,
             details: skills
@@ -25,7 +28,8 @@ export const useSubmitSkills = (skills: string, user: UserType | null) => {
                 console.log("successfully inserted data:", insertedData)
             }
         }
+        setLoading(false)
     }
 
-    return { submitSkills }
+    return { loading, submitSkills }
 }

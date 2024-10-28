@@ -1,14 +1,18 @@
 import { ProjectEntryType } from "@/components/projectentry"
 import { UserType } from "@/context/authContext"
 import { supabase } from "@/lib/supabaseClient"
+import { useState } from "react"
 
 export const useSubmitProjects = (projects: ProjectEntryType[], user: UserType | null) => {
+    const [loading, setLoading] = useState<boolean>(false)
+
     const submitProjects = async () => {
         if (!user) {
             console.error("user is not authenticated")
             return
         }
 
+        setLoading(true)
         const formattedEntries = projects.map(entry => ({
             user_id: user.id,
             title: entry.title,
@@ -53,7 +57,8 @@ export const useSubmitProjects = (projects: ProjectEntryType[], user: UserType |
                 console.error("could not delete all projects:", deleteError)
             }
         }
+        setLoading(false)
     }
 
-    return { submitProjects }
+    return { loading, submitProjects }
 }

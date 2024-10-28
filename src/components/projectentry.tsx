@@ -43,54 +43,56 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
                     Remove Project
                 </Button>
             </div>
-            {isExpanded && (
-                <div className="flex flex-col gap-5 w-full px-5">
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Title</Label>
-                        <Input
-                            placeholder={entry.title}
-                            value={entry.title ?? ""}
-                            onChange={(e) => handleChange("title", e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <div className="flex w-full max-w-md justify-between items-center gap-5">
-                            <Label>Start</Label>
+            <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                <div className="overflow-hidden">
+                    <div className="flex flex-col gap-5 w-full px-5">
+                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                            <Label>Title</Label>
                             <Input
-                                type="date"
-                                placeholder={entry.startDate}
-                                value={entry.startDate ?? ""}
-                                onChange={(e) => handleChange("startDate", e.target.value)}
-                            />
-                            <Label>End</Label>
-                            <Input
-                                type="date"
-                                placeholder={entry.endDate}
-                                value={entry.endDate ?? ""}
-                                onChange={(e) => handleChange("endDate", e.target.value)}
+                                placeholder={entry.title}
+                                value={entry.title ?? ""}
+                                onChange={(e) => handleChange("title", e.target.value)}
                             />
                         </div>
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <Label>Description</Label>
-                        <Textarea
-                            rows={4}
-                            placeholder={entry.details}
-                            value={entry.details ?? ""}
-                            onChange={(e) => handleChange("details", e.target.value)}
-                        />
-                    </div>
-                    <div className="flex flex-col whitespace-nowrap pb-5 gap-3 items-start">
-                        <Label>Technologies Used</Label>
-                        <Input
-                            placeholder={entry.technologies}
-                            value={entry.technologies ?? ""}
-                            onChange={(e) => handleChange("technologies", e.target.value)}
-                        />
-                    </div>
+                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                            <div className="flex w-full max-w-md justify-between items-center gap-5">
+                                <Label>Start</Label>
+                                <Input
+                                    type="date"
+                                    placeholder={entry.startDate}
+                                    value={entry.startDate ?? ""}
+                                    onChange={(e) => handleChange("startDate", e.target.value)}
+                                />
+                                <Label>End</Label>
+                                <Input
+                                    type="date"
+                                    placeholder={entry.endDate}
+                                    value={entry.endDate ?? ""}
+                                    onChange={(e) => handleChange("endDate", e.target.value)}
+                                />
+                            </div>
+                        </div>
+                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                            <Label>Description</Label>
+                            <Textarea
+                                rows={4}
+                                placeholder={entry.details}
+                                value={entry.details ?? ""}
+                                onChange={(e) => handleChange("details", e.target.value)}
+                            />
+                        </div>
+                        <div className="flex flex-col whitespace-nowrap pb-5 gap-3 items-start">
+                            <Label>Technologies Used</Label>
+                            <Input
+                                placeholder={entry.technologies}
+                                value={entry.technologies ?? ""}
+                                onChange={(e) => handleChange("technologies", e.target.value)}
+                            />
+                        </div>
 
+                    </div>
                 </div>
-            )}
+            </div>
         </div>
     )
 }
