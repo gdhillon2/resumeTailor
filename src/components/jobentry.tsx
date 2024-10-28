@@ -4,6 +4,7 @@ import { Input } from "./ui/input"
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
+import { FiChevronUp } from "react-icons/fi"
 
 interface JobEntryParams {
     entry: JobEntryType
@@ -43,13 +44,20 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
     return (
         <div className="w-[100%] rounded-xl bg-slate-800">
             <div className="flex justify-between items-center p-5 cursor-pointer" onClick={toggleExpand}>
-                <div>
-                    <div className="font-bold">
-                        {entry.title ? entry.title : "Job Title"}
-                    </div>
+                <div className="flex items-center justify-center gap-3">
+                    <FiChevronUp
+                        className={`transform transition-transform duration-300 ${isExpanded ? "rotate-0" : "rotate-180"}`}
+                    />
                     <div>
-                        {entry.employer ? entry.employer : "Employer"}
+                        <div className="font-bold">
+                            {entry.title ? entry.title : "Job Title"}
+                        </div>
+                        <div>
+                            {entry.employer ? entry.employer : "Employer"}
+                        </div>
                     </div>
+                </div>
+                <div className="mr-2 transition-transform duration-300">
                 </div>
                 <Button
                     variant={"destructive"}

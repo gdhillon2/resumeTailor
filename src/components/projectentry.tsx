@@ -3,6 +3,7 @@ import { Textarea } from "./ui/textarea"
 import { Input } from "./ui/input"
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler, useState } from "react"
+import { FiChevronUp } from "react-icons/fi"
 
 interface ProjectEntryParams {
     entry: ProjectEntryType
@@ -34,7 +35,12 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
     return (
         <div className="w-[100%] rounded-xl border-b bg-slate-800">
             <div className="flex justify-between items-center p-5 font-bold cursor-pointer" onClick={handleExpand}>
-                {entry.title ? entry.title : "Project Title"}
+                <div className="flex justify-center items-center gap-3">
+                    <FiChevronUp
+                        className={`transform transition-transform duration-300 ${isExpanded ? "rotate-0" : "rotate-180"}`}
+                    />
+                    {entry.title ? entry.title : "Project Title"}
+                </div>
                 <Button
                     variant={"destructive"}
                     size={"sm"}
