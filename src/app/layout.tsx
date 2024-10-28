@@ -1,6 +1,7 @@
 import "./globals.css"
 import { AuthProvider } from "@/context/authContext"
 import { Metadata } from "next"
+import "@/app/globals.css"
 
 export const metadata: Metadata = {
     title: "ResumeTailor",
