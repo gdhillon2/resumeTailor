@@ -28,7 +28,7 @@ export default function Dashboard() {
     const { skills, handleSkillChange } = useSkills(user)
     const { submitSkills } = useSubmitSkills(skills, user)
 
-    const { analysis, isAnalyzing, error, handleAnalyze } = useResumeAnalysis(user)
+    const { analysis, isAnalyzing, error, handleAnalyze, handleActionChange } = useResumeAnalysis(user)
 
     const overallScore = analysis ?
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
@@ -199,6 +199,7 @@ export default function Dashboard() {
                                     <div key={index} className="flex items-center gap-2 py-2 text-sm">
                                         <Checkbox
                                             checked={entry.completed}
+                                            onCheckedChange={(checked) => handleActionChange(!!checked, index)}
                                         />
                                         {entry.text}
                                     </div>

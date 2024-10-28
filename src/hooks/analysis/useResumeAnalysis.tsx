@@ -136,5 +136,28 @@ export function useResumeAnalysis(user: UserType | null) {
         setIsAnalyzing(false)
     }
 
-    return { analysis, isAnalyzing, error, handleAnalyze }
+    const handleActionChange = (checked: boolean, index: number) => {
+        if (analysis) {
+            const updatedActions = analysis.actions.map((action, i) =>
+                i == index ? { ...action, completed: checked} : action)
+
+            setAnalysis(prevAnalysis => prevAnalysis ? { ...prevAnalysis, actions: updatedActions } : null)
+
+            if (user) {
+                supabase
+                    .from("resume_analysis")
+                    .update({ actions: updatedActions })
+                    .eq("user_id", user.id)
+                    .then(({ error }) => {
+                        if (error) {
+                            console.error("Error updating actions in database:", error);
+                        } else {
+                            console.log("Actions updated in database");
+                        }
+                    });
+            }
+        }
+    }
+
+    return { analysis, isAnalyzing, error, handleAnalyze, handleActionChange }
 }
