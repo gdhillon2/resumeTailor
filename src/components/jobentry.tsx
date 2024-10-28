@@ -3,7 +3,8 @@ import { Textarea } from "./ui/textarea"
 import { Input } from "./ui/input"
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler, useState } from "react"
-import { CheckboxWithText } from "./ui/checkbox-with-text"
+import { Checkbox } from "@/components/ui/checkbox"
+
 interface JobEntryParams {
     entry: JobEntryType
     DestroyEntry: MouseEventHandler<HTMLElement>
@@ -17,12 +18,19 @@ export interface JobEntryType {
     startDate: string
     endDate: string
     details: string
+    currentPosition: boolean
     expanded: boolean
 }
 
 
 export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryParams) {
-    const [isExpanded, setIsExpanded] = useState<boolean>(entry.expanded);
+    const [isExpanded, setIsExpanded] = useState<boolean>(entry.expanded)
+    const [isChecked, setIsChecked] = useState<boolean>(entry.currentPosition)
+
+    const handleCheckboxState = (checked: boolean) => {
+        setIsChecked(checked)
+        onChange({ ...entry, currentPosition: checked })
+    }
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded)
@@ -70,7 +78,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                         />
                     </div>
                     <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                        <div className="flex w-full max-w-md justify-between items-center gap-5">
+                        <div className="flex w-full max-w-xl justify-between items-center gap-5">
                             <Label>Start</Label>
                             <Input
                                 type="date"
@@ -84,8 +92,15 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                                 placeholder={entry.endDate}
                                 value={entry.endDate ?? ""}
                                 onChange={(e) => handleChange("endDate", e.target.value)}
+                                disabled={isChecked}
                             />
-                            <CheckboxWithText text="Current Position" />
+                            <div className="flex justify-center gap-2 items-center">
+                                <Checkbox
+                                    checked={isChecked}
+                                    onCheckedChange={handleCheckboxState}
+                                />
+                                <Label>Current Position</Label>
+                            </div>
                         </div>
                     </div>
                     <div className="flex flex-col whitespace-nowrap gap-3 items-start pb-5">

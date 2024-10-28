@@ -15,7 +15,7 @@ export const useJobEntries = (user: UserType | null) => {
 
             const { data: jobEntries, error: selectError } = await supabase
                 .from("work_experience")
-                .select("work_experience_id, job_title, employer, start_date, end_date, description")
+                .select("work_experience_id, job_title, employer, start_date, end_date, description, current_position")
                 .eq("user_id", user.id)
 
             if (selectError) {
@@ -28,6 +28,7 @@ export const useJobEntries = (user: UserType | null) => {
                     startDate: entry.start_date,
                     endDate: entry.end_date,
                     details: entry.description,
+                    currentPosition: entry.current_position,
                     expanded: false
                 }))
 
@@ -39,7 +40,16 @@ export const useJobEntries = (user: UserType | null) => {
 
 
     const addJobEntry = () => {
-        const newEntry: JobEntryType = { id: Date.now(), title: "", employer: "", startDate: "", endDate: "", details: "", expanded: true}
+        const newEntry: JobEntryType = {
+            id: Date.now(),
+            title: "",
+            employer: "",
+            startDate: "",
+            endDate: "",
+            details: "",
+            expanded: true,
+            currentPosition: false
+        }
         setJobEntries([...jobEntries, newEntry])
     }
 

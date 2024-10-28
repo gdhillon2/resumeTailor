@@ -30,7 +30,9 @@ export async function analyzeResume(jobEntries: JobEntryType[], projects: Projec
         ${jobEntries.map(job => `
         Title: ${job.title}
         Employer: ${job.employer}
-        Duration: ${job.startDate} - ${job.endDate}
+        Start Date: ${job.startDate}
+        ${job.endDate && `End Date: ${job.endDate}`}
+        Current Position: ${job.currentPosition}
         Details: ${job.details}
         `).join('\n')}
 

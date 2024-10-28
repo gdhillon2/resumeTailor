@@ -17,8 +17,8 @@ export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType |
             employer: entry.employer,
             start_date: entry.startDate ? entry.startDate : null,
             end_date: entry.endDate ? entry.endDate : null,
-            description: entry.details
-
+            description: entry.details,
+            current_position: entry.currentPosition
         }))
 
         if (formattedEntries.length) {
