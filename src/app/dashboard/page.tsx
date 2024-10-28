@@ -60,7 +60,6 @@ export default function Dashboard() {
                                     entry={entry}
                                     DestroyEntry={() => removeJobEntry(index)}
                                     onChange={handleJobEntryChange}
-                                    expanded={entry.expanded}
                                 />
                                 <div>
                                 </div>

@@ -6,7 +6,6 @@ import { MouseEventHandler, useState } from "react"
 import { CheckboxWithText } from "./ui/checkbox-with-text"
 interface JobEntryParams {
     entry: JobEntryType
-    expanded: boolean
     DestroyEntry: MouseEventHandler<HTMLElement>
     onChange: (updatedEntry: JobEntryType) => void
 }
