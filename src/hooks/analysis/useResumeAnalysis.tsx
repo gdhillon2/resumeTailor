@@ -8,13 +8,18 @@ export type ScoreType = "workScore" | "projectScore" | "skillsScore"
 
 export const scoreTypes: ScoreType[] = ["workScore", "projectScore", "skillsScore"]
 
+export type ActionType = {
+    text: string
+    completed: boolean
+}
+
 export type AnalysisType = {
     workScore: number
     projectScore: number
     skillsScore: number
     overallStrengths: string[]
     overallWeaknesses: string[]
-    actions: string[]
+    actions: ActionType[]
 }
 
 export function useResumeAnalysis(user: UserType | null) {
@@ -46,9 +51,9 @@ export function useResumeAnalysis(user: UserType | null) {
                         workScore: analysisData.work_score,
                         projectScore: analysisData.project_score,
                         skillsScore: analysisData.skills_score,
-                        overallStrengths: analysisData.overall_strengths || "[]",
-                        overallWeaknesses: analysisData.overall_weaknesses || "[]",
-                        actions: analysisData.actions || "[]"
+                        overallStrengths: analysisData.overall_strengths || [],
+                        overallWeaknesses: analysisData.overall_weaknesses || [],
+                        actions: analysisData.actions ? analysisData.actions : []
                     })
                 }
             } catch (error) {
@@ -93,15 +98,20 @@ export function useResumeAnalysis(user: UserType | null) {
 
             setAnalysis(newAnalysis)
 
+            const actions = newAnalysis.actions.map((action: string) => ({
+                text: action,
+                completed: false
+            }))
+
             if (user) {
                 const formattedEntries = {
                     user_id: user.id,
                     work_score: newAnalysis.workScore ?? null,
                     project_score: newAnalysis.projectScore ?? null,
                     skills_score: newAnalysis.skillsScore ?? null,
-                    overall_strengths: newAnalysis.overallStrengths ?? "[]",
-                    overall_weaknesses: newAnalysis.overallWeaknesses ?? "[]",
-                    actions: newAnalysis.actions ?? "[]"
+                    overall_strengths: newAnalysis.overallStrengths ?? [],
+                    overall_weaknesses: newAnalysis.overallWeaknesses ?? [],
+                    actions: actions
                 }
                 const { data: analysisData, error: insertError } = await supabase
                     .from("resume_analysis")
@@ -113,6 +123,8 @@ export function useResumeAnalysis(user: UserType | null) {
                 } else {
                     console.log("updated resume_analysis to db:", analysisData)
                 }
+
+                setAnalysis(prevAnalysis => prevAnalysis ? { ...prevAnalysis, actions: actions } : null);
             }
 
 

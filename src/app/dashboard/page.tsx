@@ -13,8 +13,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { CheckboxWithText } from "@/components/ui/checkbox-with-text"
-import { scoreTypes, useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
+import { ActionType, scoreTypes, useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -29,6 +29,7 @@ export default function Dashboard() {
     const { submitSkills } = useSubmitSkills(skills, user)
 
     const { analysis, isAnalyzing, error, handleAnalyze } = useResumeAnalysis(user)
+
     const overallScore = analysis ?
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
     const overallScoreColor = overallScore >= 80 ? "text-green-500" : overallScore >= 70 ? "text-yellow-500" : "text-red-500"
@@ -121,12 +122,14 @@ export default function Dashboard() {
                 <div className="flex flex-col w-full p-5 gap-5 border-b">
                     <div className="flex justify-between items-center">
                         <Label className="text-xl font-bold">Resume Analysis</Label>
-                        <Button
-                            onClick={(_) => handleAnalyze(jobEntries, projects, skills)}
-                            disabled={isAnalyzing}
-                        >
-                            {isAnalyzing ? "Analyzing..." : "Analyze Resume"}
-                        </Button>
+                        <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                            <Button
+                                onClick={(_) => handleAnalyze(jobEntries, projects, skills)}
+                                disabled={isAnalyzing}
+                            >
+                                {isAnalyzing ? "Analyzing..." : "Analyze Resume"}
+                            </Button>
+                        </div>
                     </div>
                 </div>
                 {error && (
@@ -140,7 +143,7 @@ export default function Dashboard() {
                 {analysis ? (
                     <div className="flex flex-col gap-3 pt-5 pr-5 pl-5">
                         <div className="flex gap-3">
-                            <div className="flex flex-col items-center w-[25%] bg-slate-800 p-5 rounded-xl">
+                            <div className="flex flex-col items-center w-[25%] bg-transparent p-5 rounded-xl">
                                 <div className="font-bold text-sm mb-2">Overall Score</div>
                                 <div className={`text-4xl ${overallScoreColor} relative`}>
                                     {overallScore}
@@ -155,7 +158,7 @@ export default function Dashboard() {
                                 const label = scoreType.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
 
                                 return (
-                                    <div key={scoreType} className="flex flex-col items-center w-[25%] bg-slate-800 p-5 rounded-xl">
+                                    <div key={scoreType} className="flex flex-col items-center w-[25%] bg-transparent p-5 rounded-xl">
                                         <div className="font-bold text-sm mb-2">{label}</div>
                                         <div className={`text-4xl ${color} relative`}>
                                             {Math.floor(score)}
@@ -167,22 +170,22 @@ export default function Dashboard() {
                                 )
                             })}
                         </div>
-                        <div className="flex gap-3 bg-slate-800 p-5 rounded-xl">
-                            <div className="w-[50%]">
+                        <div className="flex gap-3">
+                            <div className="w-[50%] rounded-xl p-5 bg-slate-800">
                                 <div className="font-bold">Strengths</div>
                                 {analysis.overallStrengths.map((entry: string, index: number) => {
                                     return (
-                                        <div key={index} className="py-2">
+                                        <div key={index} className="py-2 text-sm">
                                             <Label>{entry}</Label>
                                         </div>
                                     )
                                 })}
                             </div>
-                            <div className="w-[50%]">
+                            <div className="w-[50%] rounded-xl p-5 bg-slate-800">
                                 <div className="font-bold">Weaknesses</div>
                                 {analysis.overallWeaknesses.map((entry: string, index: number) => {
                                     return (
-                                        <div key={index} className="py-2">
+                                        <div key={index} className="py-2 text-sm">
                                             <Label>{entry}</Label>
                                         </div>
                                     )
@@ -191,10 +194,13 @@ export default function Dashboard() {
                         </div>
                         <div className="bg-slate-800 p-5 rounded-xl">
                             <div className="font-bold">Actions</div>
-                            {analysis.actions.map((entry: string, index: number) => {
+                            {analysis.actions.map((entry: ActionType, index: number) => {
                                 return (
-                                    <div key={index} className="py-2">
-                                        <CheckboxWithText text={entry} />
+                                    <div key={index} className="flex items-center gap-2 py-2 text-sm">
+                                        <Checkbox
+                                            checked={entry.completed}
+                                        />
+                                        {entry.text}
                                     </div>
                                 )
                             })}
