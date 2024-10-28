@@ -31,7 +31,7 @@ export default function Dashboard() {
     const { analysis, isAnalyzing, error, handleAnalyze } = useResumeAnalysis(user)
     const overallScore = analysis ?
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
-    const overallScoreColor = overallScore >= 80 ? "text-green-500" : overallScore >= 60 ? "text-yellow-500" : "text-red-500"
+    const overallScoreColor = overallScore >= 80 ? "text-green-500" : overallScore >= 70 ? "text-yellow-500" : "text-red-500"
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
@@ -151,7 +151,7 @@ export default function Dashboard() {
                             </div>
                             {scoreTypes.map((scoreType) => {
                                 const score = analysis[scoreType]
-                                const color = score >= 80 ? "text-green-500" : score >= 60 ? "text-yellow-500" : "text-red-500"
+                                const color = score >= 80 ? "text-green-500" : score >= 70 ? "text-yellow-500" : "text-red-500"
                                 const label = scoreType.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
 
                                 return (

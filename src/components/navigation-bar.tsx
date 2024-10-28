@@ -53,6 +53,7 @@ export default function NavigationLayout() {
                                 <Button
                                     onClick={handleLogOut}
                                     variant={"ghost"}
+                                    className="rounded-md"
                                 >
                                     Log Out
                                 </Button>
