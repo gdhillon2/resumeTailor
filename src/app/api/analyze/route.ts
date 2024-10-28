@@ -49,6 +49,9 @@ export async function analyzeResume(jobEntries: JobEntryType[], projects: Projec
 
         Please provide a detailed analysis in correct JSON format using the below structure:
         {
+            "workScore": A number out of 100 (100 being perfect) for the work experience strength of the work experience,
+            "projectScore": A number out of 100 (100 being perfect) for the strength of the projects,
+            "skillsScore": A number out of 100 (100 being perfect) for the strength of the skills,
             "overallStrengths": ["An array containg your assessment of the overall strengths of the resume here. Keep the list under 10 items and sort the list from most important strength to least important strength."],
             "overallWeaknesses": ["An array containg your assessment of the overall weaknesses of the resume here. Keep the list under 10 items and sort the list from most important weakness to least important weakness."],
             "actions": ["An array of actions you recommend taking to help improve the resume. Keep the list under 10 items and sort the list from most important action to least important action."]
@@ -60,7 +63,7 @@ export async function analyzeResume(jobEntries: JobEntryType[], projects: Projec
             messages: [
                 {
                     role: "system",
-                    content: "You are a professional resume reviewer and career coach specializing in technical roles. Provide structured, actionable feedback that helps improve both content and presentation. Focus on how to better demonstrate technical skills and project impact. Do not give resume formatting feedback, only provide feedback on the text content."
+                    content: "You are a professional resume reviewer and career coach specializing in technical roles. Provide structured, actionable feedback that helps improve both content and presentation. Focus on how to better demonstrate technical skills and project impact. Only provide feedback on the text content. Do not ask for additional sections or additional information outside of work experience, projects, or skills."
                 },
                 {
                     role: "user",
@@ -68,7 +71,7 @@ export async function analyzeResume(jobEntries: JobEntryType[], projects: Projec
                 }
             ],
             temperature: 0.7,
-            max_tokens: 1500
+            max_tokens: 2000
         })
 
         return response.choices[0].message.content

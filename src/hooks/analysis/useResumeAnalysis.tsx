@@ -4,7 +4,14 @@ import { UserType } from "@/context/authContext"
 import { JobEntryType } from "@/components/jobentry"
 import { ProjectEntryType } from "@/components/projectentry"
 
-type AnalysisType = {
+export type ScoreType = "workScore" | "projectScore" | "skillsScore"
+
+export const scoreTypes: ScoreType[] = ["workScore", "projectScore", "skillsScore"]
+
+export type AnalysisType = {
+    workScore: number
+    projectScore: number
+    skillsScore: number
     overallStrengths: string[]
     overallWeaknesses: string[]
     actions: string[]
@@ -13,7 +20,7 @@ type AnalysisType = {
 export function useResumeAnalysis(user: UserType | null) {
     const [analysis, setAnalysis] = useState<AnalysisType | null>(null)
     const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false)
-    const [error, setError] = useState<string | null>('')
+    const [error, setError] = useState<string | null>("")
 
     useEffect(() => {
         const fetchAnalysis = async () => {
@@ -24,7 +31,7 @@ export function useResumeAnalysis(user: UserType | null) {
             try {
                 const { data: analysisData, error: fetchError } = await supabase
                     .from("resume_analysis")
-                    .select("overall_strengths, overall_weaknesses, actions")
+                    .select("work_score, project_score, skills_score, overall_strengths, overall_weaknesses, actions")
                     .eq("user_id", user.id)
                     .maybeSingle()
 
@@ -36,6 +43,9 @@ export function useResumeAnalysis(user: UserType | null) {
 
                 if (analysisData) {
                     setAnalysis({
+                        workScore: analysisData.work_score,
+                        projectScore: analysisData.project_score,
+                        skillsScore: analysisData.skills_score,
                         overallStrengths: analysisData.overall_strengths || "[]",
                         overallWeaknesses: analysisData.overall_weaknesses || "[]",
                         actions: analysisData.actions || "[]"
@@ -86,6 +96,9 @@ export function useResumeAnalysis(user: UserType | null) {
             if (user) {
                 const formattedEntries = {
                     user_id: user.id,
+                    work_score: newAnalysis.workScore ?? null,
+                    project_score: newAnalysis.projectScore ?? null,
+                    skills_score: newAnalysis.skillsScore ?? null,
                     overall_strengths: newAnalysis.overallStrengths ?? "[]",
                     overall_weaknesses: newAnalysis.overallWeaknesses ?? "[]",
                     actions: newAnalysis.actions ?? "[]"

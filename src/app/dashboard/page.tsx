@@ -14,7 +14,7 @@ import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { CheckboxWithText } from "@/components/ui/checkbox-with-text"
-import { useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
+import { scoreTypes, useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
 
 export default function Dashboard() {
     const { user } = useAuth()
@@ -122,7 +122,7 @@ export default function Dashboard() {
                             onClick={(_) => handleAnalyze(jobEntries, projects, skills)}
                             disabled={isAnalyzing}
                         >
-                            {isAnalyzing ? 'Analyzing...' : 'Analyze Resume'}
+                            {isAnalyzing ? "Analyzing..." : "Analyze Resume"}
                         </Button>
                     </div>
                 </div>
@@ -136,6 +136,34 @@ export default function Dashboard() {
 
                 {analysis ? (
                     <div className="flex flex-col gap-3 pt-5 pr-5 pl-5">
+                        <div className="flex gap-3">
+                            <div className="flex flex-col items-center w-[25%] bg-slate-800 p-5 rounded-xl">
+                                <div className="font-bold text-sm mb-2">Overall Score</div>
+                                <div className={`text-4xl relative`}>
+                                    {Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length)}
+                                    {/*
+                                            <span className="text-lg text-slate-300 absolute bottom-0 right-[-2.5rem]">/100</span>
+                                            */}
+                                </div>
+                            </div>
+                            {scoreTypes.map((scoreType) => {
+                                const score = analysis[scoreType]
+                                const color = score >= 80 ? "text-green-500" : score >= 60 ? "text-yellow-500" : "text-red-500"
+                                const label = scoreType.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
+
+                                return (
+                                    <div key={scoreType} className="flex flex-col items-center w-[25%] bg-slate-800 p-5 rounded-xl">
+                                        <div className="font-bold text-sm mb-2">{label}</div>
+                                        <div className={`text-4xl ${color} relative`}>
+                                            {Math.floor(score)}
+                                            {/*
+                                            <span className="text-lg text-slate-300 absolute bottom-0 right-[-2.5rem]">/100</span>
+                                            */}
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
                         <div className="flex gap-3 bg-slate-800 p-5 rounded-xl">
                             <div className="w-[50%]">
                                 <div className="font-bold">Strengths</div>
