@@ -1,9 +1,11 @@
 import { ProjectEntryType } from "@/components/projectentry"
 import { UserType } from "@/context/authContext"
 import { supabase } from "@/lib/supabaseClient"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
-export const useSubmitProjects = (projects: ProjectEntryType[], user: UserType | null) => {
+export const useSubmitProjects = (setHasChanges: Dispatch<SetStateAction<boolean>>,
+    projects: ProjectEntryType[],
+    user: UserType | null) => {
     const [loading, setLoading] = useState<boolean>(false)
 
     const submitProjects = async () => {
@@ -58,6 +60,7 @@ export const useSubmitProjects = (projects: ProjectEntryType[], user: UserType |
             }
         }
         setLoading(false)
+        setHasChanges(false)
     }
 
     return { loading, submitProjects }

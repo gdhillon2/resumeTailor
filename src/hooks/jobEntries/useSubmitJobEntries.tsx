@@ -1,9 +1,11 @@
 import { JobEntryType } from "@/components/jobentry"
 import { UserType } from "@/context/authContext"
 import { supabase } from "@/lib/supabaseClient"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
-export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType | null) => {
+export const useSubmitJobEntries = (setHasChanges: Dispatch<SetStateAction<boolean>>,
+    jobEntries: JobEntryType[],
+    user: UserType | null) => {
     const [loading, setLoading] = useState<boolean>(false)
 
 
@@ -59,6 +61,7 @@ export const useSubmitJobEntries = (jobEntries: JobEntryType[], user: UserType |
             }
         }
         setLoading(false)
+        setHasChanges(false)
     }
 
     return { loading, submitJobEntries }
