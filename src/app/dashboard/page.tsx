@@ -12,11 +12,10 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { ActionType, scoreTypes, useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
-import { useState } from "react"
 import { FaHome, FaBriefcase, FaFolderOpen, FaCog, FaChartLine, FaSignOutAlt } from "react-icons/fa"
 
 export default function Dashboard() {
@@ -26,40 +25,34 @@ export default function Dashboard() {
         logOut()
     }
 
-    const { jobEntries, addJobEntry, removeJobEntry, handleJobEntryChange } = useJobEntries(user)
-    const { loading: savingJobs, submitJobEntries } = useSubmitJobEntries(jobEntries, user)
+    const { jobEntries,
+        fetchJobEntries,
+        hasChanges: jobChanges,
+        setHasChanges: setJobChanges,
+        addJobEntry,
+        removeJobEntry,
+        handleJobEntryChange } = useJobEntries(user)
 
-    const { projects, addProject, removeProject, handleProjectChange } = useProjects(user)
-    const { loading: savingProjects, submitProjects } = useSubmitProjects(projects, user)
+    const { loading: savingJobs, submitJobEntries } = useSubmitJobEntries(setJobChanges, jobEntries, user)
 
-    const { skills, handleSkillChange } = useSkills(user)
-    const { loading: savingSkills, submitSkills } = useSubmitSkills(skills, user)
+    const { projects,
+        fetchProjects,
+        hasChanges: projectChanges,
+        setHasChanges: setProjectChanges,
+        addProject,
+        removeProject,
+        handleProjectChange } = useProjects(user)
+    const { loading: savingProjects, submitProjects } = useSubmitProjects(setProjectChanges, projects, user)
+
+    const { skills,
+        fetchSkills,
+        hasChanges: skillsChanges,
+        setHasChanges: setSkillsChanges,
+        handleSkillChange } = useSkills(user)
+    const { loading: savingSkills, submitSkills } = useSubmitSkills(setSkillsChanges, skills, user)
 
     const { analysis, isAnalyzing, error, handleAnalyze, handleActionChange } = useResumeAnalysis(user)
 
-    const [successMessage, setSuccessMessage] = useState<string | null>(null)
-
-    const handleSubmitJobs = async () => {
-        await submitJobEntries()
-        handleSuccess("Work experience saved successfully!")
-    }
-
-    const handleSubmitProjects = async () => {
-        await submitProjects()
-        handleSuccess("Projects saved successfully!")
-    }
-
-    const handleSubmitSkills = async () => {
-        await submitSkills()
-        handleSuccess("Skills saved successfully!")
-    }
-
-    const handleSuccess = (message: string) => {
-        setSuccessMessage(message)
-        setTimeout(() => {
-            setSuccessMessage(null)
-        }, 3000)
-    }
 
     const overallScore = analysis ?
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
@@ -113,11 +106,6 @@ export default function Dashboard() {
                     </Button>
                 </div>
             </TabsList>
-            {successMessage && (
-                <Alert>
-                    <AlertTitle>{successMessage}</AlertTitle>
-                </Alert>
-            )}
             <TabsContent value="work" className="">
                 <div className="flex flex-col items-start w-full">
                     <div className="flex flex-col w-full">
@@ -127,7 +115,14 @@ export default function Dashboard() {
                                 <Button variant={"secondary"} onClick={addJobEntry}>Add Job</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={handleSubmitJobs}>
+                                <Button variant={"secondary"} onClick={fetchJobEntries}>Revert Changes</Button>
+                            </div>
+                            <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                                <Button
+                                    variant={jobChanges ? "default" : "ghost"}
+                                    onClick={submitJobEntries}
+                                    className={jobChanges ? "text-primary" : "no-hover"}
+                                >
                                     {savingJobs ? "Saving..." : "Save Jobs"}
                                 </Button>
                             </div>
@@ -155,7 +150,14 @@ export default function Dashboard() {
                                 <Button variant={"secondary"} onClick={addProject}>Add Project</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={handleSubmitProjects}>
+                                <Button variant={"secondary"} onClick={fetchProjects}>Revert Changes</Button>
+                            </div>
+                            <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                                <Button
+                                    variant={projectChanges ? "default" : "ghost"}
+                                    onClick={submitProjects}
+                                    className={projectChanges ? "text-primary" : "no-hover"}
+                                >
                                     {savingProjects ? "Saving..." : "Save Projects"}
                                 </Button>
                             </div>
@@ -180,7 +182,14 @@ export default function Dashboard() {
                         <div className="flex justify-end gap-5 p-5 border-b">
                             <Label className="text-xl flex w-full items-center font-bold">Skills</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={handleSubmitSkills}>
+                                <Button variant={"secondary"} onClick={fetchSkills}>Revert Changes</Button>
+                            </div>
+                            <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                                <Button
+                                    variant={skillsChanges ? "default" : "ghost"}
+                                    onClick={submitSkills}
+                                    className={skillsChanges ? "text-primary" : "no-hover"}
+                                >
                                     {savingSkills ? "Saving..." : "Save Skills"}
                                 </Button>
                             </div>

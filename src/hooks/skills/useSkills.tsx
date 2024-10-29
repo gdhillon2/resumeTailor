@@ -4,35 +4,38 @@ import { supabase } from "@/lib/supabaseClient"
 
 export const useSkills = (user: UserType | null) => {
     const [skills, setSkills] = useState<string>("")
+    const [hasChanges, setHasChanges] = useState<boolean>(false)
 
-    useEffect(() => {
+    const fetchSkills = async () => {
         if (!user) {
             console.error("user is not authenticated")
             return
         }
-        const fetchSkills = async () => {
-            const { data: skillsData, error: fetchError } = await supabase
-                .from("skills")
-                .select("details")
-                .eq("user_id", user.id)
-                .single()
+        const { data: skillsData, error: fetchError } = await supabase
+            .from("skills")
+            .select("details")
+            .eq("user_id", user.id)
+            .single()
 
-            if (fetchError) {
-
-            } else if (skillsData) {
-                setSkills(skillsData.details)
-            }
-
+        if (fetchError) {
+            console.error("error fetching skills:", fetchError)
+        } else if (skillsData) {
+            setSkills(skillsData.details)
+            setHasChanges(false)
         }
 
+    }
+
+    useEffect(() => {
         fetchSkills()
 
     }, [user])
 
     const handleSkillChange = (updatedSkills: string) => {
         setSkills(updatedSkills)
+        setHasChanges(true)
     }
 
-    return { skills, handleSkillChange }
+    return { skills, fetchSkills, hasChanges, setHasChanges, handleSkillChange }
 
 }

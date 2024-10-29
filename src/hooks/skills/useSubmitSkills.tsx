@@ -1,8 +1,10 @@
 import { UserType } from "@/context/authContext"
 import { supabase } from "@/lib/supabaseClient"
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 
-export const useSubmitSkills = (skills: string, user: UserType | null) => {
+export const useSubmitSkills = (setHasChanges: Dispatch<SetStateAction<boolean>>,
+    skills: string,
+    user: UserType | null) => {
     const [loading, setLoading] = useState<boolean>(false)
 
     const submitSkills = async () => {
@@ -29,6 +31,7 @@ export const useSubmitSkills = (skills: string, user: UserType | null) => {
             }
         }
         setLoading(false)
+        setHasChanges(false)
     }
 
     return { loading, submitSkills }

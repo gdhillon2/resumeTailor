@@ -11,6 +11,9 @@ html, body {
     background: linear-gradient(315deg, hsl(222, 60%, 8%) 0%, hsl(222, 47%, 11%) 50%, hsl(220, 60%, 12%) 100%);
     @apply bg-slate-900
 }
+.no-hover {
+    @apply hover:!bg-transparent hover:!text-current;
+}
 
 .input-bg {
     @apply bg-slate-700
