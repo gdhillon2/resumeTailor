@@ -40,22 +40,47 @@ export default function Dashboard() {
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
-            <TabsList className="flex flex-grow w-hug h-full justify-start items-start rounded-none border-r bg-slate-900 blue-grad">
+            <TabsList className="flex flex-grow h-full justify-start items-start rounded-none border-r bg-slate-900 blue-grad">
                 <a href="/">
-                    <TabsTrigger value="">Home</TabsTrigger>
+                    <TabsTrigger
+                        value=""
+                        className="flex w-full"
+                    >
+                        Home
+                    </TabsTrigger>
                 </a>
-                <TabsTrigger value="work">Work</TabsTrigger>
-                <TabsTrigger value="projects">Projects</TabsTrigger>
-                <TabsTrigger value="skills">Skills</TabsTrigger>
-                <TabsTrigger value="analyze">Analyze</TabsTrigger>
-                <div className="flex h-full items-end py-5 justify-end">
-                <Button
-                    onClick={handleLogOut}
-                    variant={"ghost"}
-                    className="rounded-md hover:bg-transparent text-lg px-3"
+                <TabsTrigger
+                    value="work"
+                    className="flex justify-start w-full"
                 >
-                    Log Out
-                </Button>
+                    Work
+                </TabsTrigger>
+                <TabsTrigger
+                    value="projects"
+                    className="flex justify-start w-full"
+                >
+                    Projects
+                </TabsTrigger>
+                <TabsTrigger
+                    value="skills"
+                    className="flex justify-start w-full"
+                >
+                    Skills
+                </TabsTrigger>
+                <TabsTrigger
+                    value="analyze"
+                    className="flex justify-start w-full"
+                >
+                    Analyze
+                </TabsTrigger>
+                <div className="flex h-full items-end py-5 justify-end">
+                    <Button
+                        onClick={handleLogOut}
+                        variant={"ghost"}
+                        className="rounded-md hover:bg-transparent text-lg px-3"
+                    >
+                        Log Out
+                    </Button>
                 </div>
             </TabsList>
             <TabsContent value="work" className="">
