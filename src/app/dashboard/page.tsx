@@ -15,6 +15,7 @@ import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { ActionType, scoreTypes, useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
 import { Checkbox } from "@/components/ui/checkbox"
+import Link from "next/link"
 
 export default function Dashboard() {
     const { user, logOut } = useAuth()
@@ -41,14 +42,17 @@ export default function Dashboard() {
     return (
         <Tabs defaultValue="work" className="flex w-full">
             <TabsList className="flex flex-grow h-full justify-start items-start rounded-none border-r bg-slate-900 blue-grad">
-                <a href="/">
+                <Link
+                    className="flex w-full"
+                    href="/"
+                >
                     <TabsTrigger
                         value=""
-                        className="flex w-full"
+                        className="flex justify-start w-full"
                     >
                         Home
                     </TabsTrigger>
-                </a>
+                </Link>
                 <TabsTrigger
                     value="work"
                     className="flex justify-start w-full"
