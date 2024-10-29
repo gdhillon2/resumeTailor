@@ -67,7 +67,7 @@ export default function Dashboard() {
 
     return (
         <Tabs defaultValue="work" className="flex w-full">
-            <TabsList className="flex flex-grow h-full justify-start items-start rounded-none border-r bg-slate-900 blue-grad">
+            <TabsList className="flex flex-grow h-full justify-start items-start rounded-none border-r blue-grad">
                 <Link
                     className="flex w-full"
                     href="/"
@@ -187,7 +187,7 @@ export default function Dashboard() {
                         </div>
                         <div className="p-5">
                             <Textarea
-                                rows={3}
+                                rows={5}
                                 placeholder="Put your relevant skills here."
                                 value={skills}
                                 onChange={(e) => handleSkillChange(e.target.value)}
