@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     }
 }
 
-export async function analyzeResume(jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) {
+async function analyzeResume(jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) {
     try {
         const prompt = `
         Please analyze the following resume information and provide feedback:

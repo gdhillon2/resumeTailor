@@ -15,8 +15,8 @@ export default function LoginPage() {
     const router = useRouter()
 
     useEffect(() => {
-        const inputEmail = document.querySelector('input[type="email"]') as HTMLInputElement;
-        const inputPassword = document.querySelector('input[type="password"]') as HTMLInputElement;
+        const inputEmail = document.querySelector("input[type='email']") as HTMLInputElement;
+        const inputPassword = document.querySelector("input[type='password']") as HTMLInputElement;
 
         if (inputEmail) {
             setEmail(inputEmail.value);
@@ -69,7 +69,7 @@ export default function LoginPage() {
                     {loading ? "Logging in..." : "Log in"}
                 </Button>
                 <div className="flex justify-end">
-                    <Label>Don't have an account?<Link href="/signup" className="text-blue-500"> Sign up now.</Link></Label>
+                    <Label>Don&apos;t have an account?<Link href="/signup" className="text-blue-500"> Sign up now.</Link></Label>
                 </div>
             </div>
         </div>

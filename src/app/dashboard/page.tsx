@@ -202,7 +202,7 @@ export default function Dashboard() {
                         <Label className="text-xl font-bold">Resume Analysis</Label>
                         <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                             <Button
-                                onClick={(_) => handleAnalyze(jobEntries, projects, skills)}
+                                onClick={() => handleAnalyze(jobEntries, projects, skills)}
                                 disabled={isAnalyzing}
                             >
                                 {isAnalyzing ? "Analyzing..." : "Analyze Resume"}

@@ -11,14 +11,13 @@ type AuthContextType = {
 }
 
 export type UserType = {
-    id: string;
-    [key: string]: any;
-};
+    id: string
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const router = useRouter();
+    const router = useRouter()
     const [session, setSession] = useState<Session | null>(null)
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState<boolean>(true)

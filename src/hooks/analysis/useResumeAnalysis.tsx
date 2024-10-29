@@ -126,9 +126,7 @@ export function useResumeAnalysis(user: UserType | null) {
 
                 setAnalysis(prevAnalysis => prevAnalysis ? { ...prevAnalysis, actions: actions } : null);
             }
-
-
-        } catch (error: any) {
+        } catch (error) {
             setError("Failed to analyze resume: Please try again.")
             console.error(error)
         }
