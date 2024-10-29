@@ -12,10 +12,12 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { ActionType, scoreTypes, useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
+import { useState } from "react"
+import { FaHome, FaBriefcase, FaFolderOpen, FaCog, FaChartLine, FaSignOutAlt } from "react-icons/fa"
 
 export default function Dashboard() {
     const { user, logOut } = useAuth()
@@ -35,6 +37,30 @@ export default function Dashboard() {
 
     const { analysis, isAnalyzing, error, handleAnalyze, handleActionChange } = useResumeAnalysis(user)
 
+    const [successMessage, setSuccessMessage] = useState<string | null>(null)
+
+    const handleSubmitJobs = async () => {
+        await submitJobEntries()
+        handleSuccess("Work experience saved successfully!")
+    }
+
+    const handleSubmitProjects = async () => {
+        await submitProjects()
+        handleSuccess("Projects saved successfully!")
+    }
+
+    const handleSubmitSkills = async () => {
+        await submitSkills()
+        handleSuccess("Skills saved successfully!")
+    }
+
+    const handleSuccess = (message: string) => {
+        setSuccessMessage(message)
+        setTimeout(() => {
+            setSuccessMessage(null)
+        }, 3000)
+    }
+
     const overallScore = analysis ?
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
     const overallScoreColor = overallScore >= 80 ? "text-green-500" : overallScore >= 70 ? "text-yellow-500" : "text-red-500"
@@ -48,34 +74,34 @@ export default function Dashboard() {
                 >
                     <TabsTrigger
                         value=""
-                        className="flex justify-start w-full"
+                        className="flex justify-start items-center w-full"
                     >
-                        Home
+                        <FaHome className="mr-2" /> Home
                     </TabsTrigger>
                 </Link>
                 <TabsTrigger
                     value="work"
-                    className="flex justify-start w-full"
+                    className="flex justify-start items-center w-full"
                 >
-                    Work
+                    <FaBriefcase className="mr-2" /> Work
                 </TabsTrigger>
                 <TabsTrigger
                     value="projects"
-                    className="flex justify-start w-full"
+                    className="flex justify-start items-center w-full"
                 >
-                    Projects
+                    <FaFolderOpen className="mr-2" /> Projects
                 </TabsTrigger>
                 <TabsTrigger
                     value="skills"
-                    className="flex justify-start w-full"
+                    className="flex justify-start items-center w-full"
                 >
-                    Skills
+                    <FaCog className="mr-2" /> Skills
                 </TabsTrigger>
                 <TabsTrigger
                     value="analyze"
-                    className="flex justify-start w-full"
+                    className="flex justify-start items-center w-full"
                 >
-                    Analyze
+                    <FaChartLine className="mr-2" /> Analyze
                 </TabsTrigger>
                 <div className="flex h-full items-end py-5 justify-end">
                     <Button
@@ -83,10 +109,15 @@ export default function Dashboard() {
                         variant={"ghost"}
                         className="rounded-md hover:bg-transparent text-lg px-3"
                     >
-                        Log Out
+                        <FaSignOutAlt className="mr-2" />Log Out
                     </Button>
                 </div>
             </TabsList>
+            {successMessage && (
+                <Alert>
+                    <AlertTitle>{successMessage}</AlertTitle>
+                </Alert>
+            )}
             <TabsContent value="work" className="">
                 <div className="flex flex-col items-start w-full">
                     <div className="flex flex-col w-full">
@@ -96,7 +127,7 @@ export default function Dashboard() {
                                 <Button variant={"secondary"} onClick={addJobEntry}>Add Job</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={submitJobEntries}>
+                                <Button variant={"default"} onClick={handleSubmitJobs}>
                                     {savingJobs ? "Saving..." : "Save Jobs"}
                                 </Button>
                             </div>
@@ -124,7 +155,7 @@ export default function Dashboard() {
                                 <Button variant={"secondary"} onClick={addProject}>Add Project</Button>
                             </div>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={submitProjects}>
+                                <Button variant={"default"} onClick={handleSubmitProjects}>
                                     {savingProjects ? "Saving..." : "Save Projects"}
                                 </Button>
                             </div>
@@ -149,7 +180,7 @@ export default function Dashboard() {
                         <div className="flex justify-end gap-5 p-5 border-b">
                             <Label className="text-xl flex w-full items-center font-bold">Skills</Label>
                             <div className="flex animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                                <Button variant={"default"} onClick={submitSkills}>
+                                <Button variant={"default"} onClick={handleSubmitSkills}>
                                     {savingSkills ? "Saving..." : "Save Skills"}
                                 </Button>
                             </div>
