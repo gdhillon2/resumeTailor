@@ -1,13 +1,13 @@
 import { JobEntryType } from "@/components/jobentry"
 import { UserType } from "@/context/authContext"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
 
 export const useJobEntries = (user: UserType | null) => {
     const [jobEntries, setJobEntries] = useState<JobEntryType[]>([])
     const [hasChanges, setHasChanges] = useState<boolean>(false)
 
-    const fetchJobEntries = async () => {
+    const fetchJobEntries = useCallback(async () => {
         if (!user) {
             console.error("user is not authenticated")
             return
@@ -35,12 +35,12 @@ export const useJobEntries = (user: UserType | null) => {
             setJobEntries(formattedEntries)
             setHasChanges(false)
         }
-    }
+    }, [user])
 
     useEffect(() => {
         fetchJobEntries()
         setHasChanges(false)
-    }, [user])
+    }, [fetchJobEntries])
 
 
     const addJobEntry = () => {

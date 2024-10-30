@@ -1,40 +1,47 @@
 import { UserType } from "@/context/authContext"
 import { supabase } from "@/lib/supabaseClient"
+import { ContactType } from "./useContact"
 import { Dispatch, SetStateAction, useState } from "react"
 
-export const useSubmitSkills = (
+export const useSubmitContact = (
     setHasChanges: Dispatch<SetStateAction<boolean>>,
-    skills: string,
+    contactInfo: ContactType,
     user: UserType | null
 ) => {
     const [loading, setLoading] = useState<boolean>(false)
 
-    const submitSkills = async () => {
+    const submitContact = async () => {
         if (!user) {
             console.error("user is not authenticated")
             return
         }
+
         setLoading(true)
         const formattedEntries = {
             user_id: user.id,
-            skills: skills
-        }
-
-        if (formattedEntries.skills) {
-            const { data: insertedData, error: insertError } = await supabase
-                .from("user_profile")
-                .upsert(formattedEntries, { onConflict: "user_id" })
-                .select()
-
-            if (insertError) {
-                console.error("couldnt insert skills:", insertError)
-            } else {
-                console.log("successfully inserted data:", insertedData)
+            contact: {
+                ...contactInfo,
             }
         }
-        setLoading(false)
-        setHasChanges(false)
+
+
+        try {
+            const { error: upsertError } = await supabase
+                .from("user_profile")
+                .upsert(formattedEntries, { onConflict: "user_id" })
+
+            if (upsertError) {
+                throw upsertError
+            }
+
+            console.log("successfully saved contact info to db")
+        } catch (error) {
+            console.error("failed to save contact info:", error)
+        } finally {
+            setLoading(false)
+            setHasChanges(false)
+        }
     }
 
-    return { loading, submitSkills }
+    return { loading, submitContact }
 }
