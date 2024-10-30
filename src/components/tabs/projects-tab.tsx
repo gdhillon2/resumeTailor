@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label"
-import TabActions from "./tab-actions"
-import ProjectEntry, { ProjectEntryType } from "./projectentry"
+import TabActions from "@/components/tab-actions"
+import ProjectEntry, { ProjectEntryType } from "@/components/projectentry"
 
 interface ProjectTabProps {
     projects: ProjectEntryType[]

@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label"
-import TabActions from "./tab-actions"
-import { Textarea } from "./ui/textarea"
+import TabActions from "@/components/tab-actions"
+import { Textarea } from "@/components/ui/textarea"
 
 interface SkillsTabProps {
     skills: string
@@ -34,7 +34,7 @@ export default function SkillsTab({
                 </div>
                 <div className="flex flex-col w-full h-full p-5 gap-5">
                     <div className="bg-slate-800 p-5 rounded-xl">
-                        <div className="font-bold px-1 pb-2">Skills</div>
+                        <div className="px-1 pb-2">Enter your skills below as a list</div>
                         <div className="">
                             <Textarea
                                 rows={5}

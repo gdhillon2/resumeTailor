@@ -20,7 +20,7 @@ export const useSubmitSummary = (setHasChanges: Dispatch<SetStateAction<boolean>
 
         if (formattedEntries.summary) {
             const { data: insertedData, error: insertError } = await supabase
-                .from("skills")
+                .from("user_profile")
                 .upsert(formattedEntries, { onConflict: "user_id" })
                 .select()
 

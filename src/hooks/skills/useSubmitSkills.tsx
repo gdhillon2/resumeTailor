@@ -15,12 +15,12 @@ export const useSubmitSkills = (setHasChanges: Dispatch<SetStateAction<boolean>>
         setLoading(true)
         const formattedEntries = {
             user_id: user.id,
-            details: skills
+            skills: skills
         }
 
-        if (formattedEntries.details) {
+        if (formattedEntries.skills) {
             const { data: insertedData, error: insertError } = await supabase
-                .from("skills")
+                .from("user_profile")
                 .upsert(formattedEntries, { onConflict: "user_id" })
                 .select()
 

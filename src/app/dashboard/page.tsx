@@ -1,20 +1,20 @@
 "use client"
-import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent } from "@/components/ui/tabs"
 import { useAuth } from "@/context/authContext"
 import { useJobEntries } from "@/hooks/jobEntries/useJobEntries"
 import { useSubmitJobEntries } from "@/hooks/jobEntries/useSubmitJobEntries"
 import { useProjects } from "@/hooks/projects/useProjects"
 import { useSubmitProjects } from "@/hooks/projects/useSubmitProjects"
-import { Label } from "@/components/ui/label"
 import { useSkills } from "@/hooks/skills/useSkills"
 import { useSubmitSkills } from "@/hooks/skills/useSubmitSkills"
 import { useResumeAnalysis } from "@/hooks/analysis/useResumeAnalysis"
 import TabsNavigation from "@/components/tabs-navigation"
-import WorkTab from "@/components/work-tab"
-import ProjectTab from "@/components/projects-tab"
-import SkillsTab from "@/components/skills-tab"
-import AnalysisTab from "@/components/analysis-tab"
+import WorkTab from "@/components/tabs/work-tab"
+import ProjectTab from "@/components/tabs/projects-tab"
+import SkillsTab from "@/components/tabs/skills-tab"
+import AnalysisTab from "@/components/tabs/analysis-tab"
+import ContactTab from "@/components/tabs/contact-tab"
+import SummaryTab from "@/components/tabs/summary-tab"
 
 export default function Dashboard() {
     const { user, logOut } = useAuth()
@@ -49,8 +49,16 @@ export default function Dashboard() {
     return (
         <Tabs defaultValue="work" className="flex w-full">
             <TabsNavigation handleLogOut={logOut} />
-            <TabsContent value="contact">contact</TabsContent>
-            <TabsContent value="summary">summary</TabsContent>
+            <TabsContent value="contact">
+            <ContactTab
+
+            />
+            </TabsContent>
+            <TabsContent value="summary">
+            <SummaryTab
+
+            />
+            </TabsContent>
             <TabsContent value="work" className="">
                 <WorkTab
                     jobEntries={jobEntries}

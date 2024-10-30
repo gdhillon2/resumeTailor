@@ -12,7 +12,7 @@ export const useSummary = (user: UserType | null) => {
             return
         }
         const { data: skillsData, error: fetchError } = await supabase
-            .from("skills")
+            .from("user_profile")
             .select("summary")
             .eq("user_id", user.id)
             .single()

@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import JobEntry, { JobEntryType } from "@/components/jobentry"
+import TabActions from "@/components/tab-actions"
 
 interface WorkTabProps {
     jobEntries: JobEntryType[]
@@ -26,15 +26,13 @@ export default function WorkTab({
         <div className="flex flex-col items-start w-full">
             <div className="flex w-full justify-end gap-5 p-5 border-b mb-5">
                 <Label className="text-xl flex w-full items-center font-bold">Work Experience</Label>
-                <Button variant={"secondary"} onClick={addJobEntry}>Add Job</Button>
-                <Button variant={"secondary"} onClick={fetchJobEntries}>Revert Changes</Button>
-                <Button
-                    variant={jobChanges ? "default" : "ghost"}
-                    onClick={submitJobEntries}
-                    className={jobChanges ? "text-primary" : "no-hover"}
-                >
-                    {savingJobs ? "Saving..." : "Save Jobs"}
-                </Button>
+                <TabActions
+                    onAdd={addJobEntry}
+                    onRevert={fetchJobEntries}
+                    onSave={submitJobEntries}
+                    saving={savingJobs}
+                    hasChanges={jobChanges}
+                />
             </div>
             {jobEntries.map((entry, index) => (
                 <div key={entry.id} className="flex w-full pb-5 pl-5 pr-5">

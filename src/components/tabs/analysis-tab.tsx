@@ -1,11 +1,11 @@
 import { Label } from "@/components/ui/label"
-import { ProjectEntryType } from "./projectentry"
-import { Button } from "./ui/button"
-import { Alert, AlertDescription } from "./ui/alert"
+import { ProjectEntryType } from "@/components/projectentry"
+import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AnalysisType } from "@/hooks/analysis/useResumeAnalysis"
 import { ActionType, scoreTypes } from "@/hooks/analysis/useResumeAnalysis"
-import { JobEntryType } from "./jobentry"
-import { Checkbox } from "./ui/checkbox"
+import { JobEntryType } from "@/components/jobentry"
+import { Checkbox } from "@/components/ui/checkbox"
 
 interface AnalysisTabProps {
     jobEntries: JobEntryType[]

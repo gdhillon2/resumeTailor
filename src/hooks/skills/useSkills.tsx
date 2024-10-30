@@ -12,15 +12,15 @@ export const useSkills = (user: UserType | null) => {
             return
         }
         const { data: skillsData, error: fetchError } = await supabase
-            .from("skills")
-            .select("details")
+            .from("user_profile")
+            .select("skills")
             .eq("user_id", user.id)
             .single()
 
         if (fetchError) {
             console.error("error fetching skills:", fetchError)
         } else if (skillsData) {
-            setSkills(skillsData.details)
+            setSkills(skillsData.skills)
             setHasChanges(false)
         }
 
