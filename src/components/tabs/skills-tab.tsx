@@ -38,7 +38,7 @@ export default function SkillsTab({
                             <Textarea
                                 rows={5}
                                 placeholder="Put your relevant skills here."
-                                value={skills}
+                                value={skills ? skills : ""}
                                 onChange={(e) => handleSkillChange(e.target.value)}
                             />
                         </div>

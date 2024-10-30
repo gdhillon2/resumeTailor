@@ -28,14 +28,14 @@ export const useSummary = (user: UserType | null) => {
 
     useEffect(() => {
         fetchSummary()
-
+        setHasChanges(false)
     }, [fetchSummary])
 
-    const handleSkillChange = (updatedSkills: string) => {
+    const handleSummaryChange = (updatedSkills: string) => {
         setSummary(updatedSkills)
         setHasChanges(true)
     }
 
-    return { summary, fetchSummary, hasChanges, setHasChanges, handleSkillChange }
+    return { summary, fetchSummary, handleSummaryChange, hasChanges, setHasChanges }
 
 }

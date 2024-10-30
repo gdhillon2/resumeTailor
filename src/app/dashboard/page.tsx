@@ -17,11 +17,14 @@ import ContactTab from "@/components/tabs/contact-tab"
 import SummaryTab from "@/components/tabs/summary-tab"
 import { useContact } from "@/hooks/contact/useContact"
 import { useSubmitContact } from "@/hooks/contact/useSubmitContact"
+import { useSummary } from "@/hooks/summary/useSummary"
+import { useSubmitSummary } from "@/hooks/summary/useSubmitSummary"
 
 export default function Dashboard() {
     const { user, logOut } = useAuth()
 
-    const { jobEntries,
+    const {
+        jobEntries,
         fetchJobEntries,
         hasChanges: jobChanges,
         setHasChanges: setJobChanges,
@@ -31,7 +34,8 @@ export default function Dashboard() {
     } = useJobEntries(user)
     const { loading: savingJobs, submitJobEntries } = useSubmitJobEntries(setJobChanges, jobEntries, user)
 
-    const { projects,
+    const {
+        projects,
         fetchProjects,
         hasChanges: projectChanges,
         setHasChanges: setProjectChanges,
@@ -41,7 +45,8 @@ export default function Dashboard() {
     } = useProjects(user)
     const { loading: savingProjects, submitProjects } = useSubmitProjects(setProjectChanges, projects, user)
 
-    const { skills,
+    const {
+        skills,
         fetchSkills,
         hasChanges: skillsChanges,
         setHasChanges: setSkillsChanges,
@@ -51,13 +56,23 @@ export default function Dashboard() {
 
     const { analysis, isAnalyzing, error, handleAnalyze, handleActionChange } = useResumeAnalysis(user)
 
-    const { contact,
+    const {
+        contact,
         fetchContact,
         handleContactChange,
         hasChanges: contactChanges,
         setHasChanges: setContactChanges
     } = useContact(user)
     const { loading: savingContact, submitContact } = useSubmitContact(setContactChanges, contact, user)
+
+    const {
+        summary,
+        fetchSummary,
+        handleSummaryChange,
+        hasChanges: summaryChanges,
+        setHasChanges: setSummaryChanges
+    } = useSummary(user)
+    const { loading: savingSummary, submitSummary } = useSubmitSummary(setSummaryChanges, summary, user)
 
     return (
         <Tabs defaultValue="contact" className="flex w-full">
@@ -74,7 +89,12 @@ export default function Dashboard() {
             </TabsContent>
             <TabsContent value="summary">
                 <SummaryTab
-
+                    summary={summary}
+                    fetchSummary={fetchSummary}
+                    handleSummaryChange={handleSummaryChange}
+                    summaryChanges={summaryChanges}
+                    submitSummary={submitSummary}
+                    savingSummary={savingSummary}
                 />
             </TabsContent>
             <TabsContent value="work" className="">
