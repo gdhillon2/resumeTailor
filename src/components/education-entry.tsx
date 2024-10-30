@@ -1,43 +1,41 @@
 import { Label } from "./ui/label"
-import { Textarea } from "./ui/textarea"
 import { Input } from "./ui/input"
 import { Button } from "@/components/ui/button"
 import { MouseEventHandler, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FiChevronUp } from "react-icons/fi"
 
-interface JobEntryParams {
-    entry: JobEntryType
+interface EducationEntryParams {
+    entry: EducationEntryType
     DestroyEntry: MouseEventHandler<HTMLElement>
-    onChange: (updatedEntry: JobEntryType) => void
+    onChange: (updatedEntry: EducationEntryType) => void
 }
 
-export interface JobEntryType {
+export interface EducationEntryType {
     id: number
-    title: string
-    employer: string
+    degree: string
+    institution: string
     startDate: string
     endDate: string
-    details: string
-    currentPosition: boolean
+    currentlyEnrolled: boolean
     expanded: boolean
 }
 
 
-export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryParams) {
+export default function EducationEntry({ entry, DestroyEntry, onChange }: EducationEntryParams) {
     const [isExpanded, setIsExpanded] = useState<boolean>(entry.expanded)
-    const [isChecked, setIsChecked] = useState<boolean>(entry.currentPosition)
+    const [isChecked, setIsChecked] = useState<boolean>(entry.currentlyEnrolled)
 
     const handleCheckboxState = (checked: boolean) => {
         setIsChecked(checked)
-        onChange({ ...entry, currentPosition: checked })
+        onChange({ ...entry, currentlyEnrolled: checked })
     }
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded)
     }
 
-    const handleChange = (field: keyof JobEntryType, value: string) => {
+    const handleChange = (field: keyof EducationEntryType, value: string) => {
         onChange({ ...entry, [field]: value })
     }
 
@@ -50,10 +48,10 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                     />
                     <div>
                         <div className="font-bold">
-                            {entry.title ? entry.title : "Job Title"}
+                            {entry.degree ? entry.degree : "Degree/Qualification"}
                         </div>
                         <div>
-                            {entry.employer ? entry.employer : "Employer"}
+                            {entry.institution ? entry.institution : "Institution"}
                         </div>
                     </div>
                 </div>
@@ -71,22 +69,22 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                 <div className="overflow-hidden">
                     <div className="flex flex-col gap-5 w-full px-5">
                         <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                            <Label>Title</Label>
+                            <Label>Degree/Qualification</Label>
                             <Input
-                                placeholder={entry.title}
-                                value={entry.title ?? ""}
-                                onChange={(e) => handleChange("title", e.target.value)}
+                                placeholder={"Bachelor of Science in ..."}
+                                value={entry.degree ? entry.degree : ""}
+                                onChange={(e) => handleChange("degree", e.target.value)}
                             />
                         </div>
                         <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                            <Label>Employer</Label>
+                            <Label>Institution</Label>
                             <Input
-                                placeholder={entry.employer}
-                                value={entry.employer ?? ""}
-                                onChange={(e) => handleChange("employer", e.target.value)}
+                                placeholder={entry.institution}
+                                value={entry.institution ?? ""}
+                                onChange={(e) => handleChange("institution", e.target.value)}
                             />
                         </div>
-                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
+                        <div className="flex flex-col whitespace-nowrap pb-5 gap-3 items-start">
                             <div className="flex w-full max-w-xl justify-between items-center gap-5">
                                 <Label>Start</Label>
                                 <Input
@@ -108,18 +106,9 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                                         checked={isChecked}
                                         onCheckedChange={handleCheckboxState}
                                     />
-                                    <Label>Current Position</Label>
+                                    <Label>Currently Enrolled</Label>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex flex-col whitespace-nowrap gap-3 items-start pb-5">
-                            <Label>Description</Label>
-                            <Textarea
-                                rows={4}
-                                placeholder={entry.details}
-                                value={entry.details ?? ""}
-                                onChange={(e) => handleChange("details", e.target.value)}
-                            />
                         </div>
                     </div>
                 </div>

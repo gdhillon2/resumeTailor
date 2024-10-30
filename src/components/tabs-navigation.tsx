@@ -8,7 +8,9 @@ import {
     FaChartLine,
     FaSignOutAlt,
     FaAddressBook,
-    FaFileAlt
+    FaFileAlt,
+    FaGraduationCap,
+    FaSearch
 } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
 
@@ -55,6 +57,12 @@ export default function TabsNavigation({ handleLogOut }: TabsNavigationProps) {
                 <FaFolderOpen className="mr-2" /> Projects
             </TabsTrigger>
             <TabsTrigger
+                value="education"
+                className="flex justify-start items-center w-full"
+            >
+                <FaGraduationCap className="mr-2" /> Education
+            </TabsTrigger>
+            <TabsTrigger
                 value="skills"
                 className="flex justify-start items-center w-full"
             >
@@ -65,6 +73,12 @@ export default function TabsNavigation({ handleLogOut }: TabsNavigationProps) {
                 className="flex justify-start items-center w-full"
             >
                 <FaChartLine className="mr-2" /> Analyze
+            </TabsTrigger>
+            <TabsTrigger
+                value="generate"
+                className="flex justify-start items-center w-full"
+            >
+                <FaSearch className="mr-2" /> Preview
             </TabsTrigger>
             <div className="flex h-full items-end py-5 justify-end">
                 <Button

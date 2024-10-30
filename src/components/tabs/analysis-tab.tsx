@@ -91,32 +91,32 @@ export default function AnalysisTab({
                             })}
                         </div>
                         <div className="flex gap-3">
-                            <div className="w-[50%] rounded-xl p-5 bg-slate-800">
-                                <div className="font-bold pb-2">Strengths</div>
+                            <div className="w-[50%] rounded-xl bg-slate-800">
+                                <div className="font-bold p-3 bg-slate-700 rounded-t-xl">Strengths</div>
                                 {analysis.overallStrengths.map((entry: string, index: number) => {
                                     return (
-                                        <div key={index} className="py-2 text-sm">
+                                        <div key={index} className="p-3 text-sm">
                                             <Label>{entry}</Label>
                                         </div>
                                     )
                                 })}
                             </div>
-                            <div className="w-[50%] rounded-xl p-5 bg-slate-800">
-                                <div className="font-bold pb-2">Weaknesses</div>
+                            <div className="w-[50%] rounded-xl bg-slate-800">
+                                <div className="font-bold p-3 bg-slate-700 rounded-t-xl">Weaknesses</div>
                                 {analysis.overallWeaknesses.map((entry: string, index: number) => {
                                     return (
-                                        <div key={index} className="py-2 text-sm">
+                                        <div key={index} className="p-3 text-sm">
                                             <Label>{entry}</Label>
                                         </div>
                                     )
                                 })}
                             </div>
                         </div>
-                        <div className="bg-slate-800 p-5 rounded-xl">
-                            <div className="font-bold pb-2">Actions</div>
+                        <div className="bg-slate-800 rounded-xl mb-5">
+                            <div className="font-bold p-3 bg-slate-700 rounded-t-xl">Actions</div>
                             {analysis.actions.map((entry: ActionType, index: number) => {
                                 return (
-                                    <div key={index} className="flex items-center gap-2 py-2 text-sm">
+                                    <div key={index} className="flex items-center gap-2 px-3 py-4 text-sm">
                                         <Checkbox
                                             checked={entry.completed}
                                             onCheckedChange={(checked) => handleActionChange(!!checked, index)}
