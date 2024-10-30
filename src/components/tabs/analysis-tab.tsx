@@ -30,6 +30,7 @@ export default function AnalysisTab({
     error,
     handleActionChange
 }: AnalysisTabProps) {
+
     const overallScore = analysis ?
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
 
