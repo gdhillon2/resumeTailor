@@ -133,6 +133,7 @@ export default function Dashboard() {
             </TabsContent>
             <TabsContent value="analyze">
                 <AnalysisTab
+                    summary={summary}
                     jobEntries={jobEntries}
                     projects={projects}
                     skills={skills}
