@@ -107,9 +107,9 @@ export function useResumeAnalysis(user: UserType | null) {
             if (user) {
                 const formattedEntries = {
                     user_id: user.id,
+                    summary_score: newAnalysis.summaryScore ?? null,
                     work_score: newAnalysis.workScore ?? null,
                     project_score: newAnalysis.projectScore ?? null,
-                    skills_score: newAnalysis.skillsScore ?? null,
                     overall_strengths: newAnalysis.overallStrengths ?? [],
                     overall_weaknesses: newAnalysis.overallWeaknesses ?? [],
                     actions: actions
