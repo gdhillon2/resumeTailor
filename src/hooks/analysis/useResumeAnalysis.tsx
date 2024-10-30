@@ -4,9 +4,9 @@ import { UserType } from "@/context/authContext"
 import { JobEntryType } from "@/components/jobentry"
 import { ProjectEntryType } from "@/components/projectentry"
 
-export type ScoreType = "workScore" | "projectScore" | "skillsScore"
+export type ScoreType = "summaryScore" | "workScore" | "projectScore"
 
-export const scoreTypes: ScoreType[] = ["workScore", "projectScore", "skillsScore"]
+export const scoreTypes: ScoreType[] = ["summaryScore", "workScore", "projectScore"]
 
 export type ActionType = {
     text: string
@@ -14,9 +14,9 @@ export type ActionType = {
 }
 
 export type AnalysisType = {
+    summaryScore: number
     workScore: number
     projectScore: number
-    skillsScore: number
     overallStrengths: string[]
     overallWeaknesses: string[]
     actions: ActionType[]
@@ -36,7 +36,7 @@ export function useResumeAnalysis(user: UserType | null) {
             try {
                 const { data: analysisData, error: fetchError } = await supabase
                     .from("resume_analysis")
-                    .select("work_score, project_score, skills_score, overall_strengths, overall_weaknesses, actions")
+                    .select("summary_score, work_score, project_score, overall_strengths, overall_weaknesses, actions")
                     .eq("user_id", user.id)
                     .maybeSingle()
 
@@ -48,9 +48,9 @@ export function useResumeAnalysis(user: UserType | null) {
 
                 if (analysisData) {
                     setAnalysis({
+                        summaryScore: analysisData.summary_score,
                         workScore: analysisData.work_score,
                         projectScore: analysisData.project_score,
-                        skillsScore: analysisData.skills_score,
                         overallStrengths: analysisData.overall_strengths || [],
                         overallWeaknesses: analysisData.overall_weaknesses || [],
                         actions: analysisData.actions ? analysisData.actions : []
@@ -66,7 +66,7 @@ export function useResumeAnalysis(user: UserType | null) {
     }, [user])
 
 
-    const handleAnalyze = async (jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) => {
+    const handleAnalyze = async (summary: string, jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) => {
         setIsAnalyzing(true)
         setError("")
 
@@ -78,6 +78,7 @@ export function useResumeAnalysis(user: UserType | null) {
                         "content-type": "application/json"
                     },
                     body: JSON.stringify({
+                        summary,
                         jobEntries,
                         projects,
                         skills

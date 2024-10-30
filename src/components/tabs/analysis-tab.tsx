@@ -8,17 +8,19 @@ import { JobEntryType } from "@/components/jobentry"
 import { Checkbox } from "@/components/ui/checkbox"
 
 interface AnalysisTabProps {
+    summary: string
     jobEntries: JobEntryType[]
     projects: ProjectEntryType[]
     skills: string
     analysis: AnalysisType | null
-    handleAnalyze: (jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) => Promise<void>
+    handleAnalyze: (summary: string, jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) => Promise<void>
     isAnalyzing: boolean
     error: string | null
     handleActionChange: (checked: boolean, index: number) => void
 }
 
 export default function AnalysisTab({
+    summary,
     jobEntries,
     projects,
     skills,
@@ -40,7 +42,7 @@ export default function AnalysisTab({
                     <Label className="text-xl font-bold">Your Resume Analysis</Label>
                     <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
                         <Button
-                            onClick={() => handleAnalyze(jobEntries, projects, skills)}
+                            onClick={() => handleAnalyze(summary, jobEntries, projects, skills)}
                             disabled={isAnalyzing}
                         >
                             {isAnalyzing ? "Analyzing..." : "Analyze Resume"}
