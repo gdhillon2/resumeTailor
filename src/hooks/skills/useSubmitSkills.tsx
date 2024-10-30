@@ -20,17 +20,15 @@ export const useSubmitSkills = (
             skills: skills
         }
 
-        if (formattedEntries.skills) {
-            const { data: insertedData, error: insertError } = await supabase
-                .from("user_profile")
-                .upsert(formattedEntries, { onConflict: "user_id" })
-                .select()
+        const { data: insertedData, error: insertError } = await supabase
+            .from("user_profile")
+            .upsert(formattedEntries, { onConflict: "user_id" })
+            .select()
 
-            if (insertError) {
-                console.error("couldnt insert skills:", insertError)
-            } else {
-                console.log("successfully inserted data:", insertedData)
-            }
+        if (insertError) {
+            console.error("couldnt insert skills:", insertError)
+        } else {
+            console.log("successfully inserted data:", insertedData)
         }
         setLoading(false)
         setHasChanges(false)

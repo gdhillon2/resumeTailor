@@ -116,7 +116,7 @@ export default function AnalysisTab({
                             <div className="font-bold p-3 bg-slate-700 rounded-t-xl">Actions</div>
                             {analysis.actions.map((entry: ActionType, index: number) => {
                                 return (
-                                    <div key={index} className="flex items-center gap-2 px-3 py-4 text-sm">
+                                    <div key={index} className="flex items-center gap-2 p-3 text-sm">
                                         <Checkbox
                                             checked={entry.completed}
                                             onCheckedChange={(checked) => handleActionChange(!!checked, index)}

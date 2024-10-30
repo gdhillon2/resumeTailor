@@ -175,7 +175,14 @@ export default function Dashboard() {
                 />
             </TabsContent>
             <TabsContent value="generate">
-                <PreviewTab />
+                <PreviewTab
+                    contact={contact}
+                    summary={summary}
+                    jobEntries={jobEntries}
+                    projects={projects}
+                    education={educationEntries}
+                    skills={skills}
+                />
             </TabsContent>
         </Tabs>
     )
