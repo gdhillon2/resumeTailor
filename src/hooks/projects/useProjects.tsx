@@ -1,13 +1,13 @@
 import { ProjectEntryType } from "@/components/projectentry"
 import { UserType } from "@/context/authContext"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
 
 export const useProjects = (user: UserType | null) => {
     const [projects, setProjects] = useState<ProjectEntryType[]>([])
     const [hasChanges, setHasChanges] = useState<boolean>(false)
 
-    const fetchProjects = async () => {
+    const fetchProjects = useCallback(async () => {
         if (!user) {
             console.error("user is not authenticated")
             return
@@ -35,12 +35,12 @@ export const useProjects = (user: UserType | null) => {
             setHasChanges(false)
         }
 
-    }
+    }, [user])
 
     useEffect(() => {
         fetchProjects()
         setHasChanges(false)
-    }, [user])
+    }, [fetchProjects])
 
 
     const addProject = () => {

@@ -2,40 +2,40 @@ import { UserType } from "@/context/authContext"
 import { useCallback, useEffect, useState } from "react"
 import { supabase } from "@/lib/supabaseClient"
 
-export const useSkills = (user: UserType | null) => {
-    const [skills, setSkills] = useState<string>("")
+export const useSummary = (user: UserType | null) => {
+    const [summary, setSummary] = useState<string>("")
     const [hasChanges, setHasChanges] = useState<boolean>(false)
 
-    const fetchSkills = useCallback(async () => {
+    const fetchSummary = useCallback(async () => {
         if (!user) {
             console.error("user is not authenticated")
             return
         }
         const { data: skillsData, error: fetchError } = await supabase
             .from("skills")
-            .select("details")
+            .select("summary")
             .eq("user_id", user.id)
             .single()
 
         if (fetchError) {
-            console.error("error fetching skills:", fetchError)
+            console.error("error fetching summary:", fetchError)
         } else if (skillsData) {
-            setSkills(skillsData.details)
+            setSummary(skillsData.summary)
             setHasChanges(false)
         }
 
     }, [user])
 
     useEffect(() => {
-        fetchSkills()
+        fetchSummary()
 
-    }, [fetchSkills])
+    }, [fetchSummary])
 
     const handleSkillChange = (updatedSkills: string) => {
-        setSkills(updatedSkills)
+        setSummary(updatedSkills)
         setHasChanges(true)
     }
 
-    return { skills, fetchSkills, hasChanges, setHasChanges, handleSkillChange }
+    return { summary, fetchSummary, hasChanges, setHasChanges, handleSkillChange }
 
 }
