@@ -15,6 +15,8 @@ import SkillsTab from "@/components/tabs/skills-tab"
 import AnalysisTab from "@/components/tabs/analysis-tab"
 import ContactTab from "@/components/tabs/contact-tab"
 import SummaryTab from "@/components/tabs/summary-tab"
+import { useContact } from "@/hooks/contact/useContact"
+import { useSubmitContact } from "@/hooks/contact/useSubmitContact"
 
 export default function Dashboard() {
     const { user, logOut } = useAuth()
@@ -25,7 +27,8 @@ export default function Dashboard() {
         setHasChanges: setJobChanges,
         addJobEntry,
         removeJobEntry,
-        handleJobEntryChange } = useJobEntries(user)
+        handleJobEntryChange
+    } = useJobEntries(user)
     const { loading: savingJobs, submitJobEntries } = useSubmitJobEntries(setJobChanges, jobEntries, user)
 
     const { projects,
@@ -34,30 +37,45 @@ export default function Dashboard() {
         setHasChanges: setProjectChanges,
         addProject,
         removeProject,
-        handleProjectChange } = useProjects(user)
+        handleProjectChange
+    } = useProjects(user)
     const { loading: savingProjects, submitProjects } = useSubmitProjects(setProjectChanges, projects, user)
 
     const { skills,
         fetchSkills,
         hasChanges: skillsChanges,
         setHasChanges: setSkillsChanges,
-        handleSkillChange } = useSkills(user)
+        handleSkillChange
+    } = useSkills(user)
     const { loading: savingSkills, submitSkills } = useSubmitSkills(setSkillsChanges, skills, user)
 
     const { analysis, isAnalyzing, error, handleAnalyze, handleActionChange } = useResumeAnalysis(user)
 
+    const { contact,
+        fetchContact,
+        handleContactChange,
+        hasChanges: contactChanges,
+        setHasChanges: setContactChanges
+    } = useContact(user)
+    const { loading: savingContact, submitContact } = useSubmitContact(setContactChanges, contact, user)
+
     return (
-        <Tabs defaultValue="work" className="flex w-full">
+        <Tabs defaultValue="contact" className="flex w-full">
             <TabsNavigation handleLogOut={logOut} />
             <TabsContent value="contact">
-            <ContactTab
-
-            />
+                <ContactTab
+                    contact={contact}
+                    fetchContact={fetchContact}
+                    handleContactChange={handleContactChange}
+                    contactChanges={contactChanges}
+                    submitContact={submitContact}
+                    savingContact={savingContact}
+                />
             </TabsContent>
             <TabsContent value="summary">
-            <SummaryTab
+                <SummaryTab
 
-            />
+                />
             </TabsContent>
             <TabsContent value="work" className="">
                 <WorkTab

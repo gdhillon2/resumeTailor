@@ -25,7 +25,7 @@ export default function WorkTab({
     return (
         <div className="flex flex-col items-start w-full">
             <div className="flex w-full justify-end gap-5 p-5 border-b mb-5">
-                <Label className="text-xl flex w-full items-center font-bold">Work Experience</Label>
+                <Label className="text-xl flex w-full items-center font-bold">Add Your Work Experience</Label>
                 <TabActions
                     onAdd={addJobEntry}
                     onRevert={fetchJobEntries}
