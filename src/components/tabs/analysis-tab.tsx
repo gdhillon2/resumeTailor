@@ -76,29 +76,31 @@ export default function AnalysisTab({
                 analysis ? (
                     <div className="flex flex-col gap-3 pt-5 pr-5 pl-5">
                         <div className="flex flex-col gap-3 justify-center items-center">
-                            <div className="flex flex-col justify-center items-center bg-transparent rounded-xl">
+                            <div className="flex w-full items-center">
+                            <div className="flex w-[25%] justify-end">
                                 <div className="flex w-[200px] h-[150px] justify-center">
                                     <GaugeChart
                                         value={overallScore}
                                         color={overallScoreColor}
                                     />
                                 </div>
-                            </div>
-                            <div className="flex justify-center gap-5 w-[75%] justify-between">
+                                </div>
+                                <div className="flex w-[75%] justify-center">
                                 {scoreTypes.map((scoreType) => {
                                     const score = analysis[scoreType]
                                     const color = score >= 80 ? "text-green-500" : score >= 70 ? "text-yellow-500" : "text-red-500"
                                     const label = scoreType.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
 
                                     return (
-                                        <div key={scoreType} className="flex flex-col items-center bg-transparent p-5 rounded-xl">
-                                            <div className="text-sm mb-2">{label}</div>
+                                        <div key={scoreType} className="flex flex-col items-center w-[25%] pb-3 bg-transparent rounded-xl">
+                                            <div className="mb-2">{label}</div>
                                             <div className={`text-4xl ${color} relative`}>
                                                 {Math.floor(score)}
                                             </div>
                                         </div>
                                     )
                                 })}
+                                </div>
                             </div>
                         </div>
                         <div className="flex gap-3">
@@ -139,7 +141,11 @@ export default function AnalysisTab({
                         </div>
                     </div >
                 ) : (
-                    <div className="p-5">Click the Analyze Resume button in the top right corner to get feedback on your resume!</div>
+                    <div className="p-5 flex flex-col items-center justify-center bg-slate-900 rounded-lg">
+                        <span className="text-lg text-gray-300 text-center mb-4">
+                            Click the Analyze Resume button in the top right corner for personalized feedback!
+                        </span>
+                    </div>
                 )
             }
         </>
