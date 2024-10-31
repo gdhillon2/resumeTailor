@@ -1,12 +1,11 @@
 import React from "react"
+import html2pdf from 'html2pdf.js'
 import { JobEntryType } from "@/components/jobentry"
 import { ContactType } from "@/hooks/contact/useContact"
 import { ProjectEntryType } from "@/components/projectentry"
 import { EducationEntryType } from "@/components/education-entry"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-// @ts-ignore
-import html2pdf from "html2pdf.js"
 
 interface PreviewTabProps {
     contact: ContactType
@@ -36,30 +35,34 @@ export default function PreviewTab({
     }
 
     const downloadResume = () => {
-        const element = document.getElementById("resume")
+        // Get the resume element
+        const element = document.getElementById('resume')
+        
         if (!element) return
 
+        // Configure pdf options
         const opt = {
             margin: 0,
-            filename: `${fullName.replace(/\s+/g, "_")}_resume.pdf}`,
-            image: { type: "jpg", quality: 0.98 },
-            html2canvas: {
+            filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
                 scale: 2,
                 useCORS: true,
                 letterRendering: true
             },
-            jsPDF: {
-                unit: "in",
-                format: "letter",
-                orientation: "portrait"
+            jsPDF: { 
+                unit: 'in',
+                format: 'letter',
+                orientation: 'portrait'
             }
         }
 
+        // Generate PDF
         html2pdf()
             .set(opt)
             .from(element)
             .save()
-            .catch((error: Error) => console.error("error generating pdf:", error))
+            .catch((err: Error) => console.error('Error generating PDF:', err))
     }
 
     return (
@@ -78,6 +81,7 @@ export default function PreviewTab({
             </div>
             <div className="p-5">
                 <div id="resume" className="w-[8.5in] h-[11in] bg-white shadow-lg">
+                    {/* Rest of your existing JSX remains the same */}
                     <div className="max-w-[850px] mx-auto p-8 text-gray-700 leading-relaxed">
                         <div className="text-center mb-4">
                             <div className="text-2xl font-bold mb-1">{fullName}</div>
