@@ -92,6 +92,40 @@ export default function Dashboard() {
     } = useSummary(user)
     const { loading: savingSummary, submitSummary } = useSubmitSummary(setSummaryChanges, summary, user)
 
+    const submitAll = async () => {
+        await submitContact()
+        await submitSummary()
+        await submitJobEntries()
+        await submitProjects()
+        await submitEducationEntries()
+        await submitSkills()
+    }
+
+    const setAllChanges = () => {
+        setContactChanges(false)
+        setSummaryChanges(false)
+        setJobChanges(false)
+        setProjectChanges(false)
+        setEducationChanges(false)
+        setSkillsChanges(false)
+    }
+
+    const allChanges: {
+        contactChanges: boolean
+        summaryChanges: boolean
+        jobChanges: boolean
+        projectChanges: boolean
+        educationChanges: boolean
+        skillsChanges: boolean
+    } = {
+        contactChanges,
+        summaryChanges,
+        jobChanges,
+        projectChanges,
+        educationChanges,
+        skillsChanges
+    }
+
     return (
         <Tabs defaultValue="contact" className="flex w-full">
             <TabsNavigation handleLogOut={logOut} />
@@ -182,6 +216,9 @@ export default function Dashboard() {
                     projects={projects}
                     education={educationEntries}
                     skills={skills}
+                    submitAll={submitAll}
+                    setAllChanges={setAllChanges}
+                    allChanges={allChanges}
                 />
             </TabsContent>
         </Tabs>

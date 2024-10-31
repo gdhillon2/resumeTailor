@@ -1,21 +1,12 @@
-import React from "react"
+import React, { useState } from "react"
 import { JobEntryType } from "@/components/jobentry"
 import { ContactType } from "@/hooks/contact/useContact"
 import { ProjectEntryType } from "@/components/projectentry"
 import { EducationEntryType } from "@/components/education-entry"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { FaDownload } from "react-icons/fa"
+import { FaDownload, FaSave } from "react-icons/fa"
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer"
-
-interface PreviewTabProps {
-    contact: ContactType
-    summary: string
-    jobEntries: JobEntryType[]
-    projects: ProjectEntryType[]
-    education: EducationEntryType[]
-    skills: string
-}
 
 const styles = StyleSheet.create({
     page: {
@@ -170,9 +161,37 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
     </Document>
 )
 
+interface PreviewTabProps {
+    contact: ContactType
+    summary: string
+    jobEntries: JobEntryType[]
+    projects: ProjectEntryType[]
+    education: EducationEntryType[]
+    skills: string
+    submitAll: () => Promise<void>
+    setAllChanges: () => void
+    allChanges: {
+        contactChanges: boolean
+        summaryChanges: boolean
+        jobChanges: boolean
+        projectChanges: boolean
+        educationChanges: boolean
+        skillsChanges: boolean
+    }
+}
+
+
 export default function PreviewTab(props: PreviewTabProps) {
-    const { contact, summary, jobEntries, projects, skills, education } = props
+    const { contact, summary, jobEntries, projects, skills, education, submitAll, setAllChanges, allChanges } = props
     const { fullName, email, phoneNumber, relevantLink, country, state, city } = contact
+    const [saving, setSaving] = useState<boolean>(false)
+
+    const submitAndSaveAll = async () => {
+        setSaving(true)
+        await submitAll()
+        setAllChanges()
+        setSaving(false)
+    }
 
     const BulletPointsPreview = ({ text }: { text: string }) => {
         const points = text.split('\n').filter(point => point.trim())
@@ -185,13 +204,27 @@ export default function PreviewTab(props: PreviewTabProps) {
         )
     }
 
+    const hasChanges = Object.values(allChanges).some(change => change === true)
+
     return (
         <div className="flex flex-col justify-center items-center h-full">
             <div className="flex justify-between w-full p-5 gap-5 border-b gradient">
                 <div className="flex justify-between items-center">
                     <Label className="text-xl font-bold">Preview Your Resume</Label>
                 </div>
-                <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                <div className="flex gap-5 animate-float-fade-in-1_2s-delay" style={{ opacity: "0%" }}>
+                    <div className="relative group">
+                        <Button
+                            className={hasChanges ? "text-primary" : "no-hover"}
+                            onClick={submitAndSaveAll}
+                            variant={hasChanges ? "default" : "ghost"}
+                        >
+                            <FaSave size={16} />
+                        </Button>
+                        <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            {saving ? "Saving..." : "Save All"}
+                        </span>
+                    </div>
                     <div className="relative group">
                         <PDFDownloadLink
                             document={<ResumePDF {...props} />}
