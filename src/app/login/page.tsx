@@ -46,7 +46,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="flex justify-center w-full">
+        <div className="flex justify-center w-full min-h-screen">
             <div className="flex flex-col gap-3 justify-center max-w-md w-full">
                 {error && <Label>{error}</Label>}
                 <Label>Email</Label>

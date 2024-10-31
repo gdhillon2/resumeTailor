@@ -57,7 +57,7 @@ export default function PreviewTab({
         // Configure pdf options
         const opt = {
             margin: 0,
-            filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
+            filename: `${fullName.replace(/\s+/g, '_')}_Resume.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
             html2canvas: {
                 scale: 2,
