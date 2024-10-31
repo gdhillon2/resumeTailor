@@ -46,7 +46,7 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
                     size={"sm"}
                     onClick={DestroyEntry}
                 >
-                    Remove Project
+                    Remove
                 </Button>
             </div>
             <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>

@@ -19,6 +19,10 @@ import { useContact } from "@/hooks/contact/useContact"
 import { useSubmitContact } from "@/hooks/contact/useSubmitContact"
 import { useSummary } from "@/hooks/summary/useSummary"
 import { useSubmitSummary } from "@/hooks/summary/useSubmitSummary"
+import PreviewTab from "@/components/tabs/preview-tab"
+import EducationTab from "@/components/tabs/education-tab"
+import { useEducationEntries } from "@/hooks/education/useEducation"
+import { useSubmitEducationEntries } from "@/hooks/education/useSubmitEducation"
 
 export default function Dashboard() {
     const { user, logOut } = useAuth()
@@ -53,6 +57,20 @@ export default function Dashboard() {
         handleSkillChange
     } = useSkills(user)
     const { loading: savingSkills, submitSkills } = useSubmitSkills(setSkillsChanges, skills, user)
+
+    const {
+        educationEntries,
+        fetchEducationEntries,
+        hasChanges: educationChanges,
+        setHasChanges: setEducationChanges,
+        addEducationEntry,
+        removeEducationEntry,
+        handleEducationEntryChange
+    } = useEducationEntries(user)
+    const {
+        loading: savingEducationEntries,
+        submitEducationEntries
+    } = useSubmitEducationEntries(setEducationChanges, educationEntries, user)
 
     const { analysis, isAnalyzing, error, handleAnalyze, handleActionChange } = useResumeAnalysis(user)
 
@@ -121,6 +139,18 @@ export default function Dashboard() {
                     savingProjects={savingProjects}
                 />
             </TabsContent>
+            <TabsContent value="education" className="">
+                <EducationTab
+                    education={educationEntries}
+                    addEducation={addEducationEntry}
+                    fetchEducation={fetchEducationEntries}
+                    submitEducation={submitEducationEntries}
+                    educationChanges={educationChanges}
+                    handleEducationChange={handleEducationEntryChange}
+                    removeEducation={removeEducationEntry}
+                    savingEducation={savingEducationEntries}
+                />
+            </TabsContent>
             <TabsContent value="skills" className="">
                 <SkillsTab
                     skills={skills}
@@ -142,6 +172,16 @@ export default function Dashboard() {
                     isAnalyzing={isAnalyzing}
                     error={error}
                     handleActionChange={handleActionChange}
+                />
+            </TabsContent>
+            <TabsContent value="generate">
+                <PreviewTab
+                    contact={contact}
+                    summary={summary}
+                    jobEntries={jobEntries}
+                    projects={projects}
+                    education={educationEntries}
+                    skills={skills}
                 />
             </TabsContent>
         </Tabs>
