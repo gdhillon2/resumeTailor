@@ -42,7 +42,9 @@ export default function LoginPage() {
         } else {
             router.push("/dashboard")
         }
-        setLoading(false)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000);
     }
 
     return (

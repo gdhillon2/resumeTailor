@@ -6,6 +6,8 @@ import { AnalysisType } from "@/hooks/analysis/useResumeAnalysis"
 import { ActionType, scoreTypes } from "@/hooks/analysis/useResumeAnalysis"
 import { JobEntryType } from "@/components/jobentry"
 import { Checkbox } from "@/components/ui/checkbox"
+import { FaSync } from "react-icons/fa"
+import { SparklesIcon } from "@heroicons/react/24/solid"
 
 interface AnalysisTabProps {
     summary: string
@@ -42,12 +44,21 @@ export default function AnalysisTab({
                 <div className="flex justify-between items-center">
                     <Label className="text-xl font-bold">Your Resume Analysis</Label>
                     <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                        <Button
-                            onClick={() => handleAnalyze(summary, jobEntries, projects, skills)}
-                            disabled={isAnalyzing}
-                        >
-                            {isAnalyzing ? "Analyzing..." : "Analyze Resume"}
-                        </Button>
+                        <div className="relative group">
+                            <Button
+                                onClick={() => handleAnalyze(summary, jobEntries, projects, skills)}
+                                disabled={isAnalyzing}
+                            >
+                                {isAnalyzing ? (
+                                    <FaSync className="animate-spin" />
+                                ) : (
+                                    <SparklesIcon className="size-4"/>
+                                )}
+                            </Button>
+                            <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                {isAnalyzing ? "Analyzing" : "Analyze"}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

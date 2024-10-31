@@ -5,6 +5,7 @@ import { ProjectEntryType } from "@/components/projectentry"
 import { EducationEntryType } from "@/components/education-entry"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { FaDownload } from "react-icons/fa"
 
 interface PreviewTabProps {
     contact: ContactType
@@ -58,7 +59,7 @@ export default function PreviewTab({
         const opt = {
             margin: 0,
             filename: `${fullName.replace(/\s+/g, '_')}_Resume.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
+            image: { type: 'jpeg', quality: 1.00 },
             html2canvas: {
                 scale: 2,
                 useCORS: true,
@@ -86,11 +87,16 @@ export default function PreviewTab({
                     <Label className="text-xl font-bold">Your Resume</Label>
                 </div>
                 <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
-                    <Button
-                        onClick={downloadResume}
-                    >
-                        Download
-                    </Button>
+                    <div className="relative group">
+                        <Button
+                            onClick={downloadResume}
+                        >
+                            <FaDownload />
+                        </Button>
+                        <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            Download
+                        </span>
+                    </div>
                 </div>
             </div>
             <div className="p-5">
