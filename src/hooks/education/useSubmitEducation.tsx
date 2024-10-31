@@ -11,7 +11,6 @@ export const useSubmitEducationEntries = (setHasChanges: Dispatch<SetStateAction
 
     const submitEducationEntries = async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

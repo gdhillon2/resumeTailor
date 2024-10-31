@@ -8,7 +8,6 @@ export const useSummary = (user: UserType | null) => {
 
     const fetchSummary = useCallback(async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
         const { data: skillsData, error: fetchError } = await supabase

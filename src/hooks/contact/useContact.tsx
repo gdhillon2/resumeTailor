@@ -37,7 +37,6 @@ export const useContact = (user: UserType | null) => {
 
     const fetchContact = useCallback(async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

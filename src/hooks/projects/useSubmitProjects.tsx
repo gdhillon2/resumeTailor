@@ -10,7 +10,6 @@ export const useSubmitProjects = (setHasChanges: Dispatch<SetStateAction<boolean
 
     const submitProjects = async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

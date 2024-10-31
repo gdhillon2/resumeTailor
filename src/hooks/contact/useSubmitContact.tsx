@@ -12,7 +12,6 @@ export const useSubmitContact = (
 
     const submitContact = async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

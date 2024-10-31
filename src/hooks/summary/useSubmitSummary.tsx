@@ -11,7 +11,6 @@ export const useSubmitSummary = (
 
     const submitSummary = async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
         setLoading(true)

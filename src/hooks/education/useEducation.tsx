@@ -9,7 +9,6 @@ export const useEducationEntries = (user: UserType | null) => {
 
     const fetchEducationEntries = useCallback(async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

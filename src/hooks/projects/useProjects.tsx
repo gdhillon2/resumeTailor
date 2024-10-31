@@ -9,7 +9,6 @@ export const useProjects = (user: UserType | null) => {
 
     const fetchProjects = useCallback(async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

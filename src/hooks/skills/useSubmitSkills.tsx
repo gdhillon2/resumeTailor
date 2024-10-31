@@ -11,7 +11,6 @@ export const useSubmitSkills = (
 
     const submitSkills = async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
         setLoading(true)

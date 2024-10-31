@@ -9,7 +9,6 @@ export const useJobEntries = (user: UserType | null) => {
 
     const fetchJobEntries = useCallback(async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

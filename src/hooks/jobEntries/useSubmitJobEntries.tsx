@@ -11,7 +11,6 @@ export const useSubmitJobEntries = (setHasChanges: Dispatch<SetStateAction<boole
 
     const submitJobEntries = async () => {
         if (!user) {
-            console.error("user is not authenticated")
             return
         }
 

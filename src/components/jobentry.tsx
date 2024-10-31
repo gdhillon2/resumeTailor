@@ -97,14 +97,14 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                                     <div className="flex gap-3">
                                         <Input
                                             type="text"
-                                            placeholder="Month"
+                                            placeholder="Jan"
                                             value={entry.startMonth ?? ""}
                                             onChange={(e) => handleChange("startMonth", e.target.value)}
                                             className="w-[100px]"
                                         />
                                         <Input
                                             type="text"
-                                            placeholder="Year"
+                                            placeholder="2000"
                                             value={entry.startYear ?? ""}
                                             onChange={(e) => handleChange("startYear", e.target.value)}
                                             className="w-[65px]"
@@ -116,7 +116,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                                     <div className="flex gap-3 items-center">
                                         <Input
                                             type="text"
-                                            placeholder="Month"
+                                            placeholder="Jan"
                                             value={entry.endMonth ?? ""}
                                             onChange={(e) => handleChange("endMonth", e.target.value)}
                                             className="w-[100px]"
@@ -124,7 +124,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                                         />
                                         <Input
                                             type="text"
-                                            placeholder="Year"
+                                            placeholder="2000"
                                             value={entry.endYear ?? ""}
                                             onChange={(e) => handleChange("endYear", e.target.value)}
                                             className="w-[65px]"
