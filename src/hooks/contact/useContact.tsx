@@ -68,7 +68,7 @@ export const useContact = (user: UserType | null) => {
     useEffect(() => {
         fetchContact()
         setHasChanges(false)
-    }, [fetchContact])
+    }, [])
 
 
     return {

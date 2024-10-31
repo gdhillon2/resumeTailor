@@ -24,7 +24,7 @@ export const useSkills = (user: UserType | null) => {
             setHasChanges(false)
         }
 
-    }, [user])
+    }, [])
 
     useEffect(() => {
         fetchSkills()

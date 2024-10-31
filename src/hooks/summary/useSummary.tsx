@@ -29,7 +29,7 @@ export const useSummary = (user: UserType | null) => {
     useEffect(() => {
         fetchSummary()
         setHasChanges(false)
-    }, [fetchSummary])
+    }, [])
 
     const handleSummaryChange = (updatedSkills: string) => {
         setSummary(updatedSkills)

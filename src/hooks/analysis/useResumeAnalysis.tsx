@@ -63,7 +63,7 @@ export function useResumeAnalysis(user: UserType | null) {
         }
 
         fetchAnalysis()
-    }, [user])
+    }, [])
 
 
     const handleAnalyze = async (summary: string, jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) => {
