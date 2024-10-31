@@ -1,5 +1,4 @@
-import React from "react"
-import html2pdf from 'html2pdf.js'
+import React, { useEffect, useRef } from "react"
 import { JobEntryType } from "@/components/jobentry"
 import { ContactType } from "@/hooks/contact/useContact"
 import { ProjectEntryType } from "@/components/projectentry"
@@ -25,6 +24,7 @@ export default function PreviewTab({
     skills
 }: PreviewTabProps) {
     const { fullName, email, phoneNumber, relevantLink, country, state, city } = contact
+    const html2pdfRef = useRef<any>(null)
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString)
@@ -34,10 +34,24 @@ export default function PreviewTab({
         })
     }
 
+    useEffect(() => {
+        const initHtml2Pdf = async () => {
+            // @ts-expect-error html2pdf has no types so i suppress the error
+            const html2pdf = await import("html2pdf.js")
+            html2pdfRef.current = html2pdf.default
+        }
+        initHtml2Pdf()
+    }, [])
+
+
     const downloadResume = () => {
+        if (!html2pdfRef.current) {
+            console.error("html2pdf library not loaded")
+            return
+        }
         // Get the resume element
         const element = document.getElementById('resume')
-        
+
         if (!element) return
 
         // Configure pdf options
@@ -45,12 +59,12 @@ export default function PreviewTab({
             margin: 0,
             filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
             image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { 
+            html2canvas: {
                 scale: 2,
                 useCORS: true,
                 letterRendering: true
             },
-            jsPDF: { 
+            jsPDF: {
                 unit: 'in',
                 format: 'letter',
                 orientation: 'portrait'
@@ -58,7 +72,7 @@ export default function PreviewTab({
         }
 
         // Generate PDF
-        html2pdf()
+        html2pdfRef.current()
             .set(opt)
             .from(element)
             .save()
