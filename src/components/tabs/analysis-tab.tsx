@@ -38,7 +38,7 @@ export default function AnalysisTab({
 
     return (
         <>
-            <div className="flex flex-col w-full p-5 gap-5 border-b">
+            <div className="flex flex-col w-full p-5 gap-5 border-b gradient">
                 <div className="flex justify-between items-center">
                     <Label className="text-xl font-bold">Your Resume Analysis</Label>
                     <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>

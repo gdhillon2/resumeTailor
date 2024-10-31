@@ -22,7 +22,7 @@ export default function SummaryTab({
     return (
         <div className="flex flex-col items-start w-full">
             <div className="flex flex-col w-full">
-                <div className="flex justify-end gap-5 p-5 border-b">
+                <div className="flex justify-end gap-5 p-5 border-b gradient">
                     <Label className="text-xl flex w-full items-center font-bold">Provide a Summary About Yourself</Label>
                     <TabActions
                         onAdd={null}

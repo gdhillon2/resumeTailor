@@ -23,7 +23,7 @@ export default function ContactTab({
     return (
         <div className="flex flex-col items-start w-full">
             <div className="flex flex-col w-full">
-                <div className="flex justify-end gap-5 p-5 border-b">
+                <div className="flex justify-end gap-5 p-5 gradient border-b">
                     <Label className="text-xl flex w-full items-center font-bold">Add Your Contact Information</Label>
                     <TabActions
                         onAdd={null}

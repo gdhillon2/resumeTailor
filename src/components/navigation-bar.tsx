@@ -23,19 +23,11 @@ export default function NavigationLayout() {
         <>
             <NavigationMenu>
                 <NavigationMenuList>
-                    <NavigationMenuItem>
-                        <NavigationMenuLink
-                            href="/"
-                            className={`${navigationMenuTriggerStyle()} ${pathname === "/" ? "glow-active" : ""}`}
-                        >
-                            Home
-                        </NavigationMenuLink>
-                    </NavigationMenuItem>
                     {user &&
                         <NavigationMenuItem>
                             <NavigationMenuLink
                                 href="/dashboard"
-                                className={`${navigationMenuTriggerStyle()} ${pathname === "/dashboard" ? "glow-active" : ""}`}
+                                className={navigationMenuTriggerStyle()}
                             >
                                 Dashboard
                             </NavigationMenuLink>

@@ -25,7 +25,7 @@ export default function ProjectTab({
 }: ProjectTabProps) {
     return (
         <div className="flex flex-col items-start w-full">
-            <div className="flex w-full justify-end gap-5 p-5 border-b mb-5">
+            <div className="flex w-full justify-end gap-5 p-5 border-b gradient mb-5">
                 <Label className="text-xl flex w-full items-center font-bold">Showcase Your Projects</Label>
                 <TabActions
                     onAdd={addProject}

@@ -81,7 +81,7 @@ export default function PreviewTab({
 
     return (
         <div className="flex flex-col justify-center items-center h-full">
-            <div className="flex justify-between w-full p-5 gap-5 border-b">
+            <div className="flex justify-between w-full p-5 gap-5 border-b gradient">
                 <div className="flex justify-between items-center">
                     <Label className="text-xl font-bold">Your Resume</Label>
                 </div>
