@@ -40,7 +40,7 @@ export const useProjects = (user: UserType | null) => {
     useEffect(() => {
         fetchProjects()
         setHasChanges(false)
-    }, [fetchProjects])
+    }, [])
 
 
     const addProject = () => {
