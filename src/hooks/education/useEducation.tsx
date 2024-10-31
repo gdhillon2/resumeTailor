@@ -21,15 +21,22 @@ export const useEducationEntries = (user: UserType | null) => {
         if (selectError) {
             console.error("error getting education entries:", selectError)
         } else {
-            const formattedEntries = educationEntries.map((entry) => ({
-                id: entry.education_id,
-                degree: entry.degree,
-                institution: entry.institution,
-                startDate: entry.start_date,
-                endDate: entry.end_date,
-                currentlyEnrolled: entry.currently_enrolled,
-                expanded: false
-            }))
+            const formattedEntries = educationEntries.map((entry) => {
+                const [startMonth, startYear] = entry.start_date ? entry.start_date.split(" ") : ["", ""]
+                const [endMonth, endYear] = entry.end_date ? entry.end_date.split(" ") : ["", ""]
+
+                return {
+                    id: entry.education_id,
+                    degree: entry.degree,
+                    institution: entry.institution,
+                    startMonth: startMonth,
+                    startYear: startYear,
+                    endMonth: endMonth,
+                    endYear: endYear,
+                    currentlyEnrolled: entry.currently_enrolled,
+                    expanded: false
+                }
+            })
 
             setEducationEntries(formattedEntries)
             setHasChanges(false)
@@ -46,8 +53,10 @@ export const useEducationEntries = (user: UserType | null) => {
         const newEntry: EducationEntryType = {
             id: Date.now(),
             institution: "",
-            startDate: "",
-            endDate: "",
+            startMonth: "",
+            startYear: "",
+            endMonth: "",
+            endYear: "",
             expanded: true,
             currentlyEnrolled: false,
             degree: ""

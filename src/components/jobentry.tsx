@@ -16,8 +16,10 @@ export interface JobEntryType {
     id: number
     title: string
     employer: string
-    startDate: string
-    endDate: string
+    startMonth: string
+    startYear: string
+    endMonth: string
+    endYear: string
     details: string
     currentPosition: boolean
     expanded: boolean
@@ -70,45 +72,72 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
             <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">
                     <div className="flex flex-col gap-5 w-full px-5">
-                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                            <Label>Title</Label>
-                            <Input
-                                placeholder={entry.title}
-                                value={entry.title ?? ""}
-                                onChange={(e) => handleChange("title", e.target.value)}
-                            />
+                        <div className="flex lg:flex-row flex-col gap-5 w-full">
+                            <div className="flex flex-col gap-3 w-full max-w-sm">
+                                <Label>Title</Label>
+                                <Input
+                                    placeholder={entry.title}
+                                    value={entry.title ?? ""}
+                                    onChange={(e) => handleChange("title", e.target.value)}
+                                />
+                            </div>
+                            <div className="flex flex-col gap-3 w-full max-w-sm">
+                                <Label>Employer</Label>
+                                <Input
+                                    placeholder={entry.employer}
+                                    value={entry.employer ?? ""}
+                                    onChange={(e) => handleChange("employer", e.target.value)}
+                                />
+                            </div>
                         </div>
                         <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                            <Label>Employer</Label>
-                            <Input
-                                placeholder={entry.employer}
-                                value={entry.employer ?? ""}
-                                onChange={(e) => handleChange("employer", e.target.value)}
-                            />
-                        </div>
-                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                            <div className="flex w-full max-w-xl justify-between items-center gap-5">
-                                <Label>Start</Label>
-                                <Input
-                                    type="date"
-                                    placeholder={entry.startDate}
-                                    value={entry.startDate ?? ""}
-                                    onChange={(e) => handleChange("startDate", e.target.value)}
-                                />
-                                <Label>End</Label>
-                                <Input
-                                    type="date"
-                                    placeholder={entry.endDate}
-                                    value={entry.endDate ?? ""}
-                                    onChange={(e) => handleChange("endDate", e.target.value)}
-                                    disabled={isChecked}
-                                />
-                                <div className="flex justify-center gap-2 items-center">
-                                    <Checkbox
-                                        checked={isChecked}
-                                        onCheckedChange={handleCheckboxState}
-                                    />
-                                    <Label>Current Position</Label>
+                            <div className="flex w-full items-center gap-5">
+                                <div className="flex flex-col gap-3">
+                                    <Label>Start</Label>
+                                    <div className="flex gap-3">
+                                        <Input
+                                            type="text"
+                                            placeholder="Month"
+                                            value={entry.startMonth ?? ""}
+                                            onChange={(e) => handleChange("startMonth", e.target.value)}
+                                            className="w-[100px]"
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder="Year"
+                                            value={entry.startYear ?? ""}
+                                            onChange={(e) => handleChange("startYear", e.target.value)}
+                                            className="w-[65px]"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <Label>End</Label>
+                                    <div className="flex gap-3 items-center">
+                                        <Input
+                                            type="text"
+                                            placeholder="Month"
+                                            value={entry.endMonth ?? ""}
+                                            onChange={(e) => handleChange("endMonth", e.target.value)}
+                                            className="w-[100px]"
+                                            disabled={isChecked}
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder="Year"
+                                            value={entry.endYear ?? ""}
+                                            onChange={(e) => handleChange("endYear", e.target.value)}
+                                            className="w-[65px]"
+                                            disabled={isChecked}
+                                        />
+                                        <div className="flex justify-center gap-2 h-full">
+                                            <Checkbox
+                                                checked={isChecked}
+                                                onCheckedChange={handleCheckboxState}
+                                            />
+                                            <Label>Current Position</Label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -124,6 +153,6 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

@@ -21,16 +21,25 @@ export const useJobEntries = (user: UserType | null) => {
         if (selectError) {
             console.error("error getting job entries")
         } else {
-            const formattedEntries = jobEntries.map((entry) => ({
-                id: entry.work_experience_id,
-                title: entry.job_title,
-                employer: entry.employer,
-                startDate: entry.start_date,
-                endDate: entry.end_date,
-                details: entry.description,
-                currentPosition: entry.current_position,
-                expanded: false
-            }))
+
+            const formattedEntries = jobEntries.map((entry) => {
+                const [startMonth, startYear] = entry.start_date ? entry.start_date.split(" ") : ["", ""]
+                const [endMonth, endYear] = entry.end_date ? entry.end_date.split(" ") : ["", ""]
+
+                return {
+                    id: entry.work_experience_id,
+                    title: entry.job_title,
+                    employer: entry.employer,
+                    startMonth: startMonth,
+                    startYear: startYear,
+                    endMonth: endMonth,
+                    endYear: endYear,
+                    details: entry.description,
+                    currentPosition: entry.current_position,
+                    expanded: false
+                }
+            })
+
 
             setJobEntries(formattedEntries)
             setHasChanges(false)
@@ -48,8 +57,10 @@ export const useJobEntries = (user: UserType | null) => {
             id: Date.now(),
             title: "",
             employer: "",
-            startDate: "",
-            endDate: "",
+            startMonth: "",
+            startYear: "",
+            endMonth: "",
+            endYear: "",
             details: "",
             expanded: true,
             currentPosition: false

@@ -50,9 +50,9 @@ export default function AnalysisTab({
                                 disabled={isAnalyzing}
                             >
                                 {isAnalyzing ? (
-                                    <FaSync className="animate-spin" />
+                                    <FaSync size={16} className="animate-spin" />
                                 ) : (
-                                    <SparklesIcon className="size-4"/>
+                                    <SparklesIcon className="size-5"/>
                                 )}
                             </Button>
                             <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">

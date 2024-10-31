@@ -20,8 +20,8 @@ export const useSubmitJobEntries = (setHasChanges: Dispatch<SetStateAction<boole
             user_id: user.id,
             job_title: entry.title,
             employer: entry.employer,
-            start_date: entry.startDate ? entry.startDate : null,
-            end_date: entry.endDate ? entry.endDate : null,
+            start_date: (entry.startMonth && entry.startYear) ? `${entry.startMonth} ${entry.startYear}` : null,
+            end_date: (entry.endMonth && entry.endYear) ? `${entry.endMonth} ${entry.endYear}` : null,
             description: entry.details,
             current_position: entry.currentPosition
         }))

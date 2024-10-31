@@ -15,8 +15,10 @@ export interface EducationEntryType {
     id: number
     degree: string
     institution: string
-    startDate: string
-    endDate: string
+    startMonth: string
+    startYear: string
+    endMonth: string
+    endYear: string
     currentlyEnrolled: boolean
     expanded: boolean
 }
@@ -68,45 +70,72 @@ export default function EducationEntry({ entry, DestroyEntry, onChange }: Educat
             <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">
                     <div className="flex flex-col gap-5 w-full px-5">
-                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                            <Label>Degree/Qualification</Label>
-                            <Input
-                                placeholder={"Bachelor of Science in ..."}
-                                value={entry.degree ? entry.degree : ""}
-                                onChange={(e) => handleChange("degree", e.target.value)}
-                            />
-                        </div>
-                        <div className="flex flex-col whitespace-nowrap gap-3 items-start">
-                            <Label>Institution</Label>
-                            <Input
-                                placeholder={entry.institution}
-                                value={entry.institution ?? ""}
-                                onChange={(e) => handleChange("institution", e.target.value)}
-                            />
+                        <div className="flex lg:flex-row flex-col w-full gap-3">
+                            <div className="flex flex-col w-full max-w-sm whitespace-nowrap gap-3 items-start">
+                                <Label>Degree/Qualification</Label>
+                                <Input
+                                    placeholder={"Bachelor of Science in ..."}
+                                    value={entry.degree ? entry.degree : ""}
+                                    onChange={(e) => handleChange("degree", e.target.value)}
+                                />
+                            </div>
+                            <div className="flex flex-col w-full max-w-sm whitespace-nowrap gap-3 items-start">
+                                <Label>Institution</Label>
+                                <Input
+                                    placeholder={entry.institution}
+                                    value={entry.institution ?? ""}
+                                    onChange={(e) => handleChange("institution", e.target.value)}
+                                />
+                            </div>
                         </div>
                         <div className="flex flex-col whitespace-nowrap pb-5 gap-3 items-start">
-                            <div className="flex w-full max-w-xl justify-between items-center gap-5">
-                                <Label>Start</Label>
-                                <Input
-                                    type="date"
-                                    placeholder={entry.startDate}
-                                    value={entry.startDate ?? ""}
-                                    onChange={(e) => handleChange("startDate", e.target.value)}
-                                />
-                                <Label>End</Label>
-                                <Input
-                                    type="date"
-                                    placeholder={entry.endDate}
-                                    value={entry.endDate ?? ""}
-                                    onChange={(e) => handleChange("endDate", e.target.value)}
-                                    disabled={isChecked}
-                                />
-                                <div className="flex justify-center gap-2 items-center">
-                                    <Checkbox
-                                        checked={isChecked}
-                                        onCheckedChange={handleCheckboxState}
-                                    />
-                                    <Label>Currently Enrolled</Label>
+                            <div className="flex w-full max-w-xl items-center gap-5">
+                                <div className="flex flex-col gap-3">
+                                    <Label>Start</Label>
+                                    <div className="flex gap-3">
+                                        <Input
+                                            type="text"
+                                            placeholder="Month"
+                                            value={entry.startMonth ?? ""}
+                                            onChange={(e) => handleChange("startMonth", e.target.value)}
+                                            className="w-[100px]"
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder="Year"
+                                            value={entry.startYear ?? ""}
+                                            onChange={(e) => handleChange("startYear", e.target.value)}
+                                            className="w-[65px]"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-3">
+                                    <Label>End</Label>
+                                    <div className="flex gap-3 items-center">
+                                        <Input
+                                            type="text"
+                                            placeholder="Month"
+                                            value={entry.endMonth ?? ""}
+                                            onChange={(e) => handleChange("endMonth", e.target.value)}
+                                            className="w-[100px]"
+                                            disabled={isChecked}
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder="Year"
+                                            value={entry.endYear ?? ""}
+                                            onChange={(e) => handleChange("endYear", e.target.value)}
+                                            className="w-[65px]"
+                                            disabled={isChecked}
+                                        />
+                                        <div className="flex justify-center gap-2 h-full">
+                                            <Checkbox
+                                                checked={isChecked}
+                                                onCheckedChange={handleCheckboxState}
+                                            />
+                                            <Label>Current Position</Label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

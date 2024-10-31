@@ -20,8 +20,8 @@ export const useSubmitEducationEntries = (setHasChanges: Dispatch<SetStateAction
             user_id: user.id,
             degree: entry.degree,
             institution: entry.institution,
-            start_date: entry.startDate ? entry.startDate : null,
-            end_date: entry.endDate ? entry.endDate : null,
+            start_date: (entry.startMonth && entry.startYear) ? `${entry.startMonth} ${entry.startYear}` : null,
+            end_date: (entry.endMonth && entry.endYear) ? `${entry.endMonth} ${entry.endYear}` : null,
             currently_enrolled: entry.currentlyEnrolled
         }))
 

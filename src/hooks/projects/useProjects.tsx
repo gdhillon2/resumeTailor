@@ -21,15 +21,22 @@ export const useProjects = (user: UserType | null) => {
         if (fetchError) {
             console.error("could not fetch project data")
         } else {
-            const formattedEntries = projectData.map((entry) => ({
-                id: entry.projects_id,
-                title: entry.title,
-                details: entry.details,
-                technologies: entry.technologies,
-                startDate: entry.start_date,
-                endDate: entry.end_date,
-                expanded: false
-            }))
+            const formattedEntries = projectData.map((entry) => {
+                const [startMonth, startYear] = entry.start_date ? entry.start_date.split(" ") : ["", ""]
+                const [endMonth, endYear] = entry.end_date ? entry.end_date.split(" ") : ["", ""]
+
+                return {
+                    id: entry.projects_id,
+                    title: entry.title,
+                    details: entry.details,
+                    technologies: entry.technologies,
+                    startMonth: startMonth,
+                    startYear: startYear,
+                    endMonth: endMonth,
+                    endYear: endYear,
+                    expanded: false
+                }
+            })
 
             setProjects(formattedEntries)
             setHasChanges(false)
@@ -44,7 +51,17 @@ export const useProjects = (user: UserType | null) => {
 
 
     const addProject = () => {
-        const newEntry: ProjectEntryType = { id: projects.length, title: "", details: "", technologies: "", startDate: "", endDate: "", expanded: true }
+        const newEntry: ProjectEntryType = {
+            id: projects.length,
+            title: "",
+            details: "",
+            technologies: "",
+            startMonth: "",
+            startYear: "",
+            endMonth: "",
+            endYear: "",
+            expanded: true
+        }
         setProjects([...projects, newEntry])
     }
 

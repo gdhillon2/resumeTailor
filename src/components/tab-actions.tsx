@@ -15,7 +15,7 @@ export default function TabActions({ onAdd, onRevert, onSave, saving, hasChanges
             {onAdd && (
                 <div className="relative group">
                     <Button variant={"secondary"} onClick={onAdd}>
-                        <FaPlus />
+                        <FaPlus size={16} />
                     </Button>
                     <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         Add
@@ -25,7 +25,7 @@ export default function TabActions({ onAdd, onRevert, onSave, saving, hasChanges
             {onRevert && (
                 <div className="relative group">
                     <Button variant={"secondary"} onClick={onRevert}>
-                        <FaUndo />
+                        <FaUndo size={16} />
                     </Button>
                     <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         Revert
@@ -38,7 +38,7 @@ export default function TabActions({ onAdd, onRevert, onSave, saving, hasChanges
                     onClick={onSave}
                     className={hasChanges ? "text-primary" : "no-hover"}
                 >
-                    <FaSave />
+                    <FaSave size={16} />
                 </Button>
                 <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                     {saving ? "Saving..." : "Save"}

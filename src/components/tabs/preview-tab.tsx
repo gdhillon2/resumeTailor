@@ -69,14 +69,6 @@ const styles = StyleSheet.create({
     }
 })
 
-const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'short'
-    })
-}
-
 const BulletPoints = ({ text }: { text: string }) => {
     const points = text.split('\n').filter(point => point.trim())
     return (
@@ -94,7 +86,7 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
             <View style={styles.header}>
                 <Text style={styles.name}>{contact.fullName}</Text>
                 <Text style={styles.contact}>
-                    {`${contact.city}, ${contact.state}, ${contact.country} | ${contact.phoneNumber} | ${contact.email}${contact.relevantLink ? ` | ${contact.relevantLink}` : ''
+                    {`${contact.city}, ${contact.state}, ${contact.country}  |  ${contact.phoneNumber}  |  ${contact.email}${contact.relevantLink ? `  |  ${contact.relevantLink}` : ''
                         }`}
                 </Text>
             </View>
@@ -117,7 +109,8 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                                     <Text style={styles.employer}>{job.employer}</Text>
                                 </View>
                                 <Text style={styles.dates}>
-                                    {job.startDate} - {job.currentPosition ? 'Present' : job.endDate}
+                                    {`${job.startMonth} ${job.startYear}`} - {job.currentPosition ?
+                                        'Present' : `${job.endMonth} ${job.endYear}`}
                                 </Text>
                             </View>
                             <BulletPoints text={job.details} />
@@ -137,7 +130,8 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                                     <Text style={styles.employer}>{project.technologies}</Text>
                                 </View>
                                 <Text style={styles.dates}>
-                                    {project.startDate} - {project.endDate ? project.endDate : 'Present'}
+                                    {`${project.startMonth} ${project.startYear}`} - {(project.endMonth && project.endYear) ?
+                                        `${project.endMonth} ${project.endYear}` : 'Present'}
                                 </Text>
                             </View>
                             <BulletPoints text={project.details} />
@@ -157,7 +151,8 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                                     <Text style={styles.employer}>{edu.institution}</Text>
                                 </View>
                                 <Text style={styles.dates}>
-                                    {edu.startDate} - {edu.currentlyEnrolled ? 'Present' : edu.endDate}
+                                    {`${edu.startMonth} ${edu.startYear}`} - {edu.currentlyEnrolled ?
+                                        'Present' : `${edu.endMonth} ${edu.endYear}`}
                                 </Text>
                             </View>
                         </View>
@@ -203,7 +198,7 @@ export default function PreviewTab(props: PreviewTabProps) {
                             fileName={`${props.contact.fullName.replace(/\s+/g, '_')}_Resume.pdf`}
                         >
                             <Button>
-                                <FaDownload />
+                                <FaDownload size={16} />
                             </Button>
                         </PDFDownloadLink>
                         <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -259,7 +254,8 @@ export default function PreviewTab(props: PreviewTabProps) {
                                                 <div className="text-base text-gray-500">{job.employer}</div>
                                             </div>
                                             <div className="text-sm text-gray-500">
-                                                {formatDate(job.startDate)} - {job.currentPosition ? 'Present' : formatDate(job.endDate)}
+                                                {`${job.startMonth} ${job.startYear}`} - {job.currentPosition ?
+                                                    'Present' : `${job.endMonth} ${job.endYear}`}
                                             </div>
                                         </div>
                                         <BulletPointsPreview text={job.details} />
@@ -282,8 +278,8 @@ export default function PreviewTab(props: PreviewTabProps) {
                                                 <div className="text-base text-gray-500 ">{project.technologies}</div>
                                             </div>
                                             <div className="text-sm text-gray-500">
-                                                {formatDate(project.startDate)}
-                                                {project.endDate && ` - ${formatDate(project.endDate)}`}
+                                                {`${project.startMonth} ${project.startYear}`} - {(project.endMonth && project.endYear) ?
+                                                    `${project.endMonth} ${project.endYear}` : 'Present'}
                                             </div>
                                         </div>
                                         <BulletPointsPreview text={project.details} />
@@ -305,7 +301,8 @@ export default function PreviewTab(props: PreviewTabProps) {
                                                 <div className="text-gray-500 ">{edu.institution}</div>
                                             </div>
                                             <div className="text-sm text-gray-500">
-                                                {formatDate(edu.startDate)} - {edu.currentlyEnrolled ? 'Present' : formatDate(edu.endDate)}
+                                                {`${edu.startMonth} ${edu.startYear}`} - {edu.currentlyEnrolled ?
+                                                    'Present' : `${edu.endMonth} ${edu.endYear}`}
                                             </div>
                                         </div>
                                     </div>

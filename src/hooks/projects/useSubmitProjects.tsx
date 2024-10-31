@@ -20,8 +20,8 @@ export const useSubmitProjects = (setHasChanges: Dispatch<SetStateAction<boolean
             title: entry.title,
             details: entry.details,
             technologies: entry.technologies,
-            start_date: entry.startDate ? entry.startDate : null,
-            end_date: entry.endDate ? entry.endDate : null
+            start_date: (entry.startMonth && entry.startYear) ? `${entry.startMonth} ${entry.startYear}` : null,
+            end_date: (entry.endMonth && entry.endYear) ? `${entry.endMonth} ${entry.endYear}` : null,
         }))
 
         if (formattedEntries.length) {
