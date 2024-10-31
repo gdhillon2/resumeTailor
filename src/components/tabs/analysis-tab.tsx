@@ -8,6 +8,7 @@ import { JobEntryType } from "@/components/jobentry"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FaSync } from "react-icons/fa"
 import { SparklesIcon } from "@heroicons/react/24/solid"
+import { GaugeChart } from "../gauge-chart"
 
 interface AnalysisTabProps {
     summary: string
@@ -36,7 +37,7 @@ export default function AnalysisTab({
     const overallScore = analysis ?
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
 
-    const overallScoreColor = overallScore >= 80 ? "text-green-500" : overallScore >= 70 ? "text-yellow-500" : "text-red-500"
+    const overallScoreColor: string = overallScore >= 80 ? "text-green-500" : overallScore >= 70 ? "text-yellow-500" : "text-red-500"
 
     return (
         <>
@@ -52,7 +53,7 @@ export default function AnalysisTab({
                                 {isAnalyzing ? (
                                     <FaSync size={16} className="animate-spin" />
                                 ) : (
-                                    <SparklesIcon className="size-5"/>
+                                    <SparklesIcon className="size-5" />
                                 )}
                             </Button>
                             <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -74,33 +75,31 @@ export default function AnalysisTab({
             {
                 analysis ? (
                     <div className="flex flex-col gap-3 pt-5 pr-5 pl-5">
-                        <div className="flex gap-3">
-                            <div className="flex flex-col items-center w-[25%] bg-transparent p-5 rounded-xl">
-                                <div className="font-bold text-sm mb-2">Overall Score</div>
-                                <div className={`text-4xl ${overallScoreColor} relative`}>
-                                    {overallScore}
-                                    {/*
-                                            <span className="text-lg text-slate-300 absolute bottom-0 right-[-2.5rem]">/100</span>
-                                            */}
+                        <div className="flex flex-col gap-3 justify-center items-center">
+                            <div className="flex flex-col justify-center items-center bg-transparent rounded-xl">
+                                <div className="flex w-[200px] h-[150px] justify-center">
+                                    <GaugeChart
+                                        value={overallScore}
+                                        color={overallScoreColor}
+                                    />
                                 </div>
                             </div>
-                            {scoreTypes.map((scoreType) => {
-                                const score = analysis[scoreType]
-                                const color = score >= 80 ? "text-green-500" : score >= 70 ? "text-yellow-500" : "text-red-500"
-                                const label = scoreType.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
+                            <div className="flex justify-center gap-5 w-[75%] justify-between">
+                                {scoreTypes.map((scoreType) => {
+                                    const score = analysis[scoreType]
+                                    const color = score >= 80 ? "text-green-500" : score >= 70 ? "text-yellow-500" : "text-red-500"
+                                    const label = scoreType.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
 
-                                return (
-                                    <div key={scoreType} className="flex flex-col items-center w-[25%] bg-transparent p-5 rounded-xl">
-                                        <div className="font-bold text-sm mb-2">{label}</div>
-                                        <div className={`text-4xl ${color} relative`}>
-                                            {Math.floor(score)}
-                                            {/*
-                                            <span className="text-lg text-slate-300 absolute bottom-0 right-[-2.5rem]">/100</span>
-                                            */}
+                                    return (
+                                        <div key={scoreType} className="flex flex-col items-center bg-transparent p-5 rounded-xl">
+                                            <div className="text-sm mb-2">{label}</div>
+                                            <div className={`text-4xl ${color} relative`}>
+                                                {Math.floor(score)}
+                                            </div>
                                         </div>
-                                    </div>
-                                )
-                            })}
+                                    )
+                                })}
+                            </div>
                         </div>
                         <div className="flex gap-3">
                             <div className="w-[50%] rounded-xl bg-slate-800">
@@ -138,7 +137,7 @@ export default function AnalysisTab({
                                 )
                             })}
                         </div>
-                    </div>
+                    </div >
                 ) : (
                     <div className="p-5">Click the Analyze Resume button in the top right corner to get feedback on your resume!</div>
                 )
