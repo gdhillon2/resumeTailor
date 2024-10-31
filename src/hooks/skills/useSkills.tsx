@@ -15,7 +15,7 @@ export const useSkills = (user: UserType | null) => {
             .from("user_profile")
             .select("skills")
             .eq("user_id", user.id)
-            .single()
+            .maybeSingle()
 
         if (fetchError) {
             console.error("error fetching skills:", fetchError)

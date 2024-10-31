@@ -15,7 +15,7 @@ export const useSummary = (user: UserType | null) => {
             .from("user_profile")
             .select("summary")
             .eq("user_id", user.id)
-            .single()
+            .maybeSingle()
 
         if (fetchError) {
             console.error("error fetching summary:", fetchError)
