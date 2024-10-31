@@ -33,8 +33,8 @@ async function analyzeResume(summary: string, jobEntries: JobEntryType[], projec
         ${jobEntries.map(job => `
         Title: ${job.title}
         Employer: ${job.employer}
-        Start Date: ${job.startDate}
-        ${job.endDate ? `End Date: ${job.endDate}` : ""}
+        Start Date: ${job.startMonth} ${job.startYear}
+        ${!job.currentPosition ? `End Date: ${job.endMonth} ${job.endYear}` : ""}
         Current Position: ${job.currentPosition}
         Details: ${job.details}
         `).join('\n')}
@@ -42,7 +42,7 @@ async function analyzeResume(summary: string, jobEntries: JobEntryType[], projec
         Projects:
         ${projects.map(project => `
         Title: ${project.title}
-        Duration: ${project.startDate}${project.endDate ? ` - ${project.endDate}` : ' - Present'}
+        Duration: ${project.startMonth} ${project.startYear}${project.endMonth && project.endYear ? ` - ${project.endMonth} ${project.endYear}` : ' - Present'}
         Technologies: ${project.technologies}
         Details: ${project.details}
         `).join('\n')}
