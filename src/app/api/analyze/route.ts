@@ -68,7 +68,7 @@ async function analyzeResume(summary: string, jobEntries: JobEntryType[], projec
             messages: [
                 {
                     role: "system",
-                    content: "You are a professional resume reviewer and career coach specializing in technical roles. Provide structured, actionable feedback that helps improve both content and presentation. Focus on how to better demonstrate technical skills and project impact. Only provide feedback on the text content."
+                    content: "You are a professional resume reviewer and career coach specializing in technical roles. Provide structured, actionable feedback that helps improve content. Focus on how to better demonstrate technical skills and project impact. Only provide feedback on the text content."
                 },
                 {
                     role: "user",
