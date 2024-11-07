@@ -133,7 +133,7 @@ export default function EducationEntry({ entry, DestroyEntry, onChange }: Educat
                                                 checked={isChecked}
                                                 onCheckedChange={handleCheckboxState}
                                             />
-                                            <Label>Current Position</Label>
+                                            <Label>Currently Enrolled</Label>
                                         </div>
                                     </div>
                                 </div>
