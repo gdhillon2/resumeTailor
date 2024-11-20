@@ -5,7 +5,7 @@ import { ProjectEntryType } from "@/components/projectentry"
 import { EducationEntryType } from "@/components/education-entry"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { FaDownload, FaSave } from "react-icons/fa"
+import { FaDownload, FaSave, FaUndo } from "react-icons/fa"
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer"
 
 const styles = StyleSheet.create({
@@ -169,6 +169,7 @@ interface PreviewTabProps {
     education: EducationEntryType[]
     skills: string
     submitAll: () => Promise<void>
+    revertAll: () => Promise<void>
     setAllChanges: () => void
     allChanges: {
         contactChanges: boolean
@@ -182,15 +183,33 @@ interface PreviewTabProps {
 
 
 export default function PreviewTab(props: PreviewTabProps) {
-    const { contact, summary, jobEntries, projects, skills, education, submitAll, setAllChanges, allChanges } = props
+    const {
+        contact,
+        summary,
+        jobEntries,
+        projects,
+        skills,
+        education,
+        submitAll,
+        revertAll,
+        setAllChanges,
+        allChanges } = props
     const { fullName, email, phoneNumber, relevantLink, country, state, city } = contact
     const [saving, setSaving] = useState<boolean>(false)
+    const [reverting, setReverting] = useState<boolean>(false)
 
     const submitAndSaveAll = async () => {
         setSaving(true)
         await submitAll()
         setAllChanges()
         setSaving(false)
+    }
+
+    const onRevertAll = async () => {
+        setReverting(true)
+        await revertAll()
+        setAllChanges()
+        setReverting(false)
     }
 
     const BulletPointsPreview = ({ text }: { text: string }) => {
@@ -213,6 +232,14 @@ export default function PreviewTab(props: PreviewTabProps) {
                     <Label className="text-xl font-bold">Preview Your Resume</Label>
                 </div>
                 <div className="flex gap-5 animate-float-fade-in-1_2s-delay" style={{ opacity: "0%" }}>
+                    <div className="relative group">
+                        <Button variant={"secondary"} onClick={onRevertAll}>
+                            <FaUndo size={16} />
+                        </Button>
+                        <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                            {reverting ? "Reverting..." : "Revert All"}
+                        </span>
+                    </div>
                     <div className="relative group">
                         <Button
                             className={hasChanges ? "text-primary" : "no-hover"}

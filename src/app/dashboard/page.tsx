@@ -101,6 +101,15 @@ export default function Dashboard() {
         await submitSkills()
     }
 
+    const revertAll = async () => {
+        await fetchContact()
+        await fetchSummary()
+        await fetchJobEntries()
+        await fetchProjects()
+        await fetchEducationEntries()
+        await fetchSkills()
+    }
+
     const setAllChanges = () => {
         setContactChanges(false)
         setSummaryChanges(false)
@@ -217,6 +226,7 @@ export default function Dashboard() {
                     education={educationEntries}
                     skills={skills}
                     submitAll={submitAll}
+                    revertAll={revertAll}
                     setAllChanges={setAllChanges}
                     allChanges={allChanges}
                 />
