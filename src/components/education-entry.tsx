@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { MouseEventHandler, useState } from "react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { FiChevronUp } from "react-icons/fi"
+import { FaTrash } from "react-icons/fa"
 
 interface EducationEntryParams {
     entry: EducationEntryType
@@ -59,13 +60,14 @@ export default function EducationEntry({ entry, DestroyEntry, onChange }: Educat
                 </div>
                 <div className="mr-2 transition-transform duration-300">
                 </div>
-                <Button
-                    variant={"destructive"}
-                    size={"sm"}
-                    onClick={DestroyEntry}
-                >
-                    Remove
-                </Button>
+                <div className="relative group">
+                    <Button variant={"ghost"} onClick={DestroyEntry}>
+                        <FaTrash size={14} />
+                    </Button>
+                    <span className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        Delete
+                    </span>
+                </div>
             </div>
             <div className={`grid transition-all duration-300 ease-in-out ${isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
                 <div className="overflow-hidden">
