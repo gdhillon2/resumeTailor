@@ -5,7 +5,10 @@ import "@/app/globals.css"
 
 export const metadata: Metadata = {
     title: "ResumeTailor",
-    description: "Website that helps tailor your resume to open job positions leveraging AI."
+    description: "Website that helps tailor your resume to open job positions leveraging AI.",
+    icons: {
+        icon: "/favicon.png"
+    }
 }
 
 export default function RootLayout({
