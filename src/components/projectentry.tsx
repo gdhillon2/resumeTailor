@@ -60,7 +60,7 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
                             <div className="flex flex-col gap-3 w-full max-w-sm">
                                 <Label>Title</Label>
                                 <Input
-                                    placeholder={entry.title}
+                                    placeholder="Project Title"
                                     value={entry.title ?? ""}
                                     onChange={(e) => handleChange("title", e.target.value)}
                                 />
@@ -68,7 +68,7 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
                             <div className="flex flex-col gap-3 w-full max-w-sm">
                                 <Label>Tools and Techniques</Label>
                                 <Input
-                                    placeholder={entry.technologies}
+                                    placeholder="TypeScript, Next.js, Docker, etc."
                                     value={entry.technologies ?? ""}
                                     onChange={(e) => handleChange("technologies", e.target.value)}
                                 />
@@ -120,7 +120,7 @@ export default function ProjectEntry({ entry, DestroyEntry, onChange }: ProjectE
                             <Label>Description</Label>
                             <Textarea
                                 rows={4}
-                                placeholder={entry.details}
+                                placeholder="Enter project details here, placing each point on a new line." 
                                 value={entry.details ?? ""}
                                 onChange={(e) => handleChange("details", e.target.value)}
                             />

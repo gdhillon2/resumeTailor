@@ -78,7 +78,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                             <div className="flex flex-col gap-3 w-full max-w-sm">
                                 <Label>Title</Label>
                                 <Input
-                                    placeholder={entry.title}
+                                    placeholder="Job Title"
                                     value={entry.title ?? ""}
                                     onChange={(e) => handleChange("title", e.target.value)}
                                 />
@@ -86,7 +86,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                             <div className="flex flex-col gap-3 w-full max-w-sm">
                                 <Label>Employer</Label>
                                 <Input
-                                    placeholder={entry.employer}
+                                    placeholder="Employer Name"
                                     value={entry.employer ?? ""}
                                     onChange={(e) => handleChange("employer", e.target.value)}
                                 />
@@ -147,7 +147,7 @@ export default function JobEntry({ entry, DestroyEntry, onChange }: JobEntryPara
                             <Label>Description</Label>
                             <Textarea
                                 rows={4}
-                                placeholder={entry.details}
+                                placeholder="Enter job responsibilities here, placing each point on a new line."
                                 value={entry.details ?? ""}
                                 onChange={(e) => handleChange("details", e.target.value)}
                             />
