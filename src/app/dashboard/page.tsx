@@ -160,11 +160,8 @@ export default function Dashboard() {
             </TabsContent>
             <TabsContent value="work" className="">
                 <WorkTab
-                    jobEntries={jobEntries}
                     addJobEntry={addJobEntry}
-                    fetchJobEntries={fetchJobEntries}
                     submitJobEntries={submitJobEntries}
-                    jobChanges={jobChanges}
                     handleJobEntryChange={handleJobEntryChange}
                     removeJobEntry={removeJobEntry}
                     savingJobs={savingJobs}

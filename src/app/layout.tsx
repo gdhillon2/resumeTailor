@@ -1,6 +1,7 @@
 import "./globals.css"
 import { AuthProvider } from "@/context/authContext"
 import { Metadata } from "next"
+import { Providers } from "@/redux/providers"
 import "@/app/globals.css"
 
 export const metadata: Metadata = {
@@ -20,11 +21,13 @@ export default function RootLayout({
         <html lang="en" className="dark" style={{ backgroundColor: "#0f172a" }}>
             <body className="flex flex-col h-full w-full min-w-screen min-h-screen">
                 <AuthProvider>
-                    <div className="flex min-w-screen min-h-screen w-full h-full">
-                        {children}
-                    </div>
+                    <Providers>
+                        <div className="flex min-w-screen min-h-screen w-full h-full">
+                            {children}
+                        </div>
+                    </Providers>
                 </AuthProvider>
             </body>
-        </html>
+        </html >
     )
 }
