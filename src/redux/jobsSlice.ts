@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
 import { supabase } from "@/lib/supabaseClient"
 import { JobEntryType } from "@/components/jobentry"
-import { User } from "@supabase/supabase-js"
 
 interface JobsState {
     jobEntries: JobEntryType[]

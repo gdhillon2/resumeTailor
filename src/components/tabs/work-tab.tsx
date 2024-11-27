@@ -32,7 +32,8 @@ export default function WorkTab({
     )
 
     const fetchJobEntriesHandler = async () => {
-        await dispatch(fetchJobEntries(user.id))
+        if (user?.id)
+            await dispatch(fetchJobEntries(user.id))
     }
 
     useEffect(() => {

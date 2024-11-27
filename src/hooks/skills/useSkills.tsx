@@ -23,12 +23,12 @@ export const useSkills = (user: UserType | null) => {
             setHasChanges(false)
         }
 
-    }, [])
+    }, [user])
 
     useEffect(() => {
         fetchSkills()
 
-    }, [fetchSkills])
+    }, [fetchSkills, user])
 
     const handleSkillChange = (updatedSkills: string) => {
         setSkills(updatedSkills)
