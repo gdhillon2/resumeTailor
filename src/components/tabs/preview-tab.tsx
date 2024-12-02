@@ -20,30 +20,29 @@ const styles = StyleSheet.create({
     },
     header: {
         textAlign: "center",
-        marginBottom: 20
+        paddingBottom: 8
     },
     name: {
         fontSize: 24,
-        marginBottom: 5
     },
     contact: {
         fontSize: 10,
         color: "#666"
     },
     section: {
-        marginBottom: 10
     },
     sectionTitle: {
         fontSize: 16,
         fontWeight: "bold",
-        marginBottom: 10,
         borderBottom: "1 solid #666",
-        paddingBottom: 5
+    },
+    sectionBody: {
+        paddingTop: 4,
+        paddingBottom: 4
     },
     jobTitle: {
         fontSize: 12,
         fontWeight: "bold",
-        paddingBottom: 5
     },
     employer: {
         fontSize: 12,
@@ -55,13 +54,11 @@ const styles = StyleSheet.create({
     },
     details: {
         fontSize: 10,
-        marginTop: 5,
-        lineHeight: 1.3
+        lineHeight: 1.5
     },
     bulletPoint: {
         fontSize: 10,
-        marginTop: 2,
-        lineHeight: 1.3
+        lineHeight: 1.5,
     }
 })
 
@@ -98,7 +95,7 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Experience</Text>
                     {jobEntries.map((job) => (
-                        <View key={job.id} style={{ marginBottom: 10 }}>
+                        <View key={job.id}>
                             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                 <View>
                                     <Text style={styles.jobTitle}>{job.title}</Text>
@@ -119,7 +116,7 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Projects</Text>
                     {projects.map((project) => (
-                        <View key={project.id} style={{ marginBottom: 10 }}>
+                        <View key={project.id}>
                             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                 <View>
                                     <Text style={styles.jobTitle}>{project.title}</Text>
@@ -140,7 +137,7 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                 <View style={styles.section}>
                     <Text style={styles.sectionTitle}>Education</Text>
                     {education.map((edu) => (
-                        <View key={edu.id} style={{ marginBottom: 10 }}>
+                        <View key={edu.id}>
                             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                 <View>
                                     <Text style={styles.jobTitle}>{edu.degree}</Text>
