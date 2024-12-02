@@ -6,15 +6,20 @@ import { EducationEntryType } from "@/components/education-entry"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { FaDownload, FaSave, FaUndo } from "react-icons/fa"
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer"
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Font } from "@react-pdf/renderer"
+
+Font.register({
+    family: "Latin Modern 12",
+    src: "/fonts/lmroman12-regular.otf"
+})
 
 const styles = StyleSheet.create({
     page: {
         padding: 32,
-        fontFamily: 'Helvetica'
+        fontFamily: "Latin Modern 12"
     },
     header: {
-        textAlign: 'center',
+        textAlign: "center",
         marginBottom: 20
     },
     name: {
@@ -23,30 +28,30 @@ const styles = StyleSheet.create({
     },
     contact: {
         fontSize: 10,
-        color: '#666'
+        color: "#666"
     },
     section: {
         marginBottom: 10
     },
     sectionTitle: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginBottom: 10,
-        borderBottom: '1 solid #666',
+        borderBottom: "1 solid #666",
         paddingBottom: 5
     },
     jobTitle: {
         fontSize: 12,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         paddingBottom: 5
     },
     employer: {
         fontSize: 12,
-        color: '#666'
+        color: "#666"
     },
     dates: {
         fontSize: 10,
-        color: '#666'
+        color: "#666"
     },
     details: {
         fontSize: 10,
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
 })
 
 const BulletPoints = ({ text }: { text: string }) => {
-    const points = text.split('\n').filter(point => point.trim())
+    const points = text.split("\n").filter(point => point.trim())
     return (
         <>
             {points.map((point, index) => (
@@ -77,7 +82,7 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
             <View style={styles.header}>
                 <Text style={styles.name}>{contact.fullName}</Text>
                 <Text style={styles.contact}>
-                    {`${contact.city}, ${contact.state}, ${contact.country}  |  ${contact.phoneNumber}  |  ${contact.email}${contact.relevantLink ? `  |  ${contact.relevantLink}` : ''
+                    {`${contact.city}, ${contact.state}, ${contact.country}  |  ${contact.phoneNumber}  |  ${contact.email}${contact.relevantLink ? `  |  ${contact.relevantLink}` : ""
                         }`}
                 </Text>
             </View>
@@ -94,14 +99,14 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                     <Text style={styles.sectionTitle}>Experience</Text>
                     {jobEntries.map((job) => (
                         <View key={job.id} style={{ marginBottom: 10 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                 <View>
                                     <Text style={styles.jobTitle}>{job.title}</Text>
                                     <Text style={styles.employer}>{job.employer}</Text>
                                 </View>
                                 <Text style={styles.dates}>
                                     {`${job.startMonth} ${job.startYear}`} - {job.currentPosition ?
-                                        'Present' : `${job.endMonth} ${job.endYear}`}
+                                        "Present" : `${job.endMonth} ${job.endYear}`}
                                 </Text>
                             </View>
                             <BulletPoints text={job.details} />
@@ -115,14 +120,14 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                     <Text style={styles.sectionTitle}>Projects</Text>
                     {projects.map((project) => (
                         <View key={project.id} style={{ marginBottom: 10 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                 <View>
                                     <Text style={styles.jobTitle}>{project.title}</Text>
                                     <Text style={styles.employer}>{project.technologies}</Text>
                                 </View>
                                 <Text style={styles.dates}>
                                     {`${project.startMonth} ${project.startYear}`} - {(project.endMonth && project.endYear) ?
-                                        `${project.endMonth} ${project.endYear}` : 'Present'}
+                                        `${project.endMonth} ${project.endYear}` : "Present"}
                                 </Text>
                             </View>
                             <BulletPoints text={project.details} />
@@ -136,14 +141,14 @@ const ResumePDF = ({ contact, summary, jobEntries, projects, education, skills }
                     <Text style={styles.sectionTitle}>Education</Text>
                     {education.map((edu) => (
                         <View key={edu.id} style={{ marginBottom: 10 }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                                 <View>
                                     <Text style={styles.jobTitle}>{edu.degree}</Text>
                                     <Text style={styles.employer}>{edu.institution}</Text>
                                 </View>
                                 <Text style={styles.dates}>
                                     {`${edu.startMonth} ${edu.startYear}`} - {edu.currentlyEnrolled ?
-                                        'Present' : `${edu.endMonth} ${edu.endYear}`}
+                                        "Present" : `${edu.endMonth} ${edu.endYear}`}
                                 </Text>
                             </View>
                         </View>
@@ -213,7 +218,7 @@ export default function PreviewTab(props: PreviewTabProps) {
     }
 
     const BulletPointsPreview = ({ text }: { text: string }) => {
-        const points = text.split('\n').filter(point => point.trim())
+        const points = text.split("\n").filter(point => point.trim())
         return (
             <ul className="list-disc ml-4">
                 {points.map((point, index) => (
@@ -255,7 +260,7 @@ export default function PreviewTab(props: PreviewTabProps) {
                     <div className="relative group">
                         <PDFDownloadLink
                             document={<ResumePDF {...props} />}
-                            fileName={`${props.contact.fullName.replace(/\s+/g, '_')}_Resume.pdf`}
+                            fileName={`${props.contact.fullName.replace(/\s+/g, "_")}_Resume.pdf`}
                         >
                             <Button>
                                 <FaDownload size={16} />
@@ -315,7 +320,7 @@ export default function PreviewTab(props: PreviewTabProps) {
                                             </div>
                                             <div className="text-sm text-gray-500">
                                                 {`${job.startMonth} ${job.startYear}`} - {job.currentPosition ?
-                                                    'Present' : `${job.endMonth} ${job.endYear}`}
+                                                    "Present" : `${job.endMonth} ${job.endYear}`}
                                             </div>
                                         </div>
                                         <BulletPointsPreview text={job.details} />
@@ -339,7 +344,7 @@ export default function PreviewTab(props: PreviewTabProps) {
                                             </div>
                                             <div className="text-sm text-gray-500">
                                                 {`${project.startMonth} ${project.startYear}`} - {(project.endMonth && project.endYear) ?
-                                                    `${project.endMonth} ${project.endYear}` : 'Present'}
+                                                    `${project.endMonth} ${project.endYear}` : "Present"}
                                             </div>
                                         </div>
                                         <BulletPointsPreview text={project.details} />
@@ -362,7 +367,7 @@ export default function PreviewTab(props: PreviewTabProps) {
                                             </div>
                                             <div className="text-sm text-gray-500">
                                                 {`${edu.startMonth} ${edu.startYear}`} - {edu.currentlyEnrolled ?
-                                                    'Present' : `${edu.endMonth} ${edu.endYear}`}
+                                                    "Present" : `${edu.endMonth} ${edu.endYear}`}
                                             </div>
                                         </div>
                                     </div>
