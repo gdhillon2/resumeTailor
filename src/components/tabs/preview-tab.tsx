@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
         borderBottom: "1 solid #666",
     },
     sectionBody: {
-        paddingTop: 4,
-        paddingBottom: 4
+        paddingTop: 8,
+        paddingBottom: 8
     },
     jobTitle: {
         fontSize: 12,
