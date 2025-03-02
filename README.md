@@ -1,26 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ResumeTailor
+ResumeTailor is a web application that helps users quickly iterate on resumes, receive real-time AI-powered feedback, and download ATS-compliant, fully parsable documents—making the job application process faster and more effective.
+**Note: Account creation is temporarily unavailable as user testing has concluded. Please refer to the screenshots below for an overview of the application.** 
 
-## Getting Started
+## Features
+- AI-Powered Resume Feedback – Get real-time insights using OpenAI to improve your resume's structure, clarity, and impact.
+- ATS-Friendly Resume Downloads – Generate fully parsable, ATS-compliant documents to maximize your chances of passing resume screeners.
+- Live Editing & Version Control – Make quick changes, preview updates, and manage multiple resume versions effortlessly.
+- Secure User Authentication – Uses Supabase authentication to ensure safe and private resume storage.
+- Modern & Responsive UI – Built with Next.js, Tailwind, ShadCN, and PostCSS, providing a clean, intuitive, and accessible user experience.
 
-First, run the development server:
+## Tech Stack
+- Frontend: TypeScript, Next.js, Redux Thunk, Tailwind, ShadCN, PostCSS
+- Backend & Database: Supabase (PostgreSQL), Custom REST API
+- AI Integration: OpenAI API for intelligent resume suggestions
+- DevOps: GitHub Actions for CI/CD, ESLint for code quality
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Application Flow
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![image](https://github.com/user-attachments/assets/b3401a4e-5b64-41f8-a166-ac3d4adb715e)
 
-## Learn More
+![image](https://github.com/user-attachments/assets/de91e1db-179f-4c17-8a7c-934722f90e40)
 
-To learn more about Next.js, take a look at the following resources:
+![image](https://github.com/user-attachments/assets/1bbd1834-00b8-463d-abd4-1f211d15945f)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![image](https://github.com/user-attachments/assets/e45ce750-12ac-403f-b671-d5e278f761be)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![image](https://github.com/user-attachments/assets/c472b4bf-7721-48db-9b76-0532ff8055c3)
+
+![image](https://github.com/user-attachments/assets/ae209361-1255-4b4e-b7a7-bb5ef65131fd)
+
+![image](https://github.com/user-attachments/assets/470c20fe-e3b8-4b4d-a3ba-9ecc9b4c6da3)
+
+![image](https://github.com/user-attachments/assets/4f9b9718-ec95-4c75-9c71-f8621c967af5)
