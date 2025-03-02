@@ -1,5 +1,6 @@
 # ResumeTailor
 ResumeTailor is a web application that helps users quickly iterate on resumes, receive real-time AI-powered feedback, and download ATS-compliant, fully parsable documents—making the job application process faster and more effective.
+
 **Note: Account creation is temporarily unavailable as user testing has concluded. Please refer to the screenshots below for an overview of the application.** 
 
 ## Features
