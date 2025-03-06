@@ -6,7 +6,7 @@ ResumeTailor is a web application that helps users quickly iterate on resumes, r
 ## Features
 - AI-Powered Resume Feedback – Get real-time insights using OpenAI to improve your resume's structure, clarity, and impact.
 - ATS-Friendly Resume Downloads – Generate fully parsable, ATS-compliant documents to maximize your chances of passing resume screeners.
-- Live Editing & Version Control – Make quick changes, preview updates, and manage multiple resume versions effortlessly.
+- Live Editing & Version Control – Make quick changes, preview updates, and managing multiple resume versions coming soon.
 - Secure User Authentication – Uses Supabase authentication to ensure safe and private resume storage.
 - Modern & Responsive UI – Built with Next.js, Tailwind, ShadCN, and PostCSS, providing a clean, intuitive, and accessible user experience.
 
