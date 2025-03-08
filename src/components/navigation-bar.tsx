@@ -23,16 +23,14 @@ export default function NavigationLayout() {
         <>
             <NavigationMenu>
                 <NavigationMenuList>
-                    {user &&
-                        <NavigationMenuItem>
-                            <NavigationMenuLink
-                                href="/dashboard"
-                                className={navigationMenuTriggerStyle()}
-                            >
-                                Dashboard
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
-                    }
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            href="/dashboard"
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            { user ? "Dashboard" : "Demo" }
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
                     <NavigationMenuItem>
                         {!user ? (
                             <NavigationMenuLink
