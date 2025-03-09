@@ -7,12 +7,10 @@ import {
     navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu"
 import "@/app/globals.css"
-import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/authContext"
 
 export default function NavigationLayout() {
-    const pathname = usePathname();
     const { user, logOut } = useAuth()
 
     const handleLogOut = () => {
