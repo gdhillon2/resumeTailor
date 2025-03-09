@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { FaSync } from "react-icons/fa"
 import { SparklesIcon } from "@heroicons/react/24/solid"
 import { GaugeChart } from "../gauge-chart"
+import { useAuth } from "@/context/authContext"
 
 interface AnalysisTabProps {
     summary: string
@@ -38,13 +39,18 @@ export default function AnalysisTab({
         Math.round(scoreTypes.reduce((acc, scoreType) => acc + analysis[scoreType], 0) / scoreTypes.length) : 0
 
     const overallScoreColor: string = overallScore >= 80 ? "text-green-500" : overallScore >= 70 ? "text-yellow-500" : "text-red-500"
-
+    const { user } = useAuth()
     return (
         <>
             <div className="flex flex-col w-full p-5 gap-5 border-b gradient">
                 <div className="flex justify-between items-center">
                     <Label className="text-xl font-bold">Your Resume Analysis</Label>
-                    <div className="animate-float-fade-in-1_2s-delay" style={{ opacity: 0 }}>
+                    <div className="flex gap-5 animate-float-fade-in-1_2s-delay items-center" style={{ opacity: 0 }}>
+                        {
+                            !user && (
+                                <div className="whitespace-nowrap text-sm font-bold">{"Warning: Analysis doesn't work in demo mode"}</div>
+                            )
+                        }
                         <div className="relative group">
                             <Button
                                 onClick={() => handleAnalyze(summary, jobEntries, projects, skills)}

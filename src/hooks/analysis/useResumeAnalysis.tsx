@@ -63,12 +63,17 @@ export function useResumeAnalysis(user: UserType | null) {
         }
 
         fetchAnalysis()
-    }, [])
+    }, [user])
 
 
     const handleAnalyze = async (summary: string, jobEntries: JobEntryType[], projects: ProjectEntryType[], skills: string) => {
         setIsAnalyzing(true)
         setError("")
+        if (!user) {
+            setError("User is not logged in.")
+            setIsAnalyzing(false)
+            return
+        }
 
         try {
             const response = await fetch("/api/analyze",

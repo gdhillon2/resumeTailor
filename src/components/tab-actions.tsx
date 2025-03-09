@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { FaPlus, FaUndo, FaSave } from "react-icons/fa"
+import { useAuth } from "@/context/authContext"
 
 interface TabActionsProps {
     onAdd: (() => void) | null
@@ -10,8 +11,14 @@ interface TabActionsProps {
 }
 
 export default function TabActions({ onAdd, onRevert, onSave, saving, hasChanges }: TabActionsProps) {
+    const { user } = useAuth()
     return (
-        <div className="flex gap-5 animate-float-fade-in-1_2s-delay" style={{ opacity: "0%" }}>
+        <div className="flex gap-5 animate-float-fade-in-1_2s-delay items-center" style={{ opacity: "0%" }}>
+            {
+                !user && (
+                    <div className="whitespace-nowrap text-sm font-bold">{"Warning: Save and Revert don't work in demo mode"}</div>
+                )
+            }
             {onAdd && (
                 <div className="relative group">
                     <Button variant={"secondary"} onClick={onAdd}>

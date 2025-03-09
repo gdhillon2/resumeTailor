@@ -7,12 +7,10 @@ import {
     navigationMenuTriggerStyle
 } from "@/components/ui/navigation-menu"
 import "@/app/globals.css"
-import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/context/authContext"
 
 export default function NavigationLayout() {
-    const pathname = usePathname();
     const { user, logOut } = useAuth()
 
     const handleLogOut = () => {
@@ -23,21 +21,19 @@ export default function NavigationLayout() {
         <>
             <NavigationMenu>
                 <NavigationMenuList>
-                    {user &&
-                        <NavigationMenuItem>
-                            <NavigationMenuLink
-                                href="/dashboard"
-                                className={navigationMenuTriggerStyle()}
-                            >
-                                Dashboard
-                            </NavigationMenuLink>
-                        </NavigationMenuItem>
-                    }
+                    <NavigationMenuItem>
+                        <NavigationMenuLink
+                            href="/dashboard"
+                            className={navigationMenuTriggerStyle()}
+                        >
+                            { user ? "Dashboard" : "Demo" }
+                        </NavigationMenuLink>
+                    </NavigationMenuItem>
                     <NavigationMenuItem>
                         {!user ? (
                             <NavigationMenuLink
                                 href="/login"
-                                className={`${navigationMenuTriggerStyle()} ${pathname === "/login" ? "glow-active" : ""}`}
+                                className={`${navigationMenuTriggerStyle()}`}
                             >
                                 Log In
                             </NavigationMenuLink>) :
