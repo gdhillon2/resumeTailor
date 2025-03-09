@@ -235,7 +235,7 @@ export default function PreviewTab(props: PreviewTabProps) {
                 <div className="flex gap-5 animate-float-fade-in-1_2s-delay items-center" style={{ opacity: "0%" }}>
                     {
                         !props.user && (
-                            <div className="whitespace-nowrap text-sm font-bold">Warning: Save and Revert don't work in demo mode</div>
+                            <div className="whitespace-nowrap text-sm font-bold">{"Warning: Save and Revert don't work in demo mode"}</div>
                         )
                     }
                     <div className="relative group">
