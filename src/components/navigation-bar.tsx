@@ -35,7 +35,7 @@ export default function NavigationLayout() {
                         {!user ? (
                             <NavigationMenuLink
                                 href="/login"
-                                className={`${navigationMenuTriggerStyle()} ${pathname === "/login" ? "glow-active" : ""}`}
+                                className={`${navigationMenuTriggerStyle()}`}
                             >
                                 Log In
                             </NavigationMenuLink>) :
