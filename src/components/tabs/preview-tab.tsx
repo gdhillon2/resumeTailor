@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { FaDownload, FaSave, FaUndo } from "react-icons/fa"
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer"
-import { useAuth } from "@/context/authContext"
+import { UserType } from "@/context/authContext"
 
 const styles = StyleSheet.create({
     page: {
@@ -180,6 +180,7 @@ interface PreviewTabProps {
         educationChanges: boolean
         skillsChanges: boolean
     }
+    user: UserType | null
 }
 
 
@@ -223,7 +224,6 @@ export default function PreviewTab(props: PreviewTabProps) {
             </ul>
         )
     }
-    const { user } = useAuth()
     const hasChanges = Object.values(allChanges).some(change => change === true)
 
     return (
@@ -234,7 +234,7 @@ export default function PreviewTab(props: PreviewTabProps) {
                 </div>
                 <div className="flex gap-5 animate-float-fade-in-1_2s-delay items-center" style={{ opacity: "0%" }}>
                     {
-                        !user && (
+                        !props.user && (
                             <div className="whitespace-nowrap text-sm font-bold">Warning: Save and Revert don't work in demo mode</div>
                         )
                     }
