@@ -28,7 +28,7 @@ export const useSummary = (user: UserType | null) => {
     useEffect(() => {
         fetchSummary()
         setHasChanges(false)
-    }, [])
+    }, [user])
 
     const handleSummaryChange = (updatedSkills: string) => {
         setSummary(updatedSkills)

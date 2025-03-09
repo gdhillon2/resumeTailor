@@ -45,7 +45,7 @@ export const useEducationEntries = (user: UserType | null) => {
     useEffect(() => {
         fetchEducationEntries()
         setHasChanges(false)
-    }, [])
+    }, [user])
 
 
     const addEducationEntry = () => {
