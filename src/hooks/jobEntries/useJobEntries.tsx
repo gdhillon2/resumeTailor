@@ -48,7 +48,7 @@ export const useJobEntries = (user: UserType | null) => {
     useEffect(() => {
         fetchJobEntries()
         setHasChanges(false)
-    }, [user])
+    }, [fetchJobEntries, user])
 
 
     const addJobEntry = () => {
