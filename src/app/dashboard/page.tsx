@@ -23,9 +23,19 @@ import PreviewTab from "@/components/tabs/preview-tab"
 import EducationTab from "@/components/tabs/education-tab"
 import { useEducationEntries } from "@/hooks/education/useEducation"
 import { useSubmitEducationEntries } from "@/hooks/education/useSubmitEducation"
+import { useRouter } from "next/navigation"
 
 export default function Dashboard() {
     const { user, logOut } = useAuth()
+    const router = useRouter()
+
+    const handleLogOut = () => {
+        if (user) {
+            logOut()
+        } else {
+            router.push("/login")
+        }
+    }
 
     const {
         jobEntries,
@@ -137,7 +147,7 @@ export default function Dashboard() {
 
     return (
         <Tabs defaultValue="contact" className="flex w-full">
-            <TabsNavigation handleLogOut={logOut} />
+            <TabsNavigation handleLogOut={handleLogOut} user={user}/>
             <TabsContent value="contact">
                 <ContactTab
                     contact={contact}
@@ -229,6 +239,7 @@ export default function Dashboard() {
                     revertAll={revertAll}
                     setAllChanges={setAllChanges}
                     allChanges={allChanges}
+                    user={user}
                 />
             </TabsContent>
         </Tabs>

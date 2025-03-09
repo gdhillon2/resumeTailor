@@ -13,12 +13,15 @@ import {
     FaSearch
 } from "react-icons/fa"
 import { Button } from "@/components/ui/button"
+import { UserType } from "@/context/authContext"
 
 interface TabsNavigationProps {
     handleLogOut: () => void
+    user: UserType | null
 }
 
-export default function TabsNavigation({ handleLogOut }: TabsNavigationProps) {
+export default function TabsNavigation({ handleLogOut, user }: TabsNavigationProps) {
+    console.log("tabs nav", user)
     return (
         <TabsList className="flex flex-grow h-full justify-start items-start rounded-none border-r blue-grad">
             <Link
@@ -86,7 +89,7 @@ export default function TabsNavigation({ handleLogOut }: TabsNavigationProps) {
                     variant={"ghost"}
                     className="rounded-md hover:bg-transparent text-lg px-3"
                 >
-                    <FaSignOutAlt className="mr-2" />Log Out
+                    <FaSignOutAlt className="mr-2" /> { user ? "Log Out" : "Log In" }
                 </Button>
             </div>
         </TabsList>
