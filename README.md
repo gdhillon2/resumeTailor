@@ -1,5 +1,5 @@
 # ResumeTailor
-ResumeTailor is a web application that helps users quickly iterate on resumes, receive real-time AI-powered feedback, and download ATS-compliant, fully parsable documents—making the job application process faster and more effective.
+ResumeTailor is a web application that helps users quickly iterate on resumes, receive real-time AI-powered feedback, and download ATS-compliant, fully parsable documents—making the job application process faster and more effective. Visit it [here](https://resume-tailor-eta.vercel.app/)!
 
 **Note: Account creation is temporarily unavailable as user testing has concluded. Please refer to the screenshots below for an overview of the application.** 
 
